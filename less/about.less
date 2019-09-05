@@ -78,6 +78,24 @@
 	color: #323232;
 	line-height: 18.1px;
 	border-bottom: 2px solid #ffffff;
+	position: relative;
+	transition: all .4s ease-in-out;
+}
+
+.email::after {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 0;
+	height: 2px;
+	background: #323232;
+	transition: all .4s ease-in-out;
+}
+
+.email:hover::after {
+	// border-bottom: 2px solid #323232;
+	width: 100%;
+	transition: all .4s ease-in-out;
 }
 
 .about__contacts-desc {

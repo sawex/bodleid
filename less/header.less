@@ -78,6 +78,25 @@
 	font-weight: 400;
 	color: #fff;
 }
+.header__cart-link::after,
+.header__user-link::after,
+.header__nav-link::after {
+	content: '';
+	display: block;
+	width: 0;
+	height: 2px;
+	background: #fdc500;
+	transition: all .4s ease-in-out;
+	opacity: 0.5;
+}
+
+.header__cart-link:hover::after,
+.header__user-link:hover::after,
+.header__nav-link:hover::after {
+	width: 100%;
+	transition: all .4s ease-in-out;
+	opacity: 1;
+}
 
 .header__nav-link--active {
 	border-bottom: 2px solid #fdc500;
