@@ -12,29 +12,33 @@
  * @package Bodleid
  */
 
+defined( 'ABSPATH' ) || exit;
 get_header();
 ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
+  <main class="main" id="content">
+    <?php get_template_part( 'template-parts/content', 'banner' ); ?>
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
+    <section class="products">
+      <div class="container">
+        <div class="row">
+          <div class="products__wrapper">
+            <?php
+              if ( have_posts() ) {
+                while ( have_posts() ) {
+                  the_post();
+                }
 
-			get_template_part( 'template-parts/content', 'page' );
+                the_content();
+              }
+            ?>
+          </div>
+        </div>
+      </div>
+    </section>
 
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
-
-		endwhile; // End of the loop.
-		?>
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
+    <?php get_template_part( 'template-parts/content', 'testimonials' ); ?>
+  </main>
 
 <?php
-get_sidebar();
 get_footer();
