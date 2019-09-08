@@ -302,9 +302,9 @@ add_action( 'wp_ajax_mst_bodleid_cb', 'mst_bodleid_handleCallback' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_cb', 'mst_bodleid_handleCallback' );
 
 /**
- * Register Testimonials post type.
+ * Register custom post types.
  */
-function mst_bodleid_create_testimonials_post_type() {
+function mst_bodleid_register_post_types() {
   register_post_type( 'testimonials', [
     'labels' => [
       'name' => __( 'Testimonials', 'mst_bodleid' ),
@@ -314,9 +314,19 @@ function mst_bodleid_create_testimonials_post_type() {
     'has_archive' => true,
     'rewrite' => [ 'slug' => 'testimonials' ],
   ] );
+
+  register_post_type( 'catalogs', [
+    'labels' => [
+      'name' => __( 'Catalogs', 'mst_bodleid' ),
+      'singular_name' => __( 'Catalog', 'mst_bodleid' )
+    ],
+    'public' => true,
+    'has_archive' => true,
+    'rewrite' => [ 'slug' => 'catalogs' ],
+  ] );
 }
-// Hooking up our function to theme setup
-add_action( 'init', 'mst_bodleid_create_testimonials_post_type' );
+
+add_action( 'init', 'mst_bodleid_register_post_types' );
 
 /**
  * Adds query vars from an array.

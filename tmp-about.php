@@ -7,6 +7,7 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 
 $staff = get_field( 'staff' );
+$default_thumbnail = esc_url( get_field( 'staff_default_userpic', 'option' ) );
 ?>
 
   <main class="main">
@@ -54,7 +55,7 @@ $staff = get_field( 'staff' );
                            alt="<?php echo $photo_alt; ?>"
                            class="staff__member-userpic">
                     <?php } else { ?>
-                      <img src="<?php echo esc_url( get_field( 'staff_default_userpic', 'option' ) ); ?>"
+                      <img src="<?php echo $default_thumbnail; ?>"
                            alt="<?php echo $name; ?>"
                            class="staff__member-userpic">
                     <?php } ?>

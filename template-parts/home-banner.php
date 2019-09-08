@@ -12,11 +12,25 @@ $fields = get_fields();
 $header_banner_fields = $fields['header_banner'];
 $banner_title = $header_banner_fields['main_title'];
 $banner_subtitle = $header_banner_fields['subtitle'];
-$banner_bg_desk = esc_url( $header_banner_fields['background_image_mobile'] );
-$banner_bg_mobile = esc_url( $header_banner_fields['background_image_desk'] );
+$banner_bg_desk = esc_url( $header_banner_fields['background_image_desk'] );
+$banner_bg_mobile = esc_url( $header_banner_fields['background_image_mobile'] );
 $banner_button_title = esc_html( $header_banner_fields['button']['title'] );
 $banner_button_href = esc_html( $header_banner_fields['button']['url'] );
 ?>
+
+<style>
+  @media screen and (min-width: 768px) {
+    .banner__title::after {
+      background-image: url('<?php echo $banner_bg_desk; ?>');
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .banner__title::before {
+      background-image: url('<?php echo $banner_bg_mobile; ?>');
+    }
+  }
+</style>
 
 <section class="banner">
   <div class="container">

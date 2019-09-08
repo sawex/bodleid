@@ -8,7 +8,6 @@
  *
  * @package Bodleid
  */
-
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -71,18 +70,7 @@
           ?>
         </nav>
 
-        <ul class="header__user-cases">
-          <li class="header__cart-item">
-            <a href="#" class="header__cart-link">
-              <?php esc_html_e( 'Vefverslun', 'mst_bodleid' ); ?>
-            </a>
-          </li>
-          <li class="header__user-item">
-            <a href="#" class="header__user-link">
-              <?php esc_html_e( 'Aðstoð', 'mst_bodleid' ); ?>
-            </a>
-          </li>
-        </ul>
+        <?php get_template_part( 'template-parts/header', 'second-menu' ); ?>
       </div>
 
       <div class="header__mobile-header row">
@@ -111,18 +99,7 @@
               ?>
             </nav>
 
-            <ul class="header__user-cases">
-              <li class="header__cart-item">
-                <a href="#" class="header__cart-link">
-                  <?php esc_html_e( 'Vefverslun', 'mst_bodleid' ); ?>
-                </a>
-              </li>
-              <li class="header__user-item">
-                <a href="#" class="header__user-link">
-                  <?php esc_html_e( 'Aðstoð', 'mst_bodleid' ); ?>
-                </a>
-              </li>
-            </ul>
+            <?php get_template_part( 'template-parts/header', 'second-menu' ); ?>
           </div>
         </div>
       </div>

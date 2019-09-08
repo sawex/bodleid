@@ -62,10 +62,10 @@ Main.prototype.setClientsSlider = function() {
         }
       },
       {
-        breakpoint: 540,
+        breakpoint: 575,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
         }
       }
     ],
@@ -86,12 +86,11 @@ Main.prototype.setTestimonialsSlider = function() {
     },
     slidesToShow: 2,
     slidesToScroll: 2,
-    // infinite: false,
     autoplay: true,
     autoplaySpeed: 5000,
     responsive: [
       {
-        breakpoint: 540,
+        breakpoint: 575,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
