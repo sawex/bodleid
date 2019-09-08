@@ -1,29 +1,23 @@
+/*!
+Theme Name: Bodleid
+Theme URI: http://underscores.me/
+Author: Pavlo Knyazevich
+Author URI: https://github.com/Knyazevich
+Description: Simple theme for eCommerce
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: mst_bodleid
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+*/
+
 html {
-  box-sizing: border-box;
   height: 100%;
 }
 
 *, *::before, *::after {
   box-sizing: inherit;
 }
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family:'Brandon Grotesque';
-  background-color: #323232;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1240px !important;
-  }
-}
-
 
 @import "fonts";
 @import "titles-and-texts";
@@ -43,4 +37,23 @@ body {
 @import "media-main-page";
 @import "media-heildarlausn-page";
 @import "media-um-okkur-page";
-@import "media-leidbeiningar-page.less";
+@import "media-leidbeiningar-page";
+@import "media-voruflokkur-page";
+@import "slick";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family:'Brandon Grotesque', sans-serif;
+  background-color: #323232;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1240px !important;
+  }
+}

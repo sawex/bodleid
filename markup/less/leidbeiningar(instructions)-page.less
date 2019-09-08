@@ -1,6 +1,7 @@
 .instructions-banner__banner-bg {
   .complete-solution__banner-bg;
-  background: rgba(250,185,0, 1.0) url(../images/instructions-banner-bg.png) center no-repeat;
+  // background: rgba(250,185,0, 1.0) url(../images/instructions-banner-bg.png) center no-repeat;
+  background-image: url(./images/instructions-banner-bg.png);
 }
 
 .instructions-banner__banner-info {
@@ -23,6 +24,7 @@
 	background-image: radial-gradient(circle 1115px at 47.61% 66.82%, #ffd100 0%, #fab600 100%);
 	min-height: 1115px;
 	padding-top: 88px;
+	padding-bottom: 70px;
 }
 
 .main-instructions__wrapper {
@@ -75,6 +77,20 @@
 	background-color: #323232;
 	color: #fdc400;
 	transition: all .4s ease-in-out;
+}
+
+.main-instructions__video::before {
+	content: '';
+	display: block;
+	position: absolute;
+	background-image: url(../images/icons/Shape.svg);
+	width: 24px;
+	height: 24px;
+	background-size: cover;
+	left: 68px;
+	top: 50%;
+	z-index: 1;
+	transform: translate(0, -50%);
 }
 
 .main-instructions__vedeo-preview-box {
