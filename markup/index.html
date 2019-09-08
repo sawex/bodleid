@@ -319,11 +319,14 @@ __________________$$$$___$$$$$
 					</div>
 
 					<form action="#" method="POST" class="form">
-						<input class="form__input" type="text" name="name" placeholder="Nafn">
+						<input class="form__input form__input--error" type="text" name="name" placeholder="Nafn">
 						<input class="form__input" type="tel" name="phone-number" placeholder="Sími">
 						<input class="form__input" type="email" name="email" placeholder="Netfang">
 						<input class="form__input" type="text" name="company" placeholder="Fyrirtæki">
 						<textarea class="form__message" name="message" placeholder="Skilaboð"></textarea>
+						<div class="form__error form__error--is-active">
+							<p>Vinsamlegast fylltu út merkta reiti.</p>
+						</div>
 						<input class="form__submit-btn" type="submit" value="Senda">
 					</form>
 				</div>
@@ -334,6 +337,12 @@ __________________$$$$___$$$$$
 			</div>
 		</div>
 	</footer>
+
+
+<!-- Подтверждение отправки формы -->
+	<div class="form__success">
+		<p>Takk fyrir, skilaboð móttekin</p>
+	</div>
 
 	<script src="scripts/common.js"></script>
 </body>
