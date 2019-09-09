@@ -319,11 +319,41 @@ __________________$$$$___$$$$$
 					</div>
 
 					<form action="#" method="POST" class="form">
-						<input class="form__input form__input--error" type="text" name="name" placeholder="Nafn">
-						<input class="form__input" type="tel" name="phone-number" placeholder="Sími">
-						<input class="form__input" type="email" name="email" placeholder="Netfang">
-						<input class="form__input" type="text" name="company" placeholder="Fyrirtæki">
-						<textarea class="form__message" name="message" placeholder="Skilaboð"></textarea>
+						<div class="form__input-box">
+							<input class="form__input form__input--error" type="text" name="name" required="true">
+							<label class="form__label">
+								Nafn
+							</label>
+						</div>
+
+						<div class="form__input-box">
+							<input class="form__input" type="tel" name="phone-number" required="true">
+							<label class="form__label">
+								Sími
+							</label>
+						</div>
+
+						<div class="form__input-box">
+							<input class="form__input" type="email" name="email">
+							<label class="form__label">
+								Netfang
+							</label>
+						</div>
+
+						<div class="form__input-box">
+							<input class="form__input" type="text" name="company">
+							<label class="form__label">
+								Fyrirtæki
+							</label>
+						</div>
+
+						<div class="form__input-box form__input-box--textarea">
+							<textarea class="form__message form__input" name="message"></textarea>
+							<label class="form__label">
+								Skilaboð
+							</label>
+						</div>
+
 						<div class="form__error form__error--is-active">
 							<p>Vinsamlegast fylltu út merkta reiti.</p>
 						</div>

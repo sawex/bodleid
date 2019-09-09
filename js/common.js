@@ -184,3 +184,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const m = new Main;
   m.init();
 });
+
+
+//Animated inputs
+  const inputAnimate = document.querySelectorAll('.form__input');
+    inputAnimate.forEach((el) => {
+     el.addEventListener('change', () => {
+       if (el.value == '') {
+         el.classList.remove('form__input-filled');
+       } else {
+         el.classList.add('form__input-filled')
+       }
+     })
+   });
