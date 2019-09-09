@@ -24,6 +24,7 @@
           $wp_query = new WP_Query( [
             'posts_per_page' => '6',
             'post_type' => 'testimonials',
+            '_shuffle' => true,
           ] );
 
           if ( $wp_query->have_posts() ) {
@@ -43,7 +44,7 @@
             </div>
             <div class="testimonials__review-text">
               <p class="testimonials__comment text"><?php echo $text; ?></p>
-              <h4 class="quaternary-title testimonials__author-name"><?php echo $name; ?></h4>
+              <h3 class="quaternary-title testimonials__author-name"><?php echo $name; ?></h3>
               <p class="testimonials__company-name text"><?php echo $company; ?></p>
             </div>
           </div>

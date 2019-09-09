@@ -31,13 +31,6 @@ function mst_bodleid_register_settings() {
   ] );
 
   acf_add_options_sub_page( [
-    'page_title' => 'Header Settings',
-    'menu_title' => 'Header',
-    'parent_slug'   => $parent['menu_slug'],
-    'menu_slug'     => 'header-settings'
-  ] );
-
-  acf_add_options_sub_page( [
     'page_title'    => 'Footer Settings',
     'menu_title'    => 'Footer',
     'parent_slug'   => $parent['menu_slug'],
@@ -121,22 +114,8 @@ if ( ! function_exists( 'mst_bodleid_setup' ) ) :
 		) );
 	}
 endif;
-add_action( 'after_setup_theme', 'mst_bodleid_setup' );
 
-/**
- * Set the content width in pixels, based on the theme's design and stylesheet.
- *
- * Priority 0 to make it available to lower priority callbacks.
- *
- * @global int $content_width
- */
-function mst_bodleid_content_width() {
-	// This variable is intended to be overruled from themes.
-	// Open WPCS issue: {@link https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/issues/1043}.
-	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
-	$GLOBALS['content_width'] = apply_filters( 'mst_bodleid_content_width', 640 );
-}
-add_action( 'after_setup_theme', 'mst_bodleid_content_width', 0 );
+add_action( 'after_setup_theme', 'mst_bodleid_setup' );
 
 /**
  * Register widget area.
@@ -144,7 +123,7 @@ add_action( 'after_setup_theme', 'mst_bodleid_content_width', 0 );
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
 function mst_bodleid_widgets_init() {
-	register_sidebar( array(
+	register_sidebar( [
 		'name'          => esc_html__( 'Sidebar', 'mst_bodleid' ),
 		'id'            => 'sidebar-1',
 		'description'   => esc_html__( 'Add widgets here.', 'mst_bodleid' ),
@@ -152,7 +131,7 @@ function mst_bodleid_widgets_init() {
 		'after_widget'  => '</section>',
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
-	) );
+	] );
 }
 add_action( 'widgets_init', 'mst_bodleid_widgets_init' );
 
@@ -168,6 +147,13 @@ function mst_bodleid_scripts() {
   );
 
 	wp_enqueue_style(
+	  'mst_bodleid-aos-css',
+    get_template_directory_uri() . '/css/aos.min.css',
+    [],
+    MST_BODLEID_VER
+  );
+
+	wp_enqueue_style(
 	  'mst_bodleid-slick-css',
     get_template_directory_uri() . '/css/slick.css',
     [],
@@ -177,8 +163,8 @@ function mst_bodleid_scripts() {
 	wp_enqueue_style( 'mst_bodleid-style', get_stylesheet_uri() );
 
 	wp_enqueue_script(
-	  'mst_bodleid-skip-link-focus-fix',
-    get_template_directory_uri() . '/js/skip-link-focus-fix.js',
+	  'mst_bodleid-aos-js',
+    get_template_directory_uri() . '/js/aos.min.js',
     [],
     MST_BODLEID_VER,
     true
@@ -205,26 +191,6 @@ function mst_bodleid_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'mst_bodleid_scripts' );
-
-/**
- * Implement the Custom Header feature.
- */
-require get_template_directory() . '/inc/custom-header.php';
-
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Functions which enhance the theme by hooking into WordPress.
- */
-require get_template_directory() . '/inc/template-functions.php';
-
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/inc/customizer.php';
 
 /**
  * Load Jetpack compatibility file.
@@ -308,7 +274,7 @@ function mst_bodleid_register_post_types() {
   register_post_type( 'testimonials', [
     'labels' => [
       'name' => __( 'Testimonials', 'mst_bodleid' ),
-      'singular_name' => __( 'Testimonial', 'mst_bodleid' )
+      'singular_name' => __( 'Testimonial', 'mst_bodleid' ),
     ],
     'public' => true,
     'has_archive' => true,
@@ -318,9 +284,10 @@ function mst_bodleid_register_post_types() {
   register_post_type( 'catalogs', [
     'labels' => [
       'name' => __( 'Catalogs', 'mst_bodleid' ),
-      'singular_name' => __( 'Catalog', 'mst_bodleid' )
+      'singular_name' => __( 'Catalog', 'mst_bodleid' ),
     ],
     'public' => true,
+    'publicly_queryable' => true,
     'has_archive' => true,
     'rewrite' => [ 'slug' => 'catalogs' ],
   ] );
@@ -347,7 +314,7 @@ function mst_bodleid_add_query_vars( $query_vars ) {
  * Add query vars on page loading.
  */
 function mst_bodleid_set_page_query_vars() {
-  if ( is_page() && ! is_front_page() ) {
+  if ( is_page() && ! is_front_page() || is_singular( 'catalogs' ) ) {
     $fields = get_fields();
 
     $query_vars = [
@@ -365,3 +332,30 @@ function mst_bodleid_set_page_query_vars() {
 }
 
 add_action( 'wp', 'mst_bodleid_set_page_query_vars' );
+
+/**
+ * Set Icelandic locale instead of en_US
+ */
+function mst_bodleid_set_locale() {
+  return 'is_IS';
+}
+
+add_filter( 'locale', 'mst_bodleid_set_locale' );
+
+/**
+ * Shuffle returned posts if "_shuffle" parameter equals true.
+ *
+ * @param array $posts
+ * @param object
+ *
+ * @return array
+ */
+function mst_bodleid_shuffle_posts( $posts, $query ) {
+  if ( $query->get( '_shuffle' ) === true ) {
+    shuffle( $posts );
+  }
+
+  return $posts;
+}
+
+add_filter( 'the_posts', 'mst_bodleid_shuffle_posts', 10, 2 );

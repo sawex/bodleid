@@ -59,6 +59,5 @@ $footer_copyright = get_field( 'footer_copyright', 'option' );
 </footer>
 
 <?php wp_footer(); ?>
-
 </body>
 </html>

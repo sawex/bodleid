@@ -1,4 +1,4 @@
-/* global jQuery */
+/* global jQuery, AOS */
 
 const Main = function() {
   this.hambButton = document.querySelector('.hamburger');
@@ -6,6 +6,12 @@ const Main = function() {
   this.mobileMenuWrapper = document.querySelector('.mobile-menu-wrapper');
 
   this.footerForm = document.querySelector('form.form');
+};
+
+Main.prototype.setAnimations = function() {
+  if (typeof AOS === 'function') {
+    AOS.init();
+  }
 };
 
 Main.prototype.initHamburgerMenu = function() {
@@ -167,6 +173,7 @@ Main.prototype.initFooterForm = function(data) {
 
 Main.prototype.init = function() {
   this.initHamburgerMenu();
+  this.setAnimations();
   this.smoothAnchors();
   this.initFooterForm();
   this.setClientsSlider();
