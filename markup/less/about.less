@@ -1,5 +1,5 @@
 .about {
-	background: transparent url(../images/about-bg-1.png) no-repeat;
+	background: transparent url(./images/about-bg-1.png) no-repeat;
 	background-size: cover;
 	min-height: 766px;
 	padding-top: 86px;
@@ -65,7 +65,7 @@
 	display: block;
 	width: 34px;
 	height: 34px;
-	background: transparent url(../images/icons/call.svg);
+	background: transparent url(./images/icons/call.svg);
 	position: absolute;
 	top: 6px;
 	left: 0;
@@ -100,4 +100,23 @@
 
 .about__contacts-desc {
 	font-size: 18px;
+}
+
+.about__info a:not([href*=tel]) {
+	.email;
+}
+
+.about__info a:not([href*=tel])::after {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 0;
+	height: 2px;
+	background: #323232;
+	transition: all .4s ease-in-out;
+}
+
+.about__info a:not([href*=tel]):hover::after {
+	width: 100%;
+	transition: all .4s ease-in-out;
 }
