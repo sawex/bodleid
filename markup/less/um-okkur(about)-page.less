@@ -24,6 +24,7 @@
 
 .staff {
   padding: 100px 0 200px 0;
+  overflow: hidden;
 }
 
 .staff__wrapper {
@@ -32,6 +33,20 @@
 
 .staff__title {
   color: #fff;
+  position: relative;
+  // overflow: hidden;
+}
+
+.staff__title::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 2903px;
+  height: 733px;
+  background-image: url(./images/bg-about.svg);
+  background-repeat: no-repeat;
+  top: 1em;
+  left: -13.5em;
 }
 
 .staff__members {

@@ -14,6 +14,20 @@
 	color: #ffffff;
 	line-height: 57.46px;
 	margin-bottom: 44px;
+	position: relative;
+}
+
+.testimonials__title::before {
+	content: '';
+	display: block;
+	width: calc(100vw + 400px);
+	height: 13.2em;
+	position: absolute;
+	background-image: url(./images/bg-about.svg);
+	background-repeat: no-repeat;
+	top: -8.8em;
+	// left: -8em;
+	left: -450px;
 }
 
 .testimonials__buttons {
@@ -105,6 +119,7 @@
 .testimonials__review {
 	width: 50%;
 	display: flex !important;
+	z-index: 1;
 }
 
 .testimonials__author {
