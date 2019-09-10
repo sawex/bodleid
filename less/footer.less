@@ -1,0 +1,263 @@
+.footer {
+	background-image: radial-gradient(circle 706px at 50% 430.74%, #ffd100 0%, #fab600 100%);
+	min-height: 782px;
+	padding-top: 44px;
+	position: relative;
+}
+
+.footer__wrapper {
+	display: flex;
+	width: 100%;
+	height: 18.5em;
+	// justify-content: space-between;
+}
+
+.footer__appoint-meeting {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.footer__image-box {
+	position: relative;
+	top: -120px;
+	width: 806px;
+	height: 371px;
+}
+
+.footer__image-box img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.footer__contacts {
+	display: flex;
+	flex-direction: column;
+	margin-left: 51px;
+	font-style: normal;
+}
+
+.footer__address {
+	text-decoration: none;
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 43.4px;
+	color: #323232;
+	margin-bottom: 24px;
+}
+
+.footer__contacts .email {
+	display: block;
+	width: 152px;
+	font-size: 18px;
+}
+
+.footer__contacts-desc {
+	margin-top: 24px;
+	margin-bottom: 4px;
+}
+
+.fake-list p {
+	position: relative;
+	padding-left: 85px;
+}
+
+.footer__meeting-desc .fake-list p {
+	max-width: 621px;
+}
+
+.fake-list p::before {
+	content: '';
+	display: block;
+	width: 54px;
+	height: 2px;
+	background-color: #323232;
+	position: absolute;
+	top: 15px;
+	left: 0;
+}
+
+.form__input,
+.form__message {
+	background-color: transparent;
+	border: none;
+	border-bottom: 2px solid #323232;
+	width: 270px;
+	color: #323232;
+	font-size: 20px;
+	line-height: 31px;
+	font-weight: 400;
+	font-family: 'Brandon Grotesque';
+	margin-bottom: 44px;
+	z-index: 2;
+}
+
+.form__input::-moz-placeholder,
+.form__message::-moz-placeholder {
+	color: #323232;
+	font-size: 20px;
+	line-height: 31px;
+	font-weight: 400;
+	font-family: 'Brandon Grotesque';
+}
+
+.form__input::-webkit-placeholder,
+.form__message::-webkit-placeholder {
+	color: #323232;
+	font-size: 20px;
+	line-height: 31px;
+	font-weight: 400;
+	font-family: 'Brandon Grotesque';
+}
+
+.form__input--error {
+	border-bottom: 2px solid #e10b00;
+}
+
+.form__input--error ~ .form__label {
+	color: #e10b00;
+}
+
+.form__input--error::-moz-placeholder,
+.form__input::-webkit-placeholder {
+	color: #e10b00;
+}
+
+// .form__input:invalid {
+// 	border-bottom: 2px solid #e10b00;
+// }
+// .form__input:invalid ~ .form__label {
+// 	color: #e10b00;
+// }
+
+.form__message {
+	resize: none;
+	width: 100%;
+}
+
+.form {
+	width: 570px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	position: relative;
+}
+
+.form__submit-btn {
+	background-color: #323232;
+	border: none;
+	padding: 6px 53px;
+	font-size: 20px;
+	font-family: 'Brandon Grotesque';
+	line-height: 31px;
+	color: #fefdfb;
+	position: absolute;
+	bottom: -40px;
+	right: 0;
+	cursor: pointer;
+	transition: all .4s ease-in-out;
+}
+
+.form__submit-btn:hover {
+	color: #fdc400;
+	transition: all .4s ease-in-out;
+}
+
+.form__success {
+	max-width: 315px;
+	min-height: 93px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 3px solid #323232;
+}
+
+.form__success p {
+	font-size: 20px;
+	line-height: 31px;
+	font-weight: 400;
+	color: #323232;
+}
+
+.form__error {
+	position: absolute;
+	left: 0;
+	bottom: -55px;
+	display: none;
+}
+
+.form__error--is-active {
+	display: block;
+}
+
+.form__error p {
+	color: #e00000;
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 31px;
+}
+
+.footer__copyright {
+	min-height: 76px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #323232;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.footer__copyright a {
+	text-decoration: none;
+	color: #fff;
+}
+
+.footer__copy {
+	display: flex;
+	justify-content: space-between;
+	width: 625px;
+}
+
+
+.form__input-box {
+	position: relative;
+	width: 270px;
+	height: 35px;
+	z-index: 0;
+	margin-bottom: 44px;
+}
+
+.form__input-box--textarea {
+	min-height: 68px;
+	width: 100%;
+}
+
+.form__input:focus {
+	outline: none;
+}
+
+.form__label {
+	color: #323232;
+	font-size: 20px;
+	line-height: 31px;
+	font-weight: 400;
+	font-family: 'Brandon Grotesque';
+	position: absolute;
+	z-index: 1;
+	left:0;
+    top: 0;
+	transition: all 0.2s ease;
+}
+
+.form__input-filled + .form__label,
+.form__input:focus + .form__label {
+    font-size: 11px;
+    line-height: 27.9px;
+    top: -15px;
+}
