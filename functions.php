@@ -8,7 +8,7 @@
  */
 
 if ( ! defined( 'MST_BODLEID_VER' ) ) {
-  define( 'MST_BODLEID_VER', '1.0.0' );
+  define( 'MST_BODLEID_VER', '1.0.1' );
 }
 
 /**
@@ -92,12 +92,6 @@ if ( ! function_exists( 'mst_bodleid_setup' ) ) :
 			'caption',
 		) );
 
-		// Set up the WordPress core custom background feature.
-		add_theme_support( 'custom-background', apply_filters( 'mst_bodleid_custom_background_args', array(
-			'default-color' => 'ffffff',
-			'default-image' => '',
-		) ) );
-
 		// Add theme support for selective refresh for widgets.
 		add_theme_support( 'customize-selective-refresh-widgets' );
 
@@ -133,7 +127,8 @@ function mst_bodleid_widgets_init() {
 		'after_title'   => '</h2>',
 	] );
 }
-add_action( 'widgets_init', 'mst_bodleid_widgets_init' );
+
+//add_action( 'widgets_init', 'mst_bodleid_widgets_init' );
 
 /**
  * Enqueue scripts and styles.
@@ -173,10 +168,20 @@ function mst_bodleid_scripts() {
   wp_enqueue_script(
     'mst_bodleid-slick-js',
     get_template_directory_uri() . '/js/slick.min.js',
-    ['jquery', 'mst_bodleid-common'],
+    ['jquery'],
     MST_BODLEID_VER,
     true
   );
+
+  if ( is_page( 'leidbeiningar' ) ) {
+    wp_enqueue_script(
+      'mst_bodleid-bigpicture',
+      get_template_directory_uri() . '/js/bigpicture.min.js',
+      [],
+      MST_BODLEID_VER,
+      true
+    );
+  }
 
   wp_enqueue_script(
     'mst_bodleid-common',
@@ -249,12 +254,13 @@ function mst_bodleid_handleCallback() {
     $name = $_POST['data']['name'] ?: '-';
     $email = $_POST['data']['email'] ?: '-';
     $phone = $_POST['data']['phone'] ?: '-';
-    $description = $_POST['data']['description'] ?: '-';
+    $company = $_POST['data']['company'] ?: '-';
+    $message = $_POST['data']['message'] ?: '-';
 
     wp_mail(
       get_option( 'admin_email' ),
-      'На сайте заполнена новая форма',
-      "Имя: $name \n Email: $email \n Телефон: $phone \n Описание задачи: $description"
+      __( 'There is a new submitted form on Bodleid', 'mst_bodleid' ),
+      "Name: $name \n Email: $email \n Phone: $phone \n Company: $company \n Message: $message"
     );
 
     wp_send_json_success( [ 'status' => 'OK' ] );

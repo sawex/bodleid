@@ -1,0 +1,177 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Bodleid\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-11 01:58+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.0; wp-5.2.3"
+
+#. Name of the template
+msgid "About us page"
+msgstr ""
+
+#: tmp-about.php:42
+msgid "Staff"
+msgstr ""
+
+#. 1: title.
+#: comments.php:35
+#, php-format
+msgid "One thought on &ldquo;%1$s&rdquo;"
+msgstr ""
+
+#. 1: comment count number, 2: title.
+#: comments.php:41
+#, php-format
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:66
+msgid "Comments are closed."
+msgstr ""
+
+#: 404.php:18
+msgid "404. Page not found."
+msgstr ""
+
+#: 404.php:22
+msgid "Go home"
+msgstr ""
+
+#. Name of the template
+msgid "Home page"
+msgstr ""
+
+#. %s: search query.
+#: search.php:22
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#. Name of the template
+msgid "Instructions page"
+msgstr ""
+
+#: footer.php:57
+msgid "Service requests send to:"
+msgstr ""
+
+#: footer.php:83
+msgid "Name"
+msgstr ""
+
+#: footer.php:90
+msgid "Phone number"
+msgstr ""
+
+#: footer.php:97
+msgid "Email"
+msgstr ""
+
+#: footer.php:104
+msgid "Company"
+msgstr ""
+
+#: footer.php:111
+msgid "Message"
+msgstr ""
+
+#: footer.php:116
+msgid "Please fill in the selected fields."
+msgstr ""
+
+#: footer.php:121
+msgid "Send"
+msgstr ""
+
+#: functions.php:21
+msgid "Theme settings"
+msgstr ""
+
+#: functions.php:80
+msgid "Header primary menu"
+msgstr ""
+
+#: functions.php:127
+msgid "Sidebar"
+msgstr ""
+
+#: functions.php:129
+msgid "Add widgets here."
+msgstr ""
+
+#: functions.php:276
+msgid "Testimonials"
+msgstr ""
+
+#: functions.php:277
+msgid "Testimonial"
+msgstr ""
+
+#: functions.php:286
+msgid "Catalogs"
+msgstr ""
+
+#: functions.php:287 template-parts/home-catalogs.php:17
+msgid "Catalog"
+msgstr ""
+
+#: inc/woocommerce.php:227
+msgid "View your shopping cart"
+msgstr ""
+
+#. number of items in the mini cart.
+#: inc/woocommerce.php:231
+#, php-format
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: template-parts/content-testimonials.php:17
+msgid "Customer Reviews"
+msgstr ""
+
+#: template-parts/header-second-menu.php:17
+msgid "Cart"
+msgstr ""
+
+#: template-parts/header-second-menu.php:25
+msgid "Support"
+msgstr ""
+
+#: template-parts/home-clients.php:19
+msgid "Our clients"
+msgstr ""
+
+#. Name of the theme
+msgid "Bodleid"
+msgstr ""
+
+#. Description of the theme
+msgid "Simple theme for eCommerce"
+msgstr ""
+
+#. URI of the theme
+msgid "http://underscores.me/"
+msgstr ""
+
+#. Author of the theme
+msgid "Pavlo Knyazevich"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://github.com/Knyazevich"
+msgstr ""

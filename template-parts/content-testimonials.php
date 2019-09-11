@@ -34,7 +34,7 @@
 
               $name = esc_html( $fields['author_name'] );
               $company = esc_html( $fields['company_name'] );
-              $text = $fields['text'];
+              $text = wp_kses_post( $fields['text'] );
               $userpic_src = esc_html( $fields['author_image']['url'] );
         ?>
 

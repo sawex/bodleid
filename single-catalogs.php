@@ -10,6 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 get_header();
 
+/* @var array $rows */
 $rows = get_field( 'catalog_rows' );
 
 ?>
@@ -20,15 +21,25 @@ $rows = get_field( 'catalog_rows' );
     <?php
       if ( is_array( $rows ) ) {
         foreach ( $rows as $index => $row ) {
+          /* @var string $title Row title */
           $title = esc_html( $row['row_info']['title'] );
-          $desc = $row['row_info']['desc'];
+
+          /* @var string $desc Row description */
+          $desc = wp_kses_post( $row['row_info']['desc'] );
+
+          /* @var string $image_src Row right image */
           $image_src = esc_url( $row['row_info']['image']['url'] );
+
+          /* @var string $image_alt */
           $image_alt = esc_url( $row['row_info']['image']['alt'] );
 
           /* @var array $products WC products IDs */
           $products = $row['products'];
 
+          /* @var string $button_title */
           $button_title = esc_html( $row['button']['title'] );
+
+          /* @var string $button_href */
           $button_href = esc_url( $row['button']['href'] );
           ?>
 
@@ -48,7 +59,9 @@ $rows = get_field( 'catalog_rows' );
                     </div>
 
                     <?php if ( $button_title && ! $products ) { ?>
-                      <a href="<?php echo $button_href; ?>" class="shop-link"><?php echo $button_title; ?></a>
+                      <a href="<?php echo $button_href; ?>" class="shop-link shop-link--align-left">
+                        <?php echo $button_title; ?>
+                      </a>
                     <?php } ?>
                   </div>
 

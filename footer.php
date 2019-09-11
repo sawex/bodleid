@@ -9,8 +9,27 @@
  * @package Bodleid
  */
 
+/* @var string $footer_image */
 $footer_image = esc_url( get_field( 'footer_image', 'option' ) );
-$footer_copyright = get_field( 'footer_copyright', 'option' );
+
+/* @var string $footer_copyright */
+$footer_copyright = wp_kses_post( get_field( 'footer_copyright', 'option' ) );
+
+/* @var string $footer_title */
+$footer_title = esc_html( get_field( 'footer_content_title', 'option' ) );
+
+/* @var string $footer_desc */
+$footer_desc = wp_kses_post( get_field( 'footer_description', 'option' ) );
+
+/* @var string $address */
+$address = esc_html( get_field( 'company_address', 'option' ) );
+
+/* @var string $phone */
+$phone = get_field( 'company_phone_number', 'option' );
+
+/* @var string $email */
+$email = get_field( 'company_email', 'option' );
+
 ?>
 
 <footer class="footer">
@@ -18,39 +37,98 @@ $footer_copyright = get_field( 'footer_copyright', 'option' );
     <div class="row">
       <div class="footer__wrapper">
         <div class="footer__image-box">
-          <?php if ( isset( $footer_image ) ) { ?>
+          <?php if ( $footer_image ) { ?>
             <img src="<?php echo $footer_image; ?>" class="footer__img" alt="">
           <?php } ?>
         </div>
 
         <address class="footer__contacts">
-          <a href="#" class="tertiary-title footer__address">Akralind 8, 201 Kópavogi</a>
-          <a href="tel:535-5200" class="telephone-number">535-5200</a>
-          <p class="footer__contacts-desc text">Þjónustu beiðnir senda á:</p>
-          <a href="mailto:thjonusta@bodleid.is" class="email">thjonusta@bodleid.is</a>
+          <?php if ( $address ) { ?>
+            <a href="#" class="tertiary-title footer__address"><?php echo $address; ?></a>
+          <?php } ?>
+
+          <?php if ( $phone ) { ?>
+            <a href="tel:<?php echo esc_attr( $phone ); ?>" class="telephone-number">
+              <?php echo esc_html( $phone ); ?>
+            </a>
+          <?php } ?>
+
+          <p class="footer__contacts-desc text">
+            <?php esc_html_e( 'Service requests send to:', 'mst_bodleid' ); ?>
+          </p>
+
+          <?php if ( $email ) { ?>
+            <a href="mailto:<?php echo esc_attr( $email ); ?>" class="email"><?php echo esc_attr( $email ); ?></a>
+          <?php } ?>
         </address>
       </div>
 
       <div class="footer__appoint-meeting">
         <div class="footer__meeting-desc">
-          <h2 class="secondary-title">Panta fund</h2>
-          <div class="fake-list">
-            <p class="text footer__meeting-text">Við mætum á svæðið, gerum greiningu á þörfum hvers viðskiptavinar og í framhaldi gefum við verð í lausn sem er sérsniðin að þörfum viðkomandi. Heimsóknin er án allra skuldbindinga og kostar ekkert!</p>
-          </div>
+          <?php if ( $footer_title ) { ?>
+            <h2 class="secondary-title"><?php echo $footer_title; ?></h2>
+          <?php } ?>
+
+          <?php if ( $footer_desc ) { ?>
+            <div class="fake-list">
+              <p class="text footer__meeting-text"><?php echo $footer_desc; ?></p>
+            </div>
+          <?php } ?>
         </div>
 
         <form class="form">
-          <input class="form__input" type="text" name="name" placeholder="Nafn">
-          <input class="form__input" type="tel" name="phone-number" placeholder="Sími">
-          <input class="form__input" type="email" name="email" placeholder="Netfang">
-          <input class="form__input" type="text" name="company" placeholder="Fyrirtæki">
-          <textarea class="form__message" name="message" placeholder="Skilaboð"></textarea>
-          <input class="form__submit-btn" type="submit" value="Senda">
+          <div class="form__input-box">
+            <input class="form__input" type="text" name="name" required="" id="name-field">
+            <label class="form__label" for="name-field">
+              <?php esc_html_e( 'Name', 'mst_bodleid' ); ?>
+            </label>
+          </div>
+
+          <div class="form__input-box">
+            <input class="form__input" type="tel" name="phone" required="" id="phone-field">
+            <label class="form__label" for="phone-field">
+              <?php esc_html_e( 'Phone number', 'mst_bodleid' ); ?>
+            </label>
+          </div>
+
+          <div class="form__input-box">
+            <input class="form__input" type="email" name="email" id="email-field">
+            <label class="form__label" for="email-field">
+              <?php esc_html_e( 'Email', 'mst_bodleid' ); ?>
+            </label>
+          </div>
+
+          <div class="form__input-box">
+            <input class="form__input" type="text" name="company" id="company-field">
+            <label class="form__label" for="company-field">
+              <?php esc_html_e( 'Company', 'mst_bodleid' ); ?>
+            </label>
+          </div>
+
+          <div class="form__input-box form__input-box--textarea">
+            <textarea class="form__message form__input" name="message" id="message-field"></textarea>
+            <label class="form__label" for="message-field">
+              <?php esc_html_e( 'Message', 'mst_bodleid' ); ?>
+            </label>
+          </div>
+
+          <div class="form__error">
+            <p><?php esc_html_e( 'Please fill in the selected fields.', 'mst_bodleid' ); ?></p>
+          </div>
+
+          <input class="form__submit-btn"
+                 type="submit"
+                 value="<?php esc_attr_e( 'Send', 'mst_bodleid' ); ?>">
         </form>
+
+        <div class="form__success hidden">
+          <p><?php esc_html_e('Thank you, message received', 'mst_bodleid' ); ?></p>
+        </div>
+
       </div>
 
       <div class="footer__copyright">
-        <?php if ( isset( $footer_copyright ) ) { ?>
+        <?php if ( $footer_copyright ) { ?>
           <span class="footer__copy"><?php echo $footer_copyright; ?></span>
         <?php } ?>
       </div>

@@ -6,7 +6,10 @@
 defined( 'ABSPATH' ) || exit;
 get_header();
 
+/* @var array $staff */
 $staff = get_field( 'staff' );
+
+/* @var string $default_thumbnail */
 $default_thumbnail = esc_url( get_field( 'staff_default_userpic', 'option' ) );
 ?>
 
@@ -35,16 +38,27 @@ $default_thumbnail = esc_url( get_field( 'staff_default_userpic', 'option' ) );
       <div class="container">
         <div class="row">
           <div class="staff__wrapper">
-            <h2 class="secondary-title staff__title"><?php esc_html_e( 'Staff', 'mst_bodleid' ); ?></h2>
+            <h2 class="secondary-title staff__title">
+              <?php esc_html_e( 'Staff', 'mst_bodleid' ); ?>
+            </h2>
             <div class="staff__members">
 
               <?php
                 if ( is_array( $staff ) ) {
                   foreach ( $staff as $person ) {
-                    $name = esc_html( $person['name'] );
+                    /* @var string $name Person's name */
+                    $name = $person['name'];
+
+                    /* @var string $position Person's company / position */
                     $position = esc_html( $person['position'] );
-                    $email = esc_html( $person['email'] );
+
+                    /* @var string $email Person's email */
+                    $email = $person['email'];
+
+                    /* @var string $photo_src */
                     $photo_src = esc_url( $person['photo']['sizes']['medium'] );
+
+                    /* @var string $photo_alt */
                     $photo_alt = esc_attr( $person['photo']['alt'] );
               ?>
 
@@ -56,14 +70,17 @@ $default_thumbnail = esc_url( get_field( 'staff_default_userpic', 'option' ) );
                            class="staff__member-userpic">
                     <?php } else { ?>
                       <img src="<?php echo $default_thumbnail; ?>"
-                           alt="<?php echo $name; ?>"
+                           alt="<?php echo esc_attr( $name ); ?>"
                            class="staff__member-userpic">
                     <?php } ?>
                   </div>
                   <div class="staff__member-info">
-                    <h4 class="staff__member-name"><?php echo $name; ?></h4>
+                    <h4 class="staff__member-name"><?php echo esc_html( $name ); ?></h4>
                     <p class="staff__position"><?php echo $position; ?></p>
-                    <a href="mailto:<?php echo $email; ?>" class="staff__email email"><?php echo $email; ?></a>
+                    <a href="mailto:<?php echo esc_attr( $email ); ?>"
+                       class="staff__email email">
+                      <?php echo esc_html( $email ); ?>
+                    </a>
                   </div>
                 </div>
 

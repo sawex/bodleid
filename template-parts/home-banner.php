@@ -10,8 +10,8 @@
 $fields = get_fields();
 
 $header_banner_fields = $fields['header_banner'];
-$banner_title = $header_banner_fields['main_title'];
-$banner_subtitle = $header_banner_fields['subtitle'];
+$banner_title = wp_kses_post( $header_banner_fields['main_title'] );
+$banner_subtitle = wp_kses_post( $header_banner_fields['subtitle'] );
 $banner_bg_desk = esc_url( $header_banner_fields['background_image_desk'] );
 $banner_bg_mobile = esc_url( $header_banner_fields['background_image_mobile'] );
 $banner_button_title = esc_html( $header_banner_fields['button']['title'] );

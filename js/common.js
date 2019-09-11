@@ -6,6 +6,11 @@ const Main = function() {
   this.mobileMenuWrapper = document.querySelector('.mobile-menu-wrapper');
 
   this.footerForm = document.querySelector('form.form');
+  this.footerFormInputs = document.querySelectorAll('.form__input');
+  this.footerFormErrorMessage = document.querySelector('.form__error');
+  this.footerFormSuccessMessage = document.querySelector('.form__success');
+
+  this.instructionVideoLinks = document.querySelectorAll('.main-instructions__video');
 };
 
 Main.prototype.setAnimations = function() {
@@ -22,6 +27,11 @@ Main.prototype.initHamburgerMenu = function() {
   });
 };
 
+/**
+ * Smooth scroll to an anchor target
+ *
+ * @version 1.0.1
+ */
 Main.prototype.smoothAnchors = function() {
   document.querySelectorAll('a[href*="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -44,6 +54,21 @@ Main.prototype.smoothAnchors = function() {
       }
     });
   });
+};
+
+Main.prototype.initVideoViewer = function() {
+  if (this.instructionVideoLinks.length && typeof BigPicture === 'function') {
+    this.instructionVideoLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        BigPicture({
+          el: link,
+          vidSrc: link.href,
+        });
+      });
+    });
+  }
 };
 
 Main.prototype.setClientsSlider = function() {
@@ -109,15 +134,17 @@ Main.prototype.setTestimonialsSlider = function() {
 /**
  * Form validation function
  *
+ * @version 1.0.1
+ *
  * @param {object} form Instance of FormData object.
  * @param {object} validateOptions Validation parameters.
  *
- * @return {boolean} Returns if form is true by validateOptions, returns false, if not.
+ * @return {object} Returns if form is true by validateOptions, returns false, if not.
  */
 Main.prototype.validateForm = function(form, validateOptions = {}) {
   const formData = new FormData(form);
   const dataObj = {};
-  let isValid = true;
+  const invalidFields = [];
 
   // Transform all form field to object and validate them if validation function is available
   for (const field of formData.entries()) {
@@ -126,7 +153,9 @@ Main.prototype.validateForm = function(form, validateOptions = {}) {
 
     // If there is validation function for the field then execute it and save the result if negative
     if (validateOptions.fields[key]) {
-      validateOptions.fields[key](value) === false ? isValid = false : null;
+      if (!validateOptions.fields[key](value)) {
+        invalidFields.push(key);
+      }
     }
 
     dataObj[key] = value;
@@ -134,25 +163,49 @@ Main.prototype.validateForm = function(form, validateOptions = {}) {
 
   // Make form invalid if some of fields missed
   if (validateOptions.count && validateOptions.count !== Object.keys(dataObj).length) {
-    isValid = false;
+    validateOptions.push('_invalidCount');
   }
 
-  return isValid;
+  if (invalidFields.length) {
+    return {
+      result: false,
+      invalidFields,
+    };
+  } else {
+    return {
+      result: true,
+      data: dataObj,
+    };
+  }
 };
 
-Main.prototype.initFooterForm = function(data) {
+Main.prototype.initFooterForm = function() {
   this.footerForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const isValid = this.validateForm(e.target, {
-      fieldsCount: 2,
       fields: {
-        phone: (value) => value.trim().length > 5 && !isNaN(value.replace(/\s/g, '')),
-        name: (value) => value.trim().length >= 2
+        name: (value) => {
+          return (
+            /^[ÁáÐðÉéÍíÓóÚúÝýÞþÆæÖöA-Za-z\s]+$/.test(value.trim()) &&
+            value.trim().length &&
+            value.trim().length <= 20
+          );
+        },
+        phone: (value) => {
+          return (
+            /^[0-9]+$/.test(value.trim()) &&
+            value.trim().length &&
+            value.trim().length <= 12
+          );
+        },
+        email: (value) => /\S+@\S+\.\S+/.test(value),
+        company: (value) => value.trim().length && value.trim().length <= 20,
+        message: (value) => value.trim().length <= 200,
       }
     });
 
-    if (isValid) {
+    if (isValid.result) {
       const self = this;
 
       jQuery.ajax({
@@ -160,14 +213,44 @@ Main.prototype.initFooterForm = function(data) {
         url: '/wp-admin/admin-ajax.php',
         data: {
           action: 'mst_bodleid_cb',
-          data,
+          data: isValid.data,
         },
-        success(resp) {
-          alert(JSON.stringify(resp));
-          self.footerForm.reset();
+        success() {
+          self.footerForm.remove();
+          self.footerFormSuccessMessage.classList.remove('hidden');
         },
       });
+    } else {
+      const fields = isValid.invalidFields;
+
+      this.footerFormInputs.forEach((input) => input.classList.remove('form__input--error'));
+
+      fields.forEach((field) => {
+        const input = this.footerForm.querySelector(`[name=${field}]`);
+        input.classList.add('form__input--error');
+      });
+
+      this.footerFormErrorMessage.classList.add('form__error--is-active');
     }
+  });
+};
+
+Main.prototype.setFooterFormFloatedLabels = function() {
+  const checkLabel = (input) => {
+    if (!input.value) {
+      input.classList.remove('form__input-filled');
+    } else {
+      input.classList.add('form__input-filled');
+    }
+  };
+
+  this.footerFormInputs.forEach((input) => {
+    // Check if values are on page loading (e.g. if user wrote something in input and reloaded page)
+    checkLabel(input);
+
+    input.addEventListener('change', () => {
+      checkLabel(input);
+    });
   });
 };
 
@@ -175,25 +258,14 @@ Main.prototype.init = function() {
   this.initHamburgerMenu();
   this.setAnimations();
   this.smoothAnchors();
+  this.initVideoViewer();
   this.initFooterForm();
   this.setClientsSlider();
   this.setTestimonialsSlider();
+  this.setFooterFormFloatedLabels();
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   const m = new Main;
   m.init();
 });
-
-
-//Animated inputs
-  const inputAnimate = document.querySelectorAll('.form__input');
-    inputAnimate.forEach((el) => {
-     el.addEventListener('change', () => {
-       if (el.value == '') {
-         el.classList.remove('form__input-filled');
-       } else {
-         el.classList.add('form__input-filled')
-       }
-     })
-   });

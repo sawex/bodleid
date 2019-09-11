@@ -8,13 +8,18 @@
  */
 
 $fields = get_fields();
+
+/* @var string $phone */
 $phone = get_field( 'company_phone_number', 'option' );
 
 $about_fields = $fields['about_us'];
+
 $title = esc_html( $about_fields['title'] );
-$text = $about_fields['main_text'];
-$left_text = $about_fields['text_under_phone'];
-$right_text = $about_fields['text_under_main'];
+$text = wp_kses_post( $about_fields['main_text'] );
+$left_text = wp_kses_post( $about_fields['text_under_phone'] );
+$right_text = wp_kses_post( $about_fields['text_under_main'] );
+
+/* @var array $brands_gallery */
 $brands_gallery = $about_fields['gallery'];
 ?>
 
