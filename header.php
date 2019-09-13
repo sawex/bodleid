@@ -19,35 +19,6 @@
 <body <?php body_class(); ?>>
   <?php wp_body_open(); ?>
 
-  <!--       _
-       .__(.)< (MEOW)
-        \___)
-  ~~~~~~~~~~~~~~~~~-->
-
-  <!--
-   ________________$$____________$$
-  _______________$___$________$___$
-  _______________$_____$$$$$$_____$ 		.	.	.	.
-  _______________$____sss_ __sss____$ . 	     	.
-  _______________$____іі_____іі_____$.  (MEOW)   .
-  ______________$_______$$$________$ 	 .        .
-  __$$$$$$$$_____$_______$________$ 			.	.	.
-  $$______ __$_______$$_________$$
-  _$_________$_____$___$$$$$$___$
-  ____$______$____$__$________$__$
-  ____$_____$____$__$__________$__$
-  _ __$____$___$$$$__$__________$__$$$$
-  __$___$____$____$__$________$___$___$
-  __$__$_____$____$__$________$__$____$
-  _$___$______$___ _$__$____$_$__$____$
-  ___$__$______$____$___$_$_____$___$
-  ____$___$$$$$_$___$___$_$____$___$
-  _______$$$$$_$____$____$_____$____$
-  _ ____________$$$_$_____$______$_$$$
-  __________________$$$$___$$$$$
-
-   -->
-
   <header class="header">
     <div class="container">
       <div class="row header__wrapper">
@@ -58,11 +29,11 @@
           <?php
             wp_nav_menu( [
               'theme_location' => 'header-primary',
-              'menu_id'        => 'primary-menu',
+              'menu_id' => 'primary-menu',
               'container' => false,
               'menu_class' => 'header__nav-menu',
               'list_item_class' => 'header__nav-list-item',
-              'link_class' 	 	  => 'header__nav-link',
+              'link_class' => 'header__nav-link',
             ] );
           ?>
         </nav>
@@ -73,7 +44,7 @@
       <div class="header__mobile-header row">
         <div class="header__mobile-container">
           <?php the_custom_logo(); ?>
-
+<!--          TODO: Wrap to <button> -->
           <div class="hamburger hamburger--squeeze">
             <div class="hamburger-box">
               <div class="hamburger-inner"></div>
@@ -87,11 +58,11 @@
               <?php
               wp_nav_menu( [
                 'theme_location' => 'header-primary',
-                'menu_id'        => 'primary-menu',
+                'menu_id' => 'primary-menu',
                 'container' => false,
                 'menu_class' => 'header__nav-menu',
                 'list_item_class' => 'header__nav-list-item',
-                'link_class' 	 	  => 'header__nav-link',
+                'link_class' => 'header__nav-link',
               ] );
               ?>
             </nav>
