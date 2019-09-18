@@ -78,21 +78,21 @@ $email = get_field( 'company_email', 'option' );
 
         <form class="form">
           <div class="form__input-box">
-            <input class="form__input" type="text" name="name" required="" id="name-field">
+            <input class="form__input" type="text" name="name" id="name-field">
             <label class="form__label" for="name-field">
               <?php esc_html_e( 'Name', 'mst_bodleid' ); ?>
             </label>
           </div>
 
           <div class="form__input-box">
-            <input class="form__input" type="tel" name="phone" required="" id="phone-field">
+            <input class="form__input" type="tel" name="phone" id="phone-field">
             <label class="form__label" for="phone-field">
               <?php esc_html_e( 'Phone number', 'mst_bodleid' ); ?>
             </label>
           </div>
 
           <div class="form__input-box">
-            <input class="form__input" type="email" name="email" id="email-field">
+            <input class="form__input" type="text" name="email" id="email-field">
             <label class="form__label" for="email-field">
               <?php esc_html_e( 'Email', 'mst_bodleid' ); ?>
             </label>
