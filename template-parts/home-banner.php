@@ -7,15 +7,29 @@
  * @package Bodleid
  */
 
+/* @var array $fields Page fields */
 $fields = get_fields();
 
+/* @var array $header_banner_fields Banner fields */
 $header_banner_fields = $fields['header_banner'];
+
+/* @var string $banner_title  */
 $banner_title = wp_kses_post( $header_banner_fields['main_title'] );
+
+/* @var string $banner_subtitle  */
 $banner_subtitle = wp_kses_post( $header_banner_fields['subtitle'] );
+
+/* @var string $banner_bg_desk Desktop background image url */
 $banner_bg_desk = esc_url( $header_banner_fields['background_image_desk'] );
+
+/* @var string $banner_bg_mobile Mobile background image url */
 $banner_bg_mobile = esc_url( $header_banner_fields['background_image_mobile'] );
+
+/* @var string $banner_button_title */
 $banner_button_title = esc_html( $header_banner_fields['button']['title'] );
-$banner_button_href = esc_html( $header_banner_fields['button']['url'] );
+
+/* @var string $banner_button_title */
+$banner_button_href = esc_url( $header_banner_fields['button']['url'] );
 ?>
 
 <style>
@@ -32,7 +46,7 @@ $banner_button_href = esc_html( $header_banner_fields['button']['url'] );
   }
 </style>
 
-<section class="banner">
+<section class="banner" id="home-banner">
   <div class="container">
     <div class="row">
       <div class="banner__desc-container">

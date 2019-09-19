@@ -34,7 +34,7 @@ $default_thumbnail = esc_url( get_field( 'staff_default_userpic', 'option' ) );
       </div>
     </section>
 
-    <section class="staff">
+    <section class="staff" id="staff-section">
       <div class="container">
         <div class="row">
           <div class="staff__wrapper">

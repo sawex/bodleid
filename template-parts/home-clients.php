@@ -7,10 +7,11 @@
  * @package Bodleid
  */
 
-$clients_gallery = get_field('clients_slider');
+/* @var array $clients_gallery */
+$clients_gallery = get_field( 'clients_slider' );
 ?>
 
-<section class="clients">
+<section class="clients" id="clients-section">
   <div class="container">
     <div class="row">
 
@@ -26,7 +27,10 @@ $clients_gallery = get_field('clients_slider');
           <?php
             if ( is_array( $clients_gallery ) ) {
               foreach ( $clients_gallery as $client ) {
+                /* @var string $src */
                 $src = esc_url( $client['sizes']['medium'] );
+
+                /* @var string $alt */
                 $alt = esc_url( $client['alt'] );
           ?>
               <div class="clients__list-item">

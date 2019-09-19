@@ -29,10 +29,9 @@ $phone = get_field( 'company_phone_number', 'option' );
 
 /* @var string $email */
 $email = get_field( 'company_email', 'option' );
-
 ?>
 
-<footer class="footer">
+<footer class="footer" id="main-footer">
   <div class="container">
     <div class="row">
       <div class="footer__wrapper">
