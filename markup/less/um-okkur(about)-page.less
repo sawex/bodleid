@@ -59,10 +59,31 @@
 
 .staff__member {
   margin-bottom: 15px;
+  width: 285px;
+}
+
+.staff__member a::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #fdc500;
+  -webkit-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  bottom: -1px;
+}
+
+.staff__member a::hover::after {
+  width: 100%;
+  -webkit-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 .staff__member--empty {
-  width: 163px;
+  width: 285px;
   height: 0.1px;
   margin: 0;
   padding: 0;
