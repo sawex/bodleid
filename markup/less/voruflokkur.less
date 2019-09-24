@@ -260,14 +260,24 @@
   position: absolute;
   width: 0;
   height: 2px;
-  background: #323232;
+  background: #323232;	
   transition: all .4s ease-in-out;
-  bottom: -1px;
+  bottom: -2px;
+  display: table;
 }
 
 .category-product a:not([class*=shop-link]):hover::after {
   width: 100%;
   transition: all .4s ease-in-out;
+}
+
+.category-product--black a:not([class*=shop-link]) {
+	color: #fff;
+	display: table;
+}
+
+.category-product--black a:not([class*=shop-link])::after {
+	background: #fdc500;
 }
 
 .shop-link--align-left {
