@@ -1,0 +1,217 @@
+.login__wrapper {
+	width: 100%;
+	padding-top: 100px;
+	padding-bottom: 160px;
+}
+
+.login__form {
+	width: 686px;
+	min-height: 336px;
+	border: 1px solid #979797;
+	padding-top: 17px;
+	padding-left: 46px;
+	padding-right: 55px;
+	padding-bottom: 32px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+.login__form:last-child {
+	margin-bottom: 0;
+}
+
+.login__title {
+	font-family: 'Brandon Grotesque';
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 35px;
+	color: #fff;
+	position: relative;
+}
+
+.login__title::before {
+	content: '';
+	position: absolute;
+	left: -25px;
+	bottom: 7px;
+	display: block;
+	width: 10px;
+	height: 19px;
+	background-image: url(../images/icons/select-hidden-arrow.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	cursor: pointer;
+}
+
+.login__title--active {
+	color: #f6b108;
+	position: relative;
+}
+
+.login__title--active::before {
+	content: '';
+	position: absolute;
+	left: -30px;
+	bottom: 10px;
+	display: block;
+	width: 20px;
+	height: 11px;
+	background-image: url(../images/icons/select-arrow.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	cursor: pointer;
+}
+
+.login__text {
+	font-size: 19px;
+	color: #fff;
+}
+
+.login__input-wrap {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 33px;
+}
+
+.login__form .form__input-box {
+	width: 244px;
+}
+
+.login__form .form__label {
+	color: #fff;
+}
+
+.login__form .form__input {
+	border-bottom: 2px solid #fff;
+	width: 244px;
+	color: #fff;
+}
+
+.login__remember-label,
+.login__create-user-label {
+	color: #fff;
+	font-family: 'Brandon Grotesque';
+	font-size: 21px;
+	font-weight: 700;
+	line-height: 35px;
+	position: relative;
+	margin-left: 90px;
+}
+
+.login__remember-input,
+.login__create-user-input {
+	appearance: none;
+	margin: 0;
+	z-index: -999;
+	position: absolute;
+}
+
+.login__remember-label::before,
+.login__create-user-label::before {
+	content: '';
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 23px;
+	height: 23px;
+	position: absolute;
+	left: -44px;
+	top: 3px;
+	cursor: pointer;
+	border: 1px solid #f6b108;
+}
+
+.login__remember-input:checked ~ .login__remember-label::before,
+.login__create-user-input:checked ~ .login__create-user-label::before {
+	background-image: url(../images/icons/checked.svg);
+	background-repeat: no-repeat;
+	background-size: 16px 11px;
+	background-position: center;
+	background-color: #f6b108;
+}
+
+.login__form-btn {
+	background-color: #f6b108;
+	padding: 7px 45px;
+	border: none;
+	cursor: pointer;
+	color: #323232;
+	font-size: 21px;
+	font-weight: 700;
+	font-family: 'Brandon Grotesque';
+	transition: ease-in .2s;
+}
+
+.login__form-btn:hover {
+	background-color: #fecc00;
+	transition: ease-in .2s;
+}
+
+.login__forgotten-password {
+	display: table;
+	text-decoration: none;
+	font-size: 21px;
+	font-weight: 700;
+	color: #fff;
+	font-family: 'Brandon Grotesque';
+	line-height: 35px;
+	border-bottom: 2px solid #f6b108;
+	margin-top: 19px;
+}
+
+.login__form--hidden {
+	height: 60px !important;
+	border: 1px solid #666666 !important;
+}
+
+.login__new-client-wrap {
+	display: flex;
+	justify-content: space-between;
+}
+
+.login__form-subtitle {
+	color: #fff;
+	font-family: 'Brandon Grotesque';
+	font-size: 21px;
+	font-weight: 700;
+	line-height: 35px;
+}
+
+.login__create-user-label {
+	margin-left: 45px;
+}
+
+.form__create-user-box {
+	margin-bottom: 10px;
+}
+
+.form__input-box select {
+	appearance: none;
+	cursor: pointer;
+}
+
+.form__input-box select ~ label {
+	cursor: pointer;	
+}
+
+.form__select-box {
+	position: relative;
+	cursor: pointer;
+}
+
+.form__select-box::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: 12px;
+	display: block;
+	width: 20px;
+	height: 11px;
+	background-image: url(../images/icons/select-arrow.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	cursor: pointer;
+	z-index: -1;
+}

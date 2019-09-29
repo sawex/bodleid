@@ -1,0 +1,52 @@
+.breadcrambs__list {
+	display: flex;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+	min-height: 40px;
+	flex-wrap: wrap;
+}
+
+.breadcrambs__list-item {
+	list-style-type: none;
+	margin-right: 42px;
+	position: relative;
+	margin-top: 10px;
+}
+
+.breadcrambs__list-item::after {
+	content: '';
+	display: block;
+	width: 10px;
+	height: 19px;
+	background-image: url(../images/icons/bc-arrow.svg);
+	position: absolute;
+	right: -25px;
+	top: 3px;
+}
+
+.breadcrambs__list-item:last-child::after {
+	content: none;
+}
+
+.breadcrambs__link {
+	text-decoration: none;
+	color: #fff;
+	font-size: 16px;
+	text-transform: uppercase;
+	line-height: 23px;
+	font-family: 'Brandon Grotesque';
+}
+
+.breadcrambs__list-item:last-child .breadcrambs__link {
+	cursor: default;
+}
+
+.breadcrambs__list-item:first-child .breadcrambs__link .breadcrambs__link-content {
+	display: block;
+	width: 24px;
+	height: 24px;
+	background-image: url(../images/icons/home-icon.svg);
+}
+
+.breadcrambs__link-content {}
