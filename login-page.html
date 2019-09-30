@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login page</title>
+	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<main class="main">
+		<div class="breadcrambs">
+			<div class="container">
+				<div class="row">
+					<ol class="breadcrambs__list" itemscope itemtype="http://schema.org/BreadcrumbList">
+						<li class="breadcrambs__list-item itemprop="itemListElement" itemscope
+						itemtype="http://schema.org/ListItem">
+							<a class="breadcrambs__link itemprop="item" href="/">
+								<span class="breadcrambs__link-content itemprop="name"></span>
+							</a>
+							<meta itemprop="position" content="1" />
+						</li>
+						
+						<li class="breadcrambs__list-item itemprop="itemListElement" itemscope
+						itemtype="http://schema.org/ListItem">
+							<a class="breadcrambs__link itemprop="item" href="/Vefverslun/">
+								<span class="breadcrambs__link-content itemprop="name">Vefverslun</span>
+							</a>
+							<meta itemprop="position" content="2" />
+						</li>
+
+						<li class="breadcrambs__list-item itemprop="itemListElement" itemscope
+						itemtype="http://schema.org/ListItem">
+							<a class="breadcrambs__link itemprop="item" href=" /Vefverslun/Reikningurinn/">
+								<span class="breadcrambs__link-content itemprop="name">Reikningurinn</span>
+							</a>
+							<meta itemprop="position" content="3" />
+						</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<section class="login">
+			<div class="container">
+				<div class="row">
+					<div class="login__wrapper">
+						<form action="#" method="POST" class="login__form">
+							<h3 class="tertiary-title login__title login__title--active">Innskráning</h3>
+							<p class="text login__text">Boðleið bíður upp á heildarlausn í síma og netmálum fyrir lítil sem stór fyrirtæki og hótel, allt frá símkerfum til netmála innanhúss og tengingu við umheiminn </p>
+							<div class="login__input-wrap">
+								<div class="form__input-box">
+			            <input class="form__input" type="email" name="email" id="email-field" required>
+			            <label class="form__label" for="email-field">
+			            	Netfang*
+			            </label>
+			          </div>
+
+			          <div class="form__input-box">
+			            <input class="form__input" type="password" name="password" id="password-field" required>
+			            <label class="form__label" for="password-field">
+			            	Lykilorð*
+			            </label>
+			          </div>
+		          </div>
+		          <input class="login__form-btn" value="Innskrá" aria-label="Innskrá" type="submit">
+		          <input class="login__remember-input" type="checkbox" name="remeber-me" id="remeber-me-check" checked>
+		          <label class="login__remember-label" for="remeber-me-check">
+		          	Muna eftir mér
+		          </label>
+
+		          <a href="#" class="login__forgotten-password">Gleymt lykilorð?</a>
+						</form>
+
+						<form action="#" method="POST" class="login__form login__new-client">
+							<h3 class="tertiary-title login__title">Nýr viðskiptavinur</h3>
+							<p class="text login__text">Boðleið bíður upp á heildarlausn í síma og netmálum fyrir lítil sem stór fyrirtæki og hótel, allt frá símkerfum til netmála innanhúss og tengingu við umheiminn </p>
+							<div class="login__new-client-wrap">
+								<div class="login__personal-info">
+									<h4 class="login__form-subtitle">Persónulegar upplýsingar</h4>
+									<div class="form__input-box">
+				            <input class="form__input" type="text" name="name" id="name-field" required>
+				            <label class="form__label" for="neme-field">
+				            	Fornafn*
+				            </label>
+				          </div>
+
+				          <div class="form__input-box">
+				            <input class="form__input" type="text" name="extensions" id="extensions-field">
+				            <label class="form__label" for="extensions-field">
+				            	Extensions
+				            </label>
+				          </div>
+
+				          <div class="form__input-box">
+				            <input class="form__input" type="email" name="email" id="email-field" required>
+				            <label class="form__label" for="email-field">
+				            	Netfang*
+				            </label>
+				          </div>
+
+				          <div class="form__input-box">
+				            <input class="form__input" type="tel" name="tel-number" id="tel-field" required>
+				            <label class="form__label" for="tel-field">
+				            	Símanúmer*
+				            </label>
+				          </div>
+
+				          <div class="form__create-user-box">
+				          	<input class="login__create-user-input" type="checkbox" name="create-user" id="create-user-check" checked>
+						        <label class="login__create-user-label" for="create-user-check">
+						        	Búa til notanda?
+						        </label>
+				          </div>
+
+				          <div class="form__input-box">
+				            <input class="form__input" type="password" name="password" id="password-field" required>
+				            <label class="form__label" for="password-field">
+				            	Búa til aðgangsorð*
+				            </label>
+				          </div>
+			         	</div>
+
+								<div class="login__address-info">
+									<h4 class="login__form-subtitle">Heimilisfang þitt</h4>
+									<div class="form__input-box">
+				            <input class="form__input" type="text" name="company" id="company-field" required>
+				            <label class="form__label" for="company-field">
+				            	Fyrirtæki
+				            </label>
+				          </div>
+
+				          <div class="form__input-box">
+				            <input class="form__input" type="text" name="address" id="address-field">
+				            <label class="form__label" for="address-field">
+				            	Heimilisfang*
+				            </label>
+				          </div>
+
+				          <div class="form__input-box">
+				            <input class="form__input" type="text" name="city" id="city-field" required>
+				            <label class="form__label" for="city-field">
+				            	Borg/Bær*
+				            </label>
+				          </div>
+
+				          <div class="form__input-box">
+				            <input class="form__input" type="text" pattern="\d" name="post-number" id="post-number-field" required>
+				            <label class="form__label" for="post-number-field">
+				            	Póstnúmer*
+				            </label>
+				          </div>
+
+				          <div class="form__input-box">
+				            <input class="form__input" type="text" name="country" id="country-field" required>
+				            <label class="form__label" for="country-field">
+				            	Landi*
+				            </label>
+				          </div>
+
+				          <div class="form__input-box form__select-box">
+				          	<select class="form__input" type="text" name="area" id="area-field" required>
+				          		<option value="Zaporizhzhya">Zaporizhzhya</option>
+				          		<option value="Dnipro">Dnipro</option>
+				          		<option value="Kherson">Kherson</option>
+				          	</select>
+				            <label class="form__label" for="area-field">
+				            	Svæði*
+				            </label>
+				          </div>
+			         	</div>
+			        </div>
+
+			        <input class="login__form-btn" type="submit" value="Nýskrá" aria-label="Nýskrá">
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</body>
+</html>

@@ -45,11 +45,11 @@
         <div class="header__mobile-container">
           <?php the_custom_logo(); ?>
 <!--          TODO: Wrap to <button> -->
-          <div class="hamburger hamburger--squeeze">
-            <div class="hamburger-box">
-              <div class="hamburger-inner"></div>
-            </div>
-          </div>
+          <button class="hamburger hamburger--squeeze">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
+          </button>
         </div>
 
         <div class="header__mobile-menu">

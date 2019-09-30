@@ -1,0 +1,113 @@
+.catalog {
+	padding-top: 192px;
+	padding-bottom: 76px;
+}
+
+.catalog__wrapper {
+	justify-content: space-between;
+}
+
+.catalog__title {
+	color: #fff;
+	position: relative;
+}
+
+.catalog__item-positions {
+	max-width: 913px;
+}
+
+.catalog__categories-list {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.catalog__category-list-item {
+	list-style-type: none;
+	margin-bottom: 177px;
+}
+
+.catalog__category-list-item:nth-last-child(3) {
+	margin-bottom: 0;
+}
+.catalog__category-list-item:nth-last-child(2) {
+	margin-bottom: 0;
+}
+.catalog__category-list-item:nth-last-child(1) {
+	margin-bottom: 0;
+}
+
+.catalog__category-link {
+	text-decoration: none;
+	display: block;
+	background-image: radial-gradient(circle 105px at 292.86% 817.14%, #ffd100 0%, #fab600 100%);
+	width: 273px;
+	height: 105px;
+	position: relative;
+	padding: 20px 27px;
+}
+
+.catalog__category-img {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	// top: -99px;
+	top: -106px !important;
+	width: 250px;
+	height: 130px;
+	object-fit: contain;
+}
+
+.catalog__category-list-item:nth-child(2) 
+.catalog__category-link 
+.catalog__category-img {
+	top: -143px;
+	left: 55%;
+}
+
+.catalog__category-list-item:nth-child(3) 
+.catalog__category-link 
+.catalog__category-img {
+	top: -124px;
+}
+
+.catalog__category-list-item:nth-child(4) 
+.catalog__category-link 
+.catalog__category-img {
+	top: -88px;
+	left: 52%;
+}
+
+// .catalog__category-list-item:nth-child(5) 
+// .catalog__category-link 
+// .catalog__category-img {}
+
+.catalog__category-list-item:nth-child(6) 
+.catalog__category-link 
+.catalog__category-img {
+	top: -108px;
+}
+
+.catalog__category-title {
+	font-size: 27px;
+	color: #323232;
+}
+
+.catalog__category-desc {
+	color: #373001;
+	font-size: 21px;
+}
+
+.catalog__title::before {
+	content: '';
+	display: block;
+	width: 1230px;
+	height: 15.1em;
+	position: absolute;
+	background-image: url(./images/bg-category.svg);
+	background-repeat: no-repeat;
+	top: -4em;
+	left: -14em;
+}
