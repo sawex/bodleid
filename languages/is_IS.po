@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bodleid\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-11 01:58+0000\n"
-"PO-Revision-Date: 2019-09-11 02:19+0000\n"
+"POT-Creation-Date: 2019-09-30 10:25+0000\n"
+"PO-Revision-Date: 2019-09-30 10:27+0000\n"
 "Last-Translator: root <psknyazevich@gmail.com>\n"
 "Language-Team: Íslenska\n"
 "Language: is_IS\n"
@@ -41,13 +41,17 @@ msgstr[1] ""
 msgid "Comments are closed."
 msgstr ""
 
-#: 404.php:18
-msgid "404. Page not found."
-msgstr ""
+#: 404.php:19
+msgid "Page not found"
+msgstr "Síða fannst ekki"
 
 #: 404.php:22
-msgid "Go home"
-msgstr ""
+msgid "We apologize, but no page is found on this URL."
+msgstr "Við biðjumst velvirðingar en engin síða finnst á þessari slóð."
+
+#: 404.php:25
+msgid "Go to the front page"
+msgstr "Fara á forsíðu"
 
 #. Name of the template
 msgid "Home page"
@@ -63,37 +67,41 @@ msgstr ""
 msgid "Instructions page"
 msgstr ""
 
-#: footer.php:57
+#: footer.php:56
 msgid "Service requests send to:"
-msgstr ""
+msgstr "Þjónustu beiðnir senda á:"
 
-#: footer.php:83
+#: footer.php:82
 msgid "Name"
 msgstr "Nafn"
 
-#: footer.php:90
+#: footer.php:89
 msgid "Phone number"
 msgstr "Sími"
 
-#: footer.php:97
+#: footer.php:96
 msgid "Email"
 msgstr "Netfang"
 
-#: footer.php:104
+#: footer.php:103
 msgid "Company"
 msgstr "Fyrirtæki"
 
-#: footer.php:111
+#: footer.php:110
 msgid "Message"
 msgstr "Skilaboð"
 
-#: footer.php:116
+#: footer.php:115
 msgid "Please fill in the selected fields."
 msgstr "Vinsamlegast fylltu út merkta reiti."
 
-#: footer.php:121
+#: footer.php:120
 msgid "Send"
 msgstr "Senda"
+
+#: footer.php:124
+msgid "Thank you, message received"
+msgstr "Takk fyrir, skilaboð móttekin"
 
 #: functions.php:21
 msgid "Theme settings"
@@ -103,27 +111,31 @@ msgstr ""
 msgid "Header primary menu"
 msgstr ""
 
-#: functions.php:127
+#: functions.php:121
 msgid "Sidebar"
 msgstr ""
 
-#: functions.php:129
+#: functions.php:123
 msgid "Add widgets here."
 msgstr ""
 
-#: functions.php:276
+#: functions.php:270
+msgid "There is a new submitted form on Bodleid"
+msgstr ""
+
+#: functions.php:290
 msgid "Testimonials"
 msgstr ""
 
-#: functions.php:277
+#: functions.php:291
 msgid "Testimonial"
 msgstr ""
 
-#: functions.php:286
+#: functions.php:300
 msgid "Catalogs"
 msgstr ""
 
-#: functions.php:287 template-parts/home-catalogs.php:17
+#: functions.php:301 template-parts/home-catalogs.php:18
 msgid "Catalog"
 msgstr "Vöruflokkar"
 
@@ -151,7 +163,7 @@ msgstr "Vefverslun"
 msgid "Support"
 msgstr "Aðstoð"
 
-#: template-parts/home-clients.php:19
+#: template-parts/home-clients.php:20
 msgid "Our clients"
 msgstr "Okkar viðskiptavinir"
 

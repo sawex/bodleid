@@ -10,21 +10,25 @@
 get_header();
 ?>
 
-  <div class="main" style="min-height: 60vh;">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 style="color: #fff;">
-            <?php esc_html_e( '404. Page not found.', 'mst_bodleid' ); ?>
-          </h1>
-
-          <a class="banner__link" href="<?php echo esc_url( home_url() ); ?>">
-            <?php esc_html_e( 'Go home', 'mst_bodleid' ); ?>
-          </a>
+  <main class="main">
+    <section class="page-404">
+      <div class="container">
+        <div class="row">
+          <div class="page-404__desc">
+            <h2 class="secondary-title page-404__title">
+              <?php esc_html_e( 'Page not found', 'mst_bodleid' ); ?>
+            </h2>
+            <p class="text page-404__text">
+              <?php esc_html_e( 'We apologize, but no page is found on this URL.', 'mst_bodleid' ); ?>
+            </p>
+            <a href="<?php echo esc_url( home_url() ); ?>" class="page-404__to-home-link">
+              <?php esc_html_e( 'Go to the front page', 'mst_bodleid' ); ?>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
 <?php
 get_footer();

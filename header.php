@@ -38,13 +38,15 @@
           ?>
         </nav>
 
-        <?php get_template_part( 'template-parts/header', 'second-menu' ); ?>
+        <?php get_template_part( 'components/header', 'second-menu' ); ?>
       </div>
 
       <div class="header__mobile-header row">
         <div class="header__mobile-container">
           <?php the_custom_logo(); ?>
-<!--          TODO: Wrap to <button> -->
+
+          <?php get_template_part( 'components/header', 'second-menu' ); ?>
+
           <button class="hamburger hamburger--squeeze">
             <span class="hamburger-box">
               <span class="hamburger-inner"></span>
@@ -66,8 +68,6 @@
               ] );
               ?>
             </nav>
-
-            <?php get_template_part( 'template-parts/header', 'second-menu' ); ?>
           </div>
         </div>
       </div>

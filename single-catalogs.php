@@ -16,7 +16,7 @@ $rows = get_field( 'catalog_rows' );
 ?>
 
   <main class="main">
-    <?php get_template_part( 'template-parts/content', 'banner' ); ?>
+    <?php get_template_part( 'components/content', 'banner' ); ?>
 
     <?php
       if ( is_array( $rows ) ) {

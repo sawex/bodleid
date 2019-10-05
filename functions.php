@@ -136,21 +136,21 @@ function mst_bodleid_widgets_init() {
 function mst_bodleid_scripts() {
 	wp_enqueue_style(
 	  'mst_bodleid-bootstrap-css',
-    get_template_directory_uri() . '/css/bootstrap-grid.min.css',
+    get_template_directory_uri() . '/assets/css/bootstrap-grid.min.css',
     [],
     MST_BODLEID_VER
   );
 
 	wp_enqueue_style(
 	  'mst_bodleid-aos-css',
-    get_template_directory_uri() . '/css/aos.min.css',
+    get_template_directory_uri() . '/assets/css/aos.min.css',
     [],
     MST_BODLEID_VER
   );
 
 	wp_enqueue_style(
 	  'mst_bodleid-slick-css',
-    get_template_directory_uri() . '/css/slick.css',
+    get_template_directory_uri() . '/assets/css/slick.css',
     [],
     MST_BODLEID_VER
   );
@@ -159,7 +159,7 @@ function mst_bodleid_scripts() {
 
 	wp_enqueue_script(
 	  'mst_bodleid-aos-js',
-    get_template_directory_uri() . '/js/aos.min.js',
+    get_template_directory_uri() . '/assets/js/aos.min.js',
     [],
     MST_BODLEID_VER,
     true
@@ -167,7 +167,7 @@ function mst_bodleid_scripts() {
 
   wp_enqueue_script(
     'mst_bodleid-slick-js',
-    get_template_directory_uri() . '/js/slick.min.js',
+    get_template_directory_uri() . '/assets/js/slick.min.js',
     ['jquery'],
     MST_BODLEID_VER,
     true
@@ -176,7 +176,7 @@ function mst_bodleid_scripts() {
   if ( is_page( 'leidbeiningar' ) ) {
     wp_enqueue_script(
       'mst_bodleid-bigpicture',
-      get_template_directory_uri() . '/js/bigpicture.min.js',
+      get_template_directory_uri() . '/assets/js/bigpicture.min.js',
       [],
       MST_BODLEID_VER,
       true
@@ -184,8 +184,16 @@ function mst_bodleid_scripts() {
   }
 
   wp_enqueue_script(
+    'mst_bodleid-pdfobject',
+    get_template_directory_uri() . '/assets/js/pdfobject.min.js',
+    [],
+    MST_BODLEID_VER,
+    true
+  );
+
+  wp_enqueue_script(
     'mst_bodleid-common',
-    get_template_directory_uri() . '/js/common.js',
+    get_template_directory_uri() . '/assets/js/common.js',
     ['jquery'],
     MST_BODLEID_VER,
     true
@@ -209,6 +217,27 @@ if ( defined( 'JETPACK__VERSION' ) ) {
  */
 if ( class_exists( 'WooCommerce' ) ) {
 	require get_template_directory() . '/inc/woocommerce.php';
+}
+
+/**
+ * Load AJAX handlers.
+ */
+if ( file_exists( get_template_directory() . '/inc/ajax.php' ) ) {
+  require get_template_directory() . '/inc/ajax.php';
+}
+
+/**
+ * Load SVG icons class.
+ */
+if ( class_exists( 'MST_Bodleid_SVG_Icons' ) ) {
+  require get_template_directory() . '/classes/class.MST_Bodleid_SVG_Icons.php';
+}
+
+/**
+ * Load SVG icons handlers.
+ */
+if ( file_exists( get_template_directory() . '/inc/svg-icons.php' ) ) {
+  require get_template_directory() . '/inc/svg-icons.php';
 }
 
 /**
@@ -245,33 +274,6 @@ function mst_bodleid_add_menu_list_item_class( $classes, $item, $args ) {
 }
 
 add_filter( 'nav_menu_css_class', 'mst_bodleid_add_menu_list_item_class', 1, 3 );
-
-/**
- * Register AJAX handler for callback forms
- */
-function mst_bodleid_handleCallback() {
-  try {
-    $name = $_POST['data']['name'] ?: '-';
-    $email = $_POST['data']['email'] ?: '-';
-    $phone = $_POST['data']['phone'] ?: '-';
-    $company = $_POST['data']['company'] ?: '-';
-    $message = $_POST['data']['message'] ?: '-';
-
-    wp_mail(
-      get_option( 'admin_email' ),
-      __( 'There is a new submitted form on Bodleid', 'mst_bodleid' ),
-      "Name: $name \n Email: $email \n Phone: $phone \n Company: $company \n Message: $message"
-    );
-
-    wp_send_json_success( [ 'status' => 'OK' ] );
-
-  } catch ( Exception $e ) {
-    wp_send_json_error( [ 'error' => $e ] );
-  }
-}
-
-add_action( 'wp_ajax_mst_bodleid_cb', 'mst_bodleid_handleCallback' );
-add_action( 'wp_ajax_nopriv_mst_bodleid_cb', 'mst_bodleid_handleCallback' );
 
 /**
  * Register custom post types.
@@ -365,3 +367,30 @@ function mst_bodleid_shuffle_posts( $posts, $query ) {
 }
 
 add_filter( 'the_posts', 'mst_bodleid_shuffle_posts', 10, 2 );
+
+function mst_bodleid_add_pdf_viewer( $content ) {
+  if ( is_page( 'baeklingur' ) ) {
+    /* @var string $pdf PDF file URL */
+    $pdf = esc_js( get_field( 'pdf' ) );
+    
+    if ( $pdf ) {    
+      $html = <<<HTML
+        <div class="pdf-wrapper"></div>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          if (typeof PDFObject === 'object') {
+            PDFObject.embed('{$pdf}', '.pdf-wrapper', { height: '600px' });
+          }
+        });
+        </script>
+HTML;
+
+      return $html;
+    }
+  }
+
+  return $content;
+}
+
+add_filter( 'the_content', 'mst_bodleid_add_pdf_viewer' );

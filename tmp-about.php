@@ -14,7 +14,7 @@ $default_thumbnail = esc_url( get_field( 'staff_default_userpic', 'option' ) );
 ?>
 
   <main class="main">
-    <?php get_template_part( 'template-parts/content', 'banner' ); ?>
+    <?php get_template_part( 'components/content', 'banner' ); ?>
 
     <section class="products">
       <div class="container">
