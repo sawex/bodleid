@@ -7,6 +7,9 @@
  * @package Bodleid
  * @since 1.0.0
  */
+
+/* @var string $login_text */
+$login_text = wp_kses_post( get_field( 'login_text', 'option' ) );
 ?>
 
 <form class="login__form">
@@ -14,16 +17,7 @@
     <?php esc_html_e( 'Log in', 'mst_bodleid' ); ?>
   </h3>
 
-  <p class="text login__text">
-    <?php
-    esc_html_e(
-      'Bidding route offers a complete solution in telephone and online language for small and 
-                    large companies and hotels, from telephone networks to internal online affairs and connection 
-                    to the world',
-      'mst_bodleid'
-    );
-    ?>
-  </p>
+  <p class="text login__text"><?php echo $login_text; ?></p>
 
   <div class="login__input-wrap">
     <div class="form__input-box">
@@ -40,6 +34,8 @@
       </label>
     </div>
   </div>
+
+  <?php wp_nonce_field( 'login','login_nonce' ); ?>
 
   <input class="login__form-btn"
          value="<?php esc_attr_e( 'Log in', 'mst_bodleid' ); ?>"

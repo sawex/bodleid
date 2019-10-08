@@ -1935,7 +1935,7 @@ html {
   display: block;
   width: 10px;
   height: 19px;
-  background-image: url(../images/icons/select-hidden-arrow.svg);
+  background-image: url(assets/images/icons/select-hidden-arrow.svg);
   background-repeat: no-repeat;
   background-position: center;
   -webkit-background-size: cover;
@@ -1954,7 +1954,7 @@ html {
   display: block;
   width: 20px;
   height: 11px;
-  background-image: url(../images/icons/select-arrow.svg);
+  background-image: url(assets/images/icons/select-arrow.svg);
   background-repeat: no-repeat;
   background-position: center;
   -webkit-background-size: cover;
@@ -2031,7 +2031,7 @@ html {
 }
 .login__remember-input:checked ~ .login__remember-label::before,
 .login__create-user-input:checked ~ .login__create-user-label::before {
-  background-image: url(../images/icons/checked.svg);
+  background-image: url(assets/images/icons/checked.svg);
   background-repeat: no-repeat;
   -webkit-background-size: 16px 11px;
           background-size: 16px 11px;
@@ -2116,7 +2116,7 @@ html {
   display: block;
   width: 20px;
   height: 11px;
-  background-image: url(../images/icons/select-arrow.svg);
+  background-image: url(assets/images/icons/select-arrow.svg);
   background-repeat: no-repeat;
   background-position: center;
   -webkit-background-size: cover;
@@ -2425,7 +2425,7 @@ html {
   top: 0;
   right: 0;
   background-color: #f6b108;
-  background-image: url(../images/icons/search.svg);
+  background-image: url(assets/images/icons/search.svg);
   -webkit-background-size: 30px 30px;
           background-size: 30px 30px;
   background-position: center;
@@ -3709,7 +3709,7 @@ html {
   display: block;
   width: 10px;
   height: 19px;
-  background-image: url(../images/icons/bc-arrow.svg);
+  background-image: url(assets/images/icons/bc-arrow.svg);
   position: absolute;
   right: -25px;
   top: 3px;
@@ -3732,7 +3732,7 @@ html {
   display: block;
   width: 24px;
   height: 24px;
-  background-image: url(../images/icons/home-icon.svg);
+  background-image: url(assets/images/icons/home-icon.svg);
 }
 body {
   margin: 0;
