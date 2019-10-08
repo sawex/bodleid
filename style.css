@@ -249,7 +249,7 @@ html {
   content: '';
   display: block;
   position: absolute;
-  background-image: url(./images/banner-image.svg);
+  background-image: url(assets/images/banner-image.svg);
   left: -698px;
   top: -105px;
   height: 280px;
@@ -278,7 +278,7 @@ html {
   background-color: #fecc00;
 }
 .banner__link::after {
-  content: url(./images/icons/right-btn-arrow.svg);
+  content: url(assets/images/icons/right-btn-arrow.svg);
   position: absolute;
   right: 33px;
   top: 50%;
@@ -382,7 +382,7 @@ html {
   width: 1230px;
   height: 15.1em;
   position: absolute;
-  background-image: url(./images/bg-category.svg);
+  background-image: url(assets/images/bg-category.svg);
   background-repeat: no-repeat;
   top: -4em;
   left: -14em;
@@ -460,7 +460,7 @@ html {
           align-items: center;
 }
 .about {
-  background: transparent url(./images/about-bg-1.png) no-repeat;
+  background: transparent url(assets/images/about-bg-1.png) no-repeat;
   -webkit-background-size: cover;
           background-size: cover;
   min-height: 766px;
@@ -548,7 +548,7 @@ html {
   display: block;
   width: 34px;
   height: 34px;
-  background: transparent url(./images/icons/call.svg);
+  background: transparent url(assets/images/icons/call.svg);
   position: absolute;
   top: 6px;
   left: 0;
@@ -1139,7 +1139,7 @@ html {
 }
 .complete-solution__banner-bg {
   background-color: #fab900;
-  background-image: url(./images/banner-bg-second-page.png);
+  background-image: url(assets/images/banner-bg-second-page.png);
   background-position: center;
   background-repeat: no-repeat;
   background-blend-mode: multiply;
@@ -1249,7 +1249,7 @@ html {
 }
 .about-page__banner-bg {
   background-color: #fab900;
-  background-image: url(./images/banner-bg-second-page.png);
+  background-image: url(assets/images/banner-bg-second-page.png);
   background-position: center;
   background-repeat: no-repeat;
   background-blend-mode: multiply;
@@ -1257,7 +1257,7 @@ html {
           background-size: cover !important;
   width: 100%;
   min-height: 416px;
-  background: #fab900 url(./images/about-banner-bg.png) center no-repeat;
+  background: #fab900 url(assets/images/about-banner-bg.png) center no-repeat;
 }
 .about-page__banner-info {
   display: -webkit-box;
@@ -1298,7 +1298,7 @@ html {
   display: block;
   width: 2903px;
   height: 733px;
-  background-image: url(./images/bg-about.svg);
+  background-image: url(assets/images/bg-about.svg);
   background-repeat: no-repeat;
   top: 1em;
   left: -13.5em;
@@ -1374,7 +1374,7 @@ html {
 }
 .instructions-banner__banner-bg {
   background-color: #fab900;
-  background-image: url(./images/banner-bg-second-page.png);
+  background-image: url(assets/images/banner-bg-second-page.png);
   background-position: center;
   background-repeat: no-repeat;
   background-blend-mode: multiply;
@@ -1382,7 +1382,7 @@ html {
           background-size: cover !important;
   width: 100%;
   min-height: 416px;
-  background-image: url(./images/instructions-banner-bg.png);
+  background-image: url(assets/images/instructions-banner-bg.png);
 }
 .instructions-banner__banner-info {
   width: 100%;
@@ -1477,7 +1477,7 @@ html {
   content: '';
   display: block;
   position: absolute;
-  background-image: url(./images/icons/Shape.svg);
+  background-image: url(assets/images/icons/Shape.svg);
   width: 24px;
   height: 24px;
   -webkit-background-size: cover;
@@ -1540,13 +1540,13 @@ html {
   display: block;
   width: 61px;
   height: 61px;
-  background: transparent url(./images/icons/pdf-icon.svg) center no-repeat;
+  background: transparent url(assets/images/icons/pdf-icon.svg) center no-repeat;
   top: 0;
   left: 0;
 }
 .one-category-page__banner-bg {
   background-color: #fab900;
-  background-image: url(./images/banner-bg-second-page.png);
+  background-image: url(assets/images/banner-bg-second-page.png);
   background-position: center;
   background-repeat: no-repeat;
   background-blend-mode: multiply;
@@ -1688,7 +1688,7 @@ html {
 }
 .shop-link::after {
   content: '';
-  background-image: url(./images/icons/right-btn-arrow.svg);
+  background-image: url(assets/images/icons/right-btn-arrow.svg);
   width: 23px;
   height: 12px;
   display: block;
@@ -1710,7 +1710,7 @@ html {
   transition: all 0.1s ease-in-out;
 }
 .shop-link:hover::after {
-  background-image: url(./images/icons/right-btn-arrow-yellow.svg);
+  background-image: url(assets/images/icons/right-btn-arrow-yellow.svg);
   -webkit-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
@@ -1785,7 +1785,7 @@ html {
   width: 23px;
   height: 12px;
   position: absolute;
-  background-image: url(./images/icons/right-btn-arrow-white.svg);
+  background-image: url(assets/images/icons/right-btn-arrow-white.svg);
   right: 30px;
   top: 50%;
   -webkit-transform: translate(0, -50%);
@@ -1805,7 +1805,7 @@ html {
 }
 .category-product--black .shop-link:hover::after,
 .category-product__callback:hover::after {
-  background-image: url(./images/icons/right-btn-arrow.svg);
+  background-image: url(assets/images/icons/right-btn-arrow.svg);
 }
 .category-product--black .category-product__product-info p {
   color: #323232;
@@ -1821,7 +1821,7 @@ html {
   border: 2px solid #fff;
 }
 .category-product--black .shop-link::after {
-  background-image: url(./images/icons/right-btn-arrow-white.svg);
+  background-image: url(assets/images/icons/right-btn-arrow-white.svg);
 }
 .category-product:last-child {
   padding-bottom: 150px;
@@ -3370,7 +3370,7 @@ html {
   }
   .banner__title::after {
     content: '';
-    background: url(./images/banner-image-mobile.svg) center no-repeat;
+    background: url(assets/images/banner-image-mobile.svg) center no-repeat;
     top: -430px;
     left: 0;
     width: 100%;

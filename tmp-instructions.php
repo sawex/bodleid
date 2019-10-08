@@ -10,7 +10,7 @@ get_header();
 $instructions = get_field( 'instructions' );
 ?>
 
-  <main class="main" id="content">
+  <main class="main" id="content" role="main">
     <?php get_template_part( 'components/content', 'banner' ); ?>
 
     <section class="main-instructions">

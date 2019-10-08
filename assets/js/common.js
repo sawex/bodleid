@@ -1,4 +1,4 @@
-/* global jQuery, AOS */
+/* global jQuery, AOS, mainState */
 
 const Main = function() {
   this.hambButton = document.querySelector('.hamburger');
@@ -6,7 +6,7 @@ const Main = function() {
   this.mobileMenuWrapper = document.querySelector('.mobile-menu-wrapper');
 
   this.footerForm = document.querySelector('form.form');
-  this.footerFormInputs = document.querySelectorAll('.form__input');
+  this.formInputs = document.querySelectorAll('.form__input');
   this.footerFormErrorMessage = document.querySelector('.form__error');
   this.footerFormSuccessMessage = document.querySelector('.form__success');
 
@@ -72,68 +72,76 @@ Main.prototype.initVideoViewer = function() {
 };
 
 Main.prototype.setClientsSlider = function() {
-  jQuery('.clients__list').slick({
-    prevArrow: '',
-    nextArrow: '',
-    dots: true,
-    appendDots: jQuery('.clients__carousel-buttons'),
-    customPaging() {
-      return '<button class="clients__carousel-btn"></button>';
-    },
-    slidesToShow: 6,
-    slidesToScroll: 6,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    responsive: [
-      {
-        breakpoint: 992,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4,
-        }
+  if (typeof jQuery === 'function') {
+    jQuery('.clients__list').slick({
+      prevArrow: '',
+      nextArrow: '',
+      dots: true,
+      appendDots: jQuery('.clients__carousel-buttons'),
+      customPaging() {
+        return '<button class="clients__carousel-btn"></button>';
       },
-      {
-        breakpoint: 575,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          dots: false,
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      responsive: [
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+          }
+        },
+        {
+          breakpoint: 575,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: false,
+          }
         }
-      }
-    ],
-  });
+      ],
+    });
+  }
 };
 
 Main.prototype.setTestimonialsSlider = function() {
-  jQuery('.testimonials__reviews').slick({
-    prevArrow: '',
-    nextArrow: '',
-    dots: true,
-    appendDots: jQuery('.testimonials__buttons'),
-    customPaging: function(slider, i) {
-      if (i < 10) {
-        i = `0${i + 1}`;
-      }
-      return `<button class="testimonials__btn" data-count="${i}"></button>`;
-    },
-    slidesToShow: 2,
-    slidesToScroll: 2,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    responsive: [
-      {
-        breakpoint: 575,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+  if (typeof jQuery === 'function') {
+    jQuery('.testimonials__reviews').slick({
+      prevArrow: '',
+      nextArrow: '',
+      dots: true,
+      appendDots: jQuery('.testimonials__buttons'),
+      customPaging: function (slider, i) {
+        if (i < 10) {
+          i = `0${i + 1}`;
         }
-      }
-    ],
-  });
+        return `<button class="testimonials__btn" data-count="${i}"></button>`;
+      },
+      slidesToShow: 2,
+      slidesToScroll: 2,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      responsive: [
+        {
+          breakpoint: 575,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          }
+        }
+      ],
+    });
+  }
 };
 
 /**
- * Form validation function
+ * FORM VALIDATION FUNCTION
+ *
+ * Validates fields using options object and converts FormData iteration object
+ * to usual JS Object in format:
+ * { fieldName: fieldValue }
  *
  * @version 1.0.1
  *
@@ -180,6 +188,24 @@ Main.prototype.validateForm = function(form, validateOptions = {}) {
   }
 };
 
+/**
+ * Adds error class to invalid fields.
+ *
+ * @param {array} fields Invalid fields
+ */
+Main.prototype.highlightInvalidFields = function(fields) {
+  console.log(fields);
+  this.formInputs.forEach((input) => input.classList.remove('form__input--error'));
+
+  fields.forEach((field) => {
+    const input = this.footerForm.querySelector(`[name=${field}]`);
+    input.classList.add('form__input--error');
+  });
+
+  this.footerFormErrorMessage.classList.add('form__error--is-active');
+};
+
+
 Main.prototype.initFooterForm = function() {
   this.footerForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -211,7 +237,7 @@ Main.prototype.initFooterForm = function() {
 
       jQuery.ajax({
         type: 'POST',
-        url: '/wp-admin/admin-ajax.php',
+        url: mainState.ajaxUrl,
         data: {
           action: 'mst_bodleid_cb',
           data: isValid.data,
@@ -222,21 +248,12 @@ Main.prototype.initFooterForm = function() {
         },
       });
     } else {
-      const fields = isValid.invalidFields;
-
-      this.footerFormInputs.forEach((input) => input.classList.remove('form__input--error'));
-
-      fields.forEach((field) => {
-        const input = this.footerForm.querySelector(`[name=${field}]`);
-        input.classList.add('form__input--error');
-      });
-
-      this.footerFormErrorMessage.classList.add('form__error--is-active');
+      this.highlightInvalidFields(isValid.invalidFields);
     }
   });
 };
 
-Main.prototype.setFooterFormFloatedLabels = function() {
+Main.prototype.setFormFloatedLabels = function() {
   const checkLabel = (input) => {
     if (!input.value) {
       input.classList.remove('form__input-filled');
@@ -245,7 +262,7 @@ Main.prototype.setFooterFormFloatedLabels = function() {
     }
   };
 
-  this.footerFormInputs.forEach((input) => {
+  this.formInputs.forEach((input) => {
     // Check if values are on page loading (e.g. if user wrote something in input and reloaded page)
     checkLabel(input);
 
@@ -263,10 +280,113 @@ Main.prototype.init = function() {
   this.initFooterForm();
   this.setClientsSlider();
   this.setTestimonialsSlider();
-  this.setFooterFormFloatedLabels();
+  this.setFormFloatedLabels();
+};
+
+/**
+ * ACCOUNT
+ * Methods for work with account page, login and sign up forms
+ *
+ */
+const Account = function() {
+  this.loginForm = document.querySelector('.login__form');
+  this.loginNotification = document.querySelector('.notification');
+
+  this.accountMenu = document.querySelector('.account__nav-list');
+};
+
+Account.prototype.initLoginForm = function() {
+  if (!this.loginForm) return;
+
+  this.loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const main = new Main;
+
+    const isValid = main.validateForm(e.target, {
+      fields: {
+        email: (value) => /\S+@\S+\.\S+/.test(value),
+        password: (value) => value.trim().length > 6,
+      }
+    });
+
+    if (isValid.result) {
+      jQuery.ajax({
+        type: 'POST',
+        url: mainState.ajaxUrl,
+        data: {
+          action: 'mst_bodleid_login',
+          data: isValid.data,
+        },
+        success(resp) {
+          console.log(resp);
+          if (resp.success) {
+            // location = mainState.accountUrl;
+          } else {
+            this.loginNotification.innerText = resp.data.error;
+          }
+        },
+      });
+    } else {
+      main.highlightInvalidFields(isValid.invalidFields);
+    }
+  });
+};
+
+Account.prototype.initAccountMenu = function() {
+  if (!this.accountMenu) return;
+
+  this.accountMenu.addEventListener('click', (e) => {
+    const el = e.target;
+
+    if (el.classList.contains('account__nav-link')) {
+      const links = this.accountMenu.querySelectorAll('a');
+
+      links.forEach((link) => link.classList.remove('account__nav-link--active'));
+      el.classList.add('account__nav-link--active');
+
+      if (el.dataset.href === 'orders') {
+        document.querySelector('.orders').classList.remove('hidden');
+        document.querySelector('.account-data-container').classList.add('hidden');
+
+      }
+
+      if (el.dataset.href === 'account') {
+        document.querySelector('.orders').classList.add('hidden');
+        document.querySelector('.account-data-container').classList.remove('hidden');
+      }
+    }
+  });
+};
+
+Account.prototype.loadOrders = function() {
+  if (typeof jQuery === 'function') {
+    jQuery.ajax({
+      type: 'POST',
+      url: mainState.ajaxUrl,
+      data: {
+        action: 'mst_bodleid_user_orders',
+        data: {
+          page: 1,
+        },
+      },
+      success(resp) {
+        console.log(resp);
+      },
+    });
+  }
+};
+
+Account.prototype.init = function() {
+  this.initLoginForm();
+  this.initAccountMenu();
+  this.loadOrders();
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   const m = new Main;
   m.init();
+
+  const a = new Account;
+  a.init();
 });
