@@ -17,7 +17,7 @@ get_header();
 ?>
 
   <main class="main" id="content">
-    <?php get_template_part( 'components/content', 'banner' ); ?>
+    <?php get_template_part( 'components/page/content', 'banner' ); ?>
 
     <section class="products">
       <div class="container">
@@ -37,7 +37,7 @@ get_header();
       </div>
     </section>
 
-    <?php get_template_part( 'components/content', 'testimonials' ); ?>
+    <?php get_template_part( 'components/page/content', 'testimonials' ); ?>
   </main>
 
 <?php

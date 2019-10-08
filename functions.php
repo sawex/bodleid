@@ -199,6 +199,15 @@ function mst_bodleid_scripts() {
     true
   );
 
+  wp_localize_script(
+    'mst_bodleid-common',
+    'mainState',
+    [
+      'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+      'accountUrl' => home_url(),
+    ]
+  );
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -229,7 +238,7 @@ if ( file_exists( get_template_directory() . '/inc/ajax.php' ) ) {
 /**
  * Load SVG icons class.
  */
-if ( class_exists( 'MST_Bodleid_SVG_Icons' ) ) {
+if ( ! class_exists( 'MST_Bodleid_SVG_Icons' ) ) {
   require get_template_directory() . '/classes/class.MST_Bodleid_SVG_Icons.php';
 }
 
@@ -238,6 +247,13 @@ if ( class_exists( 'MST_Bodleid_SVG_Icons' ) ) {
  */
 if ( file_exists( get_template_directory() . '/inc/svg-icons.php' ) ) {
   require get_template_directory() . '/inc/svg-icons.php';
+}
+
+/**
+ * Load account handlers.
+ */
+if ( file_exists( get_template_directory() . '/inc/account.php' ) ) {
+  require get_template_directory() . '/inc/account.php';
 }
 
 /**
