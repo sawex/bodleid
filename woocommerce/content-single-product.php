@@ -33,12 +33,10 @@ if ( post_password_required() ) {
 
 $post_thumbnail_id = $product->get_image_id();
 
-//new WC_Product;
-
 /* @var string $image_url */
 $image_url = esc_url( wp_get_attachment_image_src( $post_thumbnail_id, 'full' )[0] );
 
-//var_dump( wp_get_attachment_image_src( $post_thumbnail_id ) );
+$related = $product->get_cross_sell_ids();
 ?>
 <div id="product-<?php the_ID(); ?>" class="one-product">
   <div class="container">
@@ -63,7 +61,9 @@ $image_url = esc_url( wp_get_attachment_image_src( $post_thumbnail_id, 'full' )[
 
         <div class="one-product__product-info">
           <div class="one-product__product-desc-box">
-            <p class="one-product__product-model">Vörunúmer: <?php echo $product->get_sku(); ?></p>
+            <p class="one-product__product-model">
+              <?php echo esc_html( sprintf( '%s: %s', __( 'Model', 'mst_bodleid' ), $product->get_sku() ) ); ?>
+            </p>
 
             <?php
             /**
@@ -71,6 +71,7 @@ $image_url = esc_url( wp_get_attachment_image_src( $post_thumbnail_id, 'full' )[
              *
              * @hooked woocommerce_template_single_title - 5
              * @hooked woocommerce_template_single_excerpt - 20
+             * @hooked woocommerce_template_single_price - 25
              * @hooked woocommerce_template_single_add_to_cart - 30
              * @hooked woocommerce_template_single_sharing - 50
              * @hooked WC_Structured_Data::generate_product_data() - 60
@@ -79,33 +80,19 @@ $image_url = esc_url( wp_get_attachment_image_src( $post_thumbnail_id, 'full' )[
             ?>
           </div>
 
-          <div class="one-product__price-and-status">
-            <div class="one-product__product-price-box">
-              <p class="one-product__product-price"><?php echo $product->get_price_html(); ?></p>
-<!--              <p class="one-product__no-vat">án/vsk: 21.120kr</p>-->
-            </div>
-            <?php if ( $product->is_in_stock() ) { ?>
-            <div class="one-product__product-status">
-              <p>Til á lager</p>
-            </div>
-            <?php } ?>
-          </div>
-
-          <div class="one-product__order">
-            <form action="#" method="POST" class="one-product__form">
-              <button class="one-product__btn one-product__btn--plus">+</button>
-              <input type="number" class="one-product__input" step="1" min="1" name="quantity" value="1">
-              <button class="one-product__btn one-product__btn--minus one-product__btn--inactive">-</button>
-            </form>
-            <a href="" class="one-product__to-cart-btn">Bæta við í körfu</a>
-          </div>
-
           <ul class="one-product__nav-menu">
             <li class="one-product__nav-item">
               <a href="#" class="one-product__nav-link one-product__compare-link">Samanburður</a>
             </li>
             <li class="one-product__nav-item">
-              <a href="#" class="one-product__nav-link one-product__share-link">Deila</a>
+              <a href="<?php echo add_query_arg(
+                    [ 'u' => $product->get_permalink() ],
+                    'https://www.facebook.com/sharer.php'
+                  );
+                ?>"
+                 class="one-product__nav-link one-product__share-link">
+                <?php esc_html_e( 'Share', 'mst_bodleid' ); ?>
+              </a>
             </li>
           </ul>
         </div>
@@ -123,40 +110,25 @@ $image_url = esc_url( wp_get_attachment_image_src( $post_thumbnail_id, 'full' )[
       </div>
     </div>
 
-<!--    <div class="row">-->
-<!--      <div class="one-product__related-prod-container">-->
-<!--        <div class="one-product__detail-title-box">-->
-<!--          <h3 class="tertiary-title one-product__related-title">Skyldar vörur</h3>-->
-<!--        </div>-->
-<!---->
-<!--        <div class="one-product__related-products">-->
-<!--          <ul class="product-menu">-->
-<!--            <li class="product-item">-->
-<!--              <a href="#" class="product-link">-->
-<!--                <div class="product-img-box">-->
-<!--                  <img src="assets/images/product-img.png" alt="#" class="product-img">-->
-<!--                </div>-->
-<!---->
-<!--                <div class="product-info">-->
-<!--                  <h4>Yealink RT10</h4>-->
-<!--                  <p>Yealink RT10 Repeater er hægt að nota þar sem þörf er á því auka drægni á þráðlausum símum…</p>-->
-<!--                </div>-->
-<!---->
-<!--                <div class="product-price">-->
-<!--                  <p>26.189kr <span>án/vsk: 21.120kr</span></p>-->
-<!--                  <button class="compare-btn"></button>-->
-<!--                </div>-->
-<!---->
-<!--              </a>-->
-<!--              <div class="to-cart-box">-->
-<!--                <a href="#" class="add-to-catr-bnt">Setja í körfu</a>-->
-<!--              </div>-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="row">
+      <div class="one-product__related-prod-container">
+        <div class="one-product__detail-title-box">
+          <h3 class="tertiary-title one-product__related-title">Skyldar vörur</h3>
+        </div>
 
+        <div class="one-product__related-products">
+          <ul class="product-menu">
+            <?php
+              if ( ! empty( $related ) && function_exists( 'mst_bodleid_the_product_html' ) ) {
+                foreach ( $related as $related_product ) {
+                  mst_bodleid_the_product_html( $related_product );
+                }
+              }
+            ?>
+          </ul>
+        </div>
+      </div>
+    </div>
 
   </div>
 

@@ -274,10 +274,9 @@ if ( ! function_exists( 'mst_bodleid_woocommerce_header_cart' ) ) {
  */
 remove_all_actions( 'woocommerce_before_single_product_summary' );
 remove_all_actions( 'woocommerce_after_single_product_summary' );
-//remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
-//remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 25 );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 
 /**
@@ -309,11 +308,26 @@ add_action( 'wp', 'mst_bodleid_remove_sidebar_product_pages' );
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
 
 /**
+ * Add single-product quantity buttons
+ */
+
+function mst_bodleid_add_qty_plus_btn() {
+ echo '<button class="one-product__btn one-product__btn--plus">+</button>';
+}
+
+function mst_bodleid_add_qty_minus_btn() {
+ echo '<button class="one-product__btn one-product__btn--minus">-</button>';
+}
+
+add_action( 'woocommerce_before_add_to_cart_quantity', 'mst_bodleid_add_qty_plus_btn' );
+add_action( 'woocommerce_after_add_to_cart_quantity', 'mst_bodleid_add_qty_minus_btn' );
+
+/**
  * Limit WooCommerce Short Description Field
  *
  * @param string $short_desc Short description
  *
- *@return string
+ * @return string
  */
 function mst_bodleid_woocommerce_short_description( $short_desc ) {
   if ( is_product() ) {
@@ -324,3 +338,52 @@ function mst_bodleid_woocommerce_short_description( $short_desc ) {
 };
 
 add_filter( 'woocommerce_short_description', 'mst_bodleid_woocommerce_short_description' );
+
+/**
+ * Returns product html by its id
+ *
+ * @param int $id Product id
+ * @param string $node Product wrapper HTML element
+ *
+ * @return void
+ */
+function mst_bodleid_the_product_html( $id, $node = 'li' ) {
+  $product = wc_get_product( $id );
+
+  if ( empty( $product ) ) {
+    return null;
+  }
+
+  $title = esc_html( $product->get_title() );
+  $desc = wp_kses_post( wp_trim_words( $product->get_short_description(), 15, '...' ) );
+  $price = wp_kses_post( $product->get_price_html() );
+  $url = $product->get_permalink();
+  $post_thumbnail_id = $product->get_image_id();
+  $image_url = esc_url( wp_get_attachment_image_src( $post_thumbnail_id, 'medium' )[0] );
+
+  ?>
+
+  <<?php echo $node; ?> class="product-item">
+    <a href="<?php echo $url; ?>" class="product-link">
+      <div class="product-img-box">
+        <img src="<?php echo $image_url; ?>" alt="#" class="product-img">
+      </div>
+
+      <div class="product-info">
+        <h4><?php echo $title; ?></h4>
+        <p><?php echo $desc; ?></p>
+      </div>
+
+      <div class="product-price">
+        <?php echo $price; ?>
+        <button class="compare-btn"></button>
+      </div>
+
+    </a>
+    <div class="to-cart-box">
+      <a href="<?php echo $url; ?>" class="add-to-catr-bnt">Setja í körfu</a>
+    </div>
+  </<?php echo $node; ?>>
+
+  <?php
+}

@@ -65,25 +65,13 @@ $rows = get_field( 'catalog_rows' );
                     <?php } ?>
                   </div>
 
-                  <?php if ( $products ) { ?>
+                  <?php if ( ! empty( $products ) && function_exists( 'mst_bodleid_the_product_html' ) ) { ?>
                     <ul class="category-product__product-list">
-                      <li class="category-product__product-list-item">
-                        <a href="#" class="category-product__product-link">
-                          <div class="category-product__img-box">
-                            <img src="images/product-img.png" alt="#" class="category-product-img">
-                          </div>
-
-                          <div class="category-product__product-info">
-                            <h4>Yealink RT10</h4>
-                            <p>Yealink RT10 Repeater er hægt að nota þar sem þörf er á því auka drægni á þráðlausum
-                              símum…</p>
-                          </div>
-
-                          <div class="category-product__price">
-                            <p>26.189kr <span>án/vsk: 21.120kr</span></p>
-                          </div>
-                        </a>
-                      </li>
+                      <?php
+                        foreach ( $products as $product ) {
+                          mst_bodleid_the_product_html( $product );
+                        }
+                      ?>
                     </ul>
                   <?php } ?>
 
