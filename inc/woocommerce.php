@@ -17,9 +17,9 @@
  */
 function mst_bodleid_woocommerce_setup() {
 	add_theme_support( 'woocommerce' );
-	add_theme_support( 'wc-product-gallery-zoom' );
-	add_theme_support( 'wc-product-gallery-lightbox' );
-	add_theme_support( 'wc-product-gallery-slider' );
+//	add_theme_support( 'wc-product-gallery-zoom' );
+//	add_theme_support( 'wc-product-gallery-lightbox' );
+//	add_theme_support( 'wc-product-gallery-slider' );
 }
 add_action( 'after_setup_theme', 'mst_bodleid_woocommerce_setup' );
 
@@ -268,3 +268,59 @@ if ( ! function_exists( 'mst_bodleid_woocommerce_header_cart' ) ) {
 		<?php
 	}
 }
+
+/**
+ * Remove hooks from content-single-product.php
+ */
+remove_all_actions( 'woocommerce_before_single_product_summary' );
+remove_all_actions( 'woocommerce_after_single_product_summary' );
+//remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+//remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+
+/**
+ * Remove single-product tabs
+ */
+function mst_bodleid_remove_product_tabs( $tabs ) {
+  unset( $tabs['description'] );          // Remove the description tab
+  unset( $tabs['reviews'] );          // Remove the reviews tab
+  unset( $tabs['additional_information'] );   // Remove the additional information tab
+  return $tabs;
+}
+
+add_filter( 'woocommerce_product_tabs', 'mst_bodleid_remove_product_tabs', 98 );
+
+/**
+ * Remove single-product sidebar
+ */
+function mst_bodleid_remove_sidebar_product_pages() {
+  if ( is_product() ) {
+    remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
+  }
+}
+
+add_action( 'wp', 'mst_bodleid_remove_sidebar_product_pages' );
+
+/**
+ * Remove WooCommerce breadcrumbs
+ */
+remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+
+/**
+ * Limit WooCommerce Short Description Field
+ *
+ * @param string $short_desc Short description
+ *
+ *@return string
+ */
+function mst_bodleid_woocommerce_short_description( $short_desc ) {
+  if ( is_product() ) {
+    $short_desc = wp_trim_words( $short_desc, 15, '...' );
+  }
+
+  return $short_desc;
+};
+
+add_filter( 'woocommerce_short_description', 'mst_bodleid_woocommerce_short_description' );

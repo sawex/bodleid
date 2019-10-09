@@ -294,6 +294,8 @@ const Account = function() {
   this.loginNotification = document.querySelector('.notification');
 
   this.accountMenu = document.querySelector('.account__nav-list');
+
+  this.accountForms = document.querySelectorAll('.login__form');
 };
 
 Account.prototype.initLoginForm = function() {
@@ -322,7 +324,7 @@ Account.prototype.initLoginForm = function() {
         success(resp) {
           console.log(resp);
           if (resp.success) {
-            // location = mainState.accountUrl;
+            location = mainState.accountUrl;
           } else {
             this.loginNotification.innerText = resp.data.error;
           }
@@ -378,10 +380,25 @@ Account.prototype.loadOrders = function() {
   }
 };
 
+Account.prototype.setFormsCollapsing = function() {
+  if (!this.accountForms.length) return;
+
+  this.accountForms.forEach((form) => {
+    const title = form.querySelector('.login__title');
+
+    title.addEventListener('click', () => {
+      form.classList.toggle('collapsed');
+      title.classList.toggle('login__title--active');
+    });
+  });
+};
+
+
 Account.prototype.init = function() {
   this.initLoginForm();
   this.initAccountMenu();
-  this.loadOrders();
+  // this.loadOrders();
+  this.setFormsCollapsing();
 };
 
 document.addEventListener('DOMContentLoaded', () => {
