@@ -82,3 +82,92 @@ tbody .product-remove .remove {
   align-items: center;
   font-size: 40px;
 }
+
+.shop_table tfoot {
+  background-color: #323232;
+  color: #fff;
+  position: relative;
+}
+
+.shipping__title {
+  font-size: 45px;
+  margin-bottom: 0;
+}
+
+.shipping {
+  display: flex;
+  flex-direction: column;
+}
+
+tfoot tr .shipping input {
+  appearance: none;
+}
+
+tfoot tr .shipping label {
+  position: relative;
+  font-size: 21px;
+  font-weight: 700;
+  display: block;
+  padding-left: 50px;
+  cursor: pointer;
+}
+
+tfoot tr .shipping label::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  width: 30px;
+  height: 30px;
+  border: 1px solid #f6b108;
+  border-radius: 50%;
+}
+
+tfoot tr .shipping label::after {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  content: '';
+  border: 5px solid #f6b108;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  border: 5px solid #f6b108;
+  transform: translate(-5px, -50%);
+  display: none;
+}
+
+tfoot tr .shipping input:checked + label::before {
+  border: 5px solid #f6b108;
+}
+
+tfoot tr .shipping input:checked + label::after {
+  display: block;
+}
+
+tfoot .actions > .button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+
+}
+
+tfoot .actions > .button::before {
+  content: '';
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-image: url(assets/images/icons/update.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: -15px;
+  top: 2px;
+}

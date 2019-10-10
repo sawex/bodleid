@@ -28,13 +28,22 @@
                 </thead>
                 <tfoot>
                   <tr>
+                    <td class="shipping" colspan="2">
+                      <!-- <form action="#" method="POST"> -->
+                        <h3 class="shipping__title">Sendingarmáti</h3>
+                        <input type="radio" name="delivery-method" id="from-the-store" checked>
+                        <label for="from-the-store">Sótt í verslun Akralind 8, 201 Kópavogi</label>
+                        <input type="radio" name="delivery-method" id="on-house">
+                        <label for="on-house">Heimsending innan íslands - 0kr</label>
+                      <!-- </form> -->
+                    </td>
                     <td colspan="6" class="actions">
+                      <button type="submit" class="button" name="update_cart" value="Update cart" disabled="">Update cart</button>
                       <div class="coupon">
                         <label for="coupon_code">Coupon:</label> 
                         <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code"> 
                         <button type="submit" class="button" name="apply_coupon" value="Apply coupon">Apply coupon</button>
                       </div>
-                      <button type="submit" class="button" name="update_cart" value="Update cart" disabled="">Update cart</button>
                       <input type="hidden" id="woocommerce-cart-nonce" name="woocommerce-cart-nonce" value="1fc22f3b9f">
                       <input type="hidden" name="_wp_http_referer" value="/cart/">
                     </td>
@@ -42,7 +51,7 @@
                 </tfoot>
                 <tbody>
                   <tr class="woocommerce-cart-form__cart-item cart_item">
-                    <td class="product-thumbnail">
+                    <td class="product-thumbnail" data-title="Karfan">
                       <a href="https://bodleid.ludur.net/product/happy-ninja-2/"><img width="300" height="300" src="https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-300x300.jpg 300w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-150x150.jpg 150w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-768x768.jpg 768w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-600x600.jpg 600w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-100x100.jpg 100w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px"></a>
                     </td>
 
