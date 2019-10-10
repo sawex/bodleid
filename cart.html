@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cart</title>
+  <link rel="stylesheet" href="assets/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="woocommerce.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <main class="main">
+    <section class="cart" id="cart">
+      <div class="container">
+        <div class="row">
+          <div class="cart__orders-list-container">
+            <form class="woocommerce-cart-form" action="https://bodleid.ludur.net/cart/" method="post">
+              <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th class="product-remove cart-title">Karfan</th> <!-- возможно, стоит как-то отредактировать &nbsp;? -->
+                    <th class="product-name">Product</th>
+                    <th class="product-price">Price</th>
+                    <th class="product-quantity">Quantity</th>
+                    <th class="product-subtotal">Total</th>
+                    <th class="product-thumbnail">&nbsp;</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <td colspan="6" class="actions">
+                      <div class="coupon">
+                        <label for="coupon_code">Coupon:</label> 
+                        <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code"> 
+                        <button type="submit" class="button" name="apply_coupon" value="Apply coupon">Apply coupon</button>
+                      </div>
+                      <button type="submit" class="button" name="update_cart" value="Update cart" disabled="">Update cart</button>
+                      <input type="hidden" id="woocommerce-cart-nonce" name="woocommerce-cart-nonce" value="1fc22f3b9f">
+                      <input type="hidden" name="_wp_http_referer" value="/cart/">
+                    </td>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr class="woocommerce-cart-form__cart-item cart_item">
+                    <td class="product-thumbnail">
+                      <a href="https://bodleid.ludur.net/product/happy-ninja-2/"><img width="300" height="300" src="https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-300x300.jpg 300w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-150x150.jpg 150w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-768x768.jpg 768w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-600x600.jpg 600w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-100x100.jpg 100w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px"></a>
+                    </td>
+
+                    <td class="product-name" data-title="Product">
+                      <a href="https://bodleid.ludur.net/product/happy-ninja-2/">
+                      Happy Ninja
+                      <span class="product-model">Vörunúmer: AVER_CAM520</span>
+                      </a>
+                    </td>
+
+                    <td class="product-price" data-title="Price">
+                      <span class="woocommerce-Price-amount amount">18.00<span class="woocommerce-Price-currencySymbol">kr.</span></span>           
+                    </td>
+
+                    <td class="product-quantity" data-title="Quantity">
+                      <div class="quantity">
+                        <label class="screen-reader-text" for="quantity_5d9f59785c5f8">Happy Ninja quantity</label>
+                        <button class="one-product__btn one-product__btn--plus">+</button>
+                        <input type="number" id="quantity_5d9f59785c5f8" class="input-text qty text one-product__input" step="1" min="0" max="" name="cart[a666587afda6e89aec274a3657558a27][qty]" value="1" title="Qty" size="4" inputmode="numeric">
+                        <button class="one-product__btn one-product__btn--minus one-product__btn--inactive">-</button>
+                      </div>
+                    </td>
+
+                    <td class="product-subtotal" data-title="Total">
+                      <span class="woocommerce-Price-amount amount">18.00<span class="woocommerce-Price-currencySymbol">kr.</span></span>
+                    </td>
+
+                    <td class="product-remove">
+                      <a href="https://bodleid.ludur.net/cart/?remove_item=a666587afda6e89aec274a3657558a27&amp;_wpnonce=1fc22f3b9f" class="remove" aria-label="Remove this item" data-product_id="326" data-product_sku="T-SHIRT-HAPPY-NINJA">×</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
