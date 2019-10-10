@@ -105,7 +105,7 @@ $related = $product->get_cross_sell_ids();
           <h3 class="tertiary-title one-product__detail-title">Vörulýsing</h3>
         </div>
         <div class="one-product__detail">
-          <?php echo $product->get_description(); ?>
+          <p><?php echo $product->get_description(); ?></p>
         </div>
       </div>
     </div>

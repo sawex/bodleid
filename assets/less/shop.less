@@ -1,0 +1,140 @@
+.shop {
+  padding-top: 70px;
+}
+
+.widget-title {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 57.46px;
+}
+
+.product-categories {
+  margin: 0;
+  list-style: none;
+  color: #fff;
+}
+
+.product-categories li {
+  list-style-type: none;
+}
+
+.product-categories a, 
+.product-categories a + span {
+  text-decoration: none;
+  color: #fff;
+  transition: ease-in-out .3s;
+}
+
+.product-categories ul a::before {
+  content: '-';
+  margin-right: 5px;
+}
+
+.product-categories a:hover,
+.product-categories a:hover + span {
+  color: #f7ba05;
+  font-weight: 700;
+}
+
+.product-categories ul {
+  color: #fff;
+  padding-left: 14px;
+}
+
+
+.cat-parent a {
+  position: relative;
+}
+
+.cat-parent > a::before,
+.cat-parent > a::after {
+  content: '';
+  display: block;
+  width: 2px;
+  height: 10px;
+  background-color: #fab600;
+  position: absolute;
+  top: 6px;
+  left: -14px;
+  transition: ease-in-out .3s;
+}
+
+.cat-parent > a::after {
+  transform: rotate(90deg);
+  transition: ease-in-out .3s;
+}
+
+.cat-parent--active > a::before {
+  transform: scale(0);
+  transition: ease-in-out .3s;
+}
+
+// .children {
+//   transition: ease-in-out .3s;
+//   transform: scaleY(1);
+//   transform-origin: 0 0;
+// }
+
+// .child--active {
+//   transition: ease-in-out .3s;
+//   transform-origin: 0 0;
+//   transform: scaleY(0);
+//   height: 0;
+// }
+
+.filters {
+  width: 25%;
+}
+
+.shop__products-container {
+  width: 75%;
+  position: relative;
+}
+
+.woocommerce-ordering {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+}
+
+.orderby {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor:  pointer;
+  font-size: 21px;
+}
+
+.woocommerce-ordering label {
+  position: relative;
+}
+
+.woocommerce-ordering label::before {
+  content: '';
+  background-image: url(assets/images/icons/dropdown.svg);
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 4px;
+  left: -28px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.shop__title {
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 57.46px;
+}
+
+.shop__title--abs {
+  position: absolute;
+  top: -14px;
+  left: 20px;
+}
