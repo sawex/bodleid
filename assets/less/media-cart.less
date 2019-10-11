@@ -16,6 +16,10 @@
   tbody .product-thumbnail {
     width: 190px;
   }
+
+  .total .wc-proceed-to-checkout a {
+    padding: 10px 15px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -64,4 +68,33 @@
     top: 1px;
     right: 1px;
   }
+
+  .actions .coupon {
+    width: 320px !important;
+  }
+
+  tfoot .shipping,
+  .total__text-box {
+    text-align: left !important;
+  }
+
+  .coupon {
+    float: left;
+    margin-top: 24px;
+  }
+
+  .total {
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .shipping__title {
+    font-size: 30px;
+  }
+
+  // .tfoot tr .shipping label {
+  //   font-size: 18px;
+  //   padding-left: 30px;
+  // }
 }

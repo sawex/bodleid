@@ -125,15 +125,17 @@ tfoot tr .shipping label::before {
 
 tfoot tr .shipping label::after {
   position: absolute;
-  top: 50%;
-  left: 15px;
+  // top: 50%;
+  top: 10px;
+  // left: 15px;
+  left: 10px;
   content: '';
   border: 5px solid #f6b108;
   border-radius: 50%;
   width: 10px;
   height: 10px;
   border: 5px solid #f6b108;
-  transform: translate(-5px, -50%);
+  // transform: translate(-5px, -50%);
   display: none;
 }
 
@@ -170,4 +172,69 @@ tfoot .actions > .button::before {
   position: absolute;
   left: -15px;
   top: 2px;
+}
+
+.coupon {
+  width: 320px;
+  float: right;
+}
+
+.coupon input {
+  border: 1px solid #666666;
+  background-color: #414141;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.coupon label {
+  color: #ffffff;
+  font-size: 20px;
+  padding-left: 14px;
+}
+
+.coupon .button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background-color: #f6b108;
+  border: none;
+  cursor: pointer;
+  padding: 0 6px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.total {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.total .wc-proceed-to-checkout {
+  margin-left: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.total .wc-proceed-to-checkout a {
+  text-decoration: none;
+  color: #323232;
+  font-size: 21px;
+  font-weight: 700;
+  background-color: #f6b108;
+  padding: 20px 45px;
+}
+
+.total__text-box .total__title {
+  font-size: 22px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.total__text-box .total__sum {
+  font-size: 31px;
+  font-weight: 700;
+  margin: 0;
 }
