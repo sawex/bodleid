@@ -39,13 +39,25 @@
                     </td>
                     <td colspan="6" class="actions">
                       <button type="submit" class="button" name="update_cart" value="Update cart" disabled="">Update cart</button>
-                      <div class="coupon">
-                        <label for="coupon_code">Coupon:</label> 
-                        <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code"> 
+                      <div class="coupon form__input-box">
+                        <input type="text" name="coupon_code" class="input-text form__input" id="coupon_code" value="" placeholder=""> 
+                        <label for="coupon_code" class="form__label">Coupon:</label> 
                         <button type="submit" class="button" name="apply_coupon" value="Apply coupon">Apply coupon</button>
                       </div>
                       <input type="hidden" id="woocommerce-cart-nonce" name="woocommerce-cart-nonce" value="1fc22f3b9f">
                       <input type="hidden" name="_wp_http_referer" value="/cart/">
+
+                      <div class="total">
+                        <div class="total__text-box">
+                          <p class="total__title">Total</p>
+                          <p class="total__sum">212.00kr.</p>
+                        </div>
+                        <div class="wc-proceed-to-checkout">    
+                          <a href="https://bodleid.ludur.net/checkout/" class="checkout-button button alt wc-forward">
+                            Proceed to checkout
+                          </a>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 </tfoot>
