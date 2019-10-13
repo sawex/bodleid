@@ -11,7 +11,7 @@ $instructions = get_field( 'instructions' );
 ?>
 
   <main class="main" id="content" role="main">
-    <?php get_template_part( 'components/content', 'banner' ); ?>
+    <?php get_template_part( 'components/page/content', 'banner' ); ?>
 
     <section class="main-instructions">
       <div class="container">
@@ -100,7 +100,7 @@ $instructions = get_field( 'instructions' );
       </div>
     </section>
 
-    <?php get_template_part( 'components/content', 'testimonials' ); ?>
+    <?php get_template_part( 'components/page/content', 'testimonials' ); ?>
   </main>
 
 

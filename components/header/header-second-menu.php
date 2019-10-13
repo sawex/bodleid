@@ -36,10 +36,9 @@ $login_page = esc_url( get_permalink( get_page_by_path( 'login' ) ) );
   </li>
 
   <?php if ( function_exists( 'wc_get_cart_url' ) ) { ?>
-    <li class="header__cart-item">
+    <li class="header__cart-item" data-count="<?php echo WC()->cart->get_cart_contents_count(); ?>">
       <a href="<?php echo esc_url( wc_get_cart_url() ); ?>"
-         class="header__cart-link"
-         data-count="<?php echo WC()->cart->get_cart_contents_count(); ?>">
+         class="header__cart-link">
         <?php mst_bodleid_the_theme_svg( 'cart' ); ?>
       </a>
     </li>

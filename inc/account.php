@@ -30,8 +30,8 @@ if ( !function_exists( 'mst_bodleid_get_sign_up_form' ) ) {
    */
   function mst_bodleid_get_sign_up_form( $type = 'registration-page' ) {
 
-    /* @var string|null $registration_form_text */
-    $registration_form_text = get_field( 'registration_form_text', 'option' );
+    /* @var string $sign_up_text */
+    $sign_up_text = wp_kses_post( get_field( 'sign_up_text', 'option' ) );
 //
 //    if ( $type === 'registration-page' ) {
 //
@@ -41,16 +41,19 @@ if ( !function_exists( 'mst_bodleid_get_sign_up_form' ) ) {
 //
 //    }
 
-    ?>
-
-    <form class="login__form login__new-client">
+    if ( $type === 'registration-page' ) {
+  ?>
+      <form class="login__form login__new-client collapsed">
+    <?php } else { ?>
+      <form class="login__form login__new-client">
+    <?php } ?>
 
       <?php if ( $type === 'registration-page' || $type === 'checkout-page' ) { ?>
         <h3 class="tertiary-title login__title">
           <?php esc_html_e( 'New customer', 'mst_bodleid' ); ?>
         </h3>
 
-        <p class="text login__text"><?php wp_kses_post( $registration_form_text ); ?></p>
+        <p class="text login__text"><?php echo $sign_up_text; ?></p>
       <?php } ?>
 
       <?php if ( $type === 'account-page' ) { ?>
@@ -158,6 +161,8 @@ if ( !function_exists( 'mst_bodleid_get_sign_up_form' ) ) {
           </div>
         </div>
       </div>
+
+      <?php wp_nonce_field( 'sign_up','sign_up_nonce' ); ?>
 
       <input class="login__form-btn"
              type="submit"

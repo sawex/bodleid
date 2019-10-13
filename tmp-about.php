@@ -13,8 +13,8 @@ $staff = get_field( 'staff' );
 $default_thumbnail = esc_url( get_field( 'staff_default_userpic', 'option' ) );
 ?>
 
-  <main class="main">
-    <?php get_template_part( 'components/content', 'banner' ); ?>
+  <main class="main" id="content" role="main">
+    <?php get_template_part( 'components/page/content', 'banner' ); ?>
 
     <section class="products">
       <div class="container">

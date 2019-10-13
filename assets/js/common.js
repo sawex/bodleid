@@ -191,20 +191,21 @@ Main.prototype.validateForm = function(form, validateOptions = {}) {
 /**
  * Adds error class to invalid fields.
  *
- * @param {array} fields Invalid fields
+ * @param {array} formElements Form fields
+ * @param {array} invalidFields Invalid fields
  */
-Main.prototype.highlightInvalidFields = function(fields) {
-  console.log(fields);
-  this.formInputs.forEach((input) => input.classList.remove('form__input--error'));
+Main.prototype.highlightInvalidFields = function(formElements, invalidFields) {
+  formElements.forEach((input) => input.classList.remove('form__input--error'));
 
-  fields.forEach((field) => {
-    const input = this.footerForm.querySelector(`[name=${field}]`);
+  invalidFields.forEach((field) => {
+    const input = document.querySelector(`[name=${field}]`);
     input.classList.add('form__input--error');
   });
 
-  this.footerFormErrorMessage.classList.add('form__error--is-active');
+  if (this.footerFormErrorMessage) {
+    this.footerFormErrorMessage.classList.add('form__error--is-active');
+  }
 };
-
 
 Main.prototype.initFooterForm = function() {
   this.footerForm.addEventListener('submit', (e) => {
@@ -248,7 +249,7 @@ Main.prototype.initFooterForm = function() {
         },
       });
     } else {
-      this.highlightInvalidFields(isValid.invalidFields);
+      this.highlightInvalidFields(this.formInputs, isValid.invalidFields);
     }
   });
 };
@@ -293,6 +294,8 @@ const Account = function() {
   this.loginNotification = document.querySelector('.notification');
 
   this.accountMenu = document.querySelector('.account__nav-list');
+
+  this.accountForms = document.querySelectorAll('.login__form');
 };
 
 Account.prototype.initLoginForm = function() {
@@ -321,14 +324,14 @@ Account.prototype.initLoginForm = function() {
         success(resp) {
           console.log(resp);
           if (resp.success) {
-            // location = mainState.accountUrl;
+            location = mainState.accountUrl;
           } else {
             this.loginNotification.innerText = resp.data.error;
           }
         },
       });
     } else {
-      main.highlightInvalidFields(isValid.invalidFields);
+      main.highlightInvalidFields(e.target.querySelectorAll('.form__input'), isValid.invalidFields);
     }
   });
 };
@@ -377,10 +380,25 @@ Account.prototype.loadOrders = function() {
   }
 };
 
+Account.prototype.setFormsCollapsing = function() {
+  if (!this.accountForms.length) return;
+
+  this.accountForms.forEach((form) => {
+    const title = form.querySelector('.login__title');
+
+    title.addEventListener('click', () => {
+      form.classList.toggle('collapsed');
+      title.classList.toggle('login__title--active');
+    });
+  });
+};
+
+
 Account.prototype.init = function() {
   this.initLoginForm();
   this.initAccountMenu();
-  this.loadOrders();
+  // this.loadOrders();
+  this.setFormsCollapsing();
 };
 
 document.addEventListener('DOMContentLoaded', () => {

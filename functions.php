@@ -128,7 +128,7 @@ function mst_bodleid_widgets_init() {
 	] );
 }
 
-//add_action( 'widgets_init', 'mst_bodleid_widgets_init' );
+add_action( 'widgets_init', 'mst_bodleid_widgets_init' );
 
 /**
  * Enqueue scripts and styles.
@@ -410,3 +410,12 @@ HTML;
 }
 
 add_filter( 'the_content', 'mst_bodleid_add_pdf_viewer' );
+
+/**
+ * Wrapper for HTML class adding.
+ *
+ * @param string $class HTML class or classes
+ */
+function mst_bodleid_add_class( $class ) {
+  echo esc_attr( $class );
+}
