@@ -10,7 +10,6 @@ if ( ! is_user_logged_in() ) {
 }
 
 get_header();
-
 ?>
 
   <main class="main" id="content" role="main">

@@ -11,6 +11,8 @@ $featured_products = wc_get_products( [ 'featured' => true ] );
 ?>
 
 <main class="main" id="content" role="main">
+  <?php get_template_part( 'components/page/content', 'banner' ); ?>
+
   <section class="shop" id="shop">
     <div class="container">
       <div class="row">

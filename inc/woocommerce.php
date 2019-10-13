@@ -387,3 +387,9 @@ function mst_bodleid_the_product_html( $id, $node = 'li' ) {
 
   <?php
 }
+
+/**
+ * Remove hooks from cart.php
+ */
+
+remove_all_actions( 'woocommerce_cart_collaterals' );
