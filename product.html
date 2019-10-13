@@ -5,9 +5,17 @@
   <title>Product</title>
   <link rel="stylesheet" href="assets/css/bootstrap-grid.min.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="woocommerce.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+  <div class="woocommerce-notices-wrapper">
+    <div class="woocommerce-message" role="alert">
+      <button class="w-close-btn"></button>
+      <a href="https://bodleid.ludur.net/cart/" tabindex="1" class="button wc-forward">View cart</a> “Patient Ninja” has been added to your cart. 
+    </div>
+  </div>
+
   <main class="main">
     <section class="one-product" id="one-product">
       <div class="container">
@@ -42,8 +50,11 @@
                   <button class="one-product__btn one-product__btn--plus">+</button>
                   <input type="number" class="one-product__input" step="1" min="1" name="quantity" value="1">
                   <button class="one-product__btn one-product__btn--minus one-product__btn--inactive">-</button>
+                  <button type="submit" name="add-to-cart" value="299" class="single_add_to_cart_button button alt one-product__to-cart-btn">
+                    Bæta við í körfu
+                  </button>
                 </form>
-                <a href="" class="one-product__to-cart-btn">Bæta við í körfu</a>
+                <!-- <a href="" class="one-product__to-cart-btn">Bæta við í körfu</a> -->
               </div>
 
               <ul class="one-product__nav-menu">

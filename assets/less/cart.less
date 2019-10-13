@@ -101,6 +101,7 @@ tbody .product-remove .remove {
 
 tfoot tr .shipping input {
   appearance: none;
+  visibility: hidden;
 }
 
 tfoot tr .shipping label {
@@ -237,4 +238,10 @@ tfoot .actions > .button::before {
   font-size: 31px;
   font-weight: 700;
   margin: 0;
+}
+
+//fix under woocommerce
+
+.total__text-box p {
+  color: #fff;
 }
