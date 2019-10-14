@@ -14,15 +14,28 @@
 
 defined( 'ABSPATH' ) || exit;
 get_header();
+
+/* @var bool $show_banner */
+$show_banner = get_field( 'show_banner' );
+
+/* @var bool $show_testimonials */
+$show_testimonials = get_field( 'show_testimonials' );
+
+/* @var bool $dark_bg */
+$dark_bg = get_field( 'dark_background' );
 ?>
 
-  <main class="main" id="content">
-    <?php get_template_part( 'components/page/content', 'banner' ); ?>
+  <main class="main" id="content" role="main">
+    <?php
+      if ( $show_banner ) {
+        get_template_part( 'components/page/content', 'banner' );
+      }
+    ?>
 
-    <section class="products">
+    <section class="products <?php echo $dark_bg ? 'bg--black' : ''; ?>">
       <div class="container">
         <div class="row">
-          <div class="products__wrapper">
+          <div class="<?php echo is_cart() ? 'cart' : 'products__wrapper'; ?>">
             <?php
               if ( have_posts() ) {
                 while ( have_posts() ) {
@@ -37,7 +50,11 @@ get_header();
       </div>
     </section>
 
-    <?php get_template_part( 'components/page/content', 'testimonials' ); ?>
+    <?php
+      if ( $show_testimonials ) {
+        get_template_part( 'components/page/content', 'testimonials' );
+      }
+    ?>
   </main>
 
 <?php

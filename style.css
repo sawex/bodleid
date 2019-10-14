@@ -22,14 +22,13 @@ html {
 .hidden {
   display: none !important;
 }
-<<<<<<< HEAD
 .bg--black {
   background-image: none !important;
   background-color: #323232 !important;
-=======
+}
 .screen-reader-text {
   display: none;
->>>>>>> 5c58a7a13ccf73f2d6d28d9347e21ccac6dba999
+
 }
 @font-face {
   font-family: 'Brandon Grotesque';

@@ -36,6 +36,13 @@ function mst_bodleid_register_settings() {
     'parent_slug'   => $parent['menu_slug'],
     'menu_slug'     => 'footer-settings',
   ] );
+
+  acf_add_options_sub_page( [
+    'page_title'    => 'Shop Settings',
+    'menu_title'    => 'Shop',
+    'parent_slug'   => $parent['menu_slug'],
+    'menu_slug'     => 'shop-settings',
+  ] );
 }
 
 add_action('acf/init', 'mst_bodleid_register_settings');

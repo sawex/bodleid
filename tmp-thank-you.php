@@ -74,16 +74,15 @@ get_header();
 
             <div class="order-received__products-info-column">
               <table class="order-received__product-info-table">
-                <!-- TODO: hedlines & hedline -->
-                <thead class="order-received__product-info-hedlines">
+                <thead class="order-received__product-info-headlines">
                   <tr>
-                    <th class="order-received__product-hedline order-received__product-hedline-product">
+                    <th class="order-received__product-headline order-received__product-headline-product">
                       <?php esc_html_e( 'Product', 'mst_bodleid' ); ?>
                     </th>
-                    <th class="order-received__product-hedline order-received__product-hedline-quantity">
+                    <th class="order-received__product-headline order-received__product-headline-quantity">
                       <?php esc_html_e( 'Amount', 'mst_bodleid' ); ?>
                     </th>
-                    <th class="order-received__product-hedline order-received__product-hedline-price">
+                    <th class="order-received__product-headline order-received__product-headline-price">
                       <?php esc_html_e( 'Total', 'mst_bodleid' ); ?>
                     </th>
                   </tr>
