@@ -44,15 +44,15 @@ $shop_text = wp_kses_post( get_field( 'shop_text', 'option' ) );
         </a>
         <nav class="custom-banner__navbar">
           <ul class="custom-banner__nav-list">
-            <li class="custom-banner__nav-list-item">
-              <button class="custom-banner__nav-btn custom-banner__nav-btn--active"></button>
-            </li>
-            <li class="custom-banner__nav-list-item">
-              <button class="custom-banner__nav-btn"></button>
-            </li>
-            <li class="custom-banner__nav-list-item">
-              <button class="custom-banner__nav-btn"></button>
-            </li>
+<!--            <li class="custom-banner__nav-list-item">-->
+<!--              <button class="custom-banner__nav-btn custom-banner__nav-btn--active"></button>-->
+<!--            </li>-->
+<!--            <li class="custom-banner__nav-list-item">-->
+<!--              <button class="custom-banner__nav-btn"></button>-->
+<!--            </li>-->
+<!--            <li class="custom-banner__nav-list-item">-->
+<!--              <button class="custom-banner__nav-btn"></button>-->
+<!--            </li>-->
           </ul>
         </nav>
       </div>

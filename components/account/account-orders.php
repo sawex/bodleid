@@ -14,7 +14,7 @@ $user_id = get_current_user_id();
 /* @var stdClass $orders */
 $orders_data = wc_get_orders( [
   'customer_id' => $user_id,
-  'limit' => 4,
+  'limit' => 10,
   'paged' => 1,
   'paginate' => true,
 ] );

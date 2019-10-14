@@ -42,7 +42,7 @@ function mst_bodleid_login() {
     $email = sanitize_text_field( $_POST['data']['email'] );
 
     /* @var string $password */
-    $password = sanitize_text_field( $_POST['data']['password'] );
+    $password = sanitize_text_field( $_POST['data']['user_password'] );
 
     /* @var bool $remember */
     $remember = ! empty( $_POST['data']['remember'] ) ? true : false;
@@ -105,7 +105,6 @@ function mst_bodleid_user_orders() {
   wp_die();
 }
 
-
 /**
  * Register AJAX handler for user sign up form
  *
@@ -113,41 +112,28 @@ function mst_bodleid_user_orders() {
  */
 function mst_bodleid_sign_up() {
   try {
-    /* @var string $first_name */
-    $first_name = sanitize_text_field( $_POST['data']['name'] );
-
-    /* @var string $last_name */
-    $last_name = sanitize_text_field( $_POST['data']['extensions'] );
-
     /* @var string $email */
-    $email = sanitize_text_field( $_POST['data']['email'] );
-
-    /* @var string $phone */
-    $phone = sanitize_text_field( $_POST['data']['phone'] );
+    $email = sanitize_text_field( $_POST['data']['billing_email'] );
 
     /* @var string $password */
     $password = sanitize_text_field( $_POST['data']['password'] );
 
-    /* @var string $company */
-    $company = sanitize_text_field( $_POST['data']['company'] );
-
-    /* @var string $address */
-    $address = sanitize_text_field( $_POST['data']['address'] );
-
-    /* @var string $city */
-    $city = sanitize_text_field( $_POST['data']['city'] );
-
-    /* @var string $zip */
-    $zip = sanitize_text_field( $_POST['data']['zip'] );
-
-    /* @var string $country */
-    $country = sanitize_text_field( $_POST['data']['country'] );
-
-    /* @var string $region */
-    $region = sanitize_text_field( $_POST['data']['region'] );
-
     /* @var string $sign_up_nonce */
     $sign_up_nonce = $_POST['data']['sign_up_nonce'];
+
+    /* @var array $fields Accepted form fields */
+    $fields = [
+      'billing_first_name',
+      'billing_last_name',
+      'billing_email',
+      'billing_phone',
+      'billing_company',
+      'billing_address_1',
+      'billing_city',
+      'billing_postcode',
+      'billing_postcode',
+      'billing_state',
+    ];
 
     if ( ! wp_verify_nonce( $sign_up_nonce, 'sign_up' ) ) {
       wp_send_json_error( [ 'error' => __( 'Nonce error', 'mst_bodleid' ) ] );
@@ -167,37 +153,133 @@ function mst_bodleid_sign_up() {
 
     if ( is_wp_error( $user_id ) ) {
       wp_send_json_error( [ 'error' => $user_id->get_error_message() ] );
+      wp_die();
     }
 
-    update_user_meta( $user_id, 'guest', 'yes' );
+    foreach ( $fields as $field ) {
+      if ( ! empty( $_POST['data'][$field] ) ) {
 
-    update_user_meta( $user_id, 'billing_address_1', $address );
-    update_user_meta( $user_id, 'billing_city', $city );
-    update_user_meta( $user_id, 'billing_company', $company );
-    update_user_meta( $user_id, 'billing_country', $country );
-    update_user_meta( $user_id, 'billing_email', $email );
-    update_user_meta( $user_id, 'billing_first_name', $first_name );
-    update_user_meta( $user_id, 'billing_last_name', $last_name );
-    update_user_meta( $user_id, 'billing_phone', $phone );
-    update_user_meta( $user_id, 'billing_postcode', $zip );
-    update_user_meta( $user_id, 'billing_state', $region );
+        /* @var string $value Data from POST request */
+        $value = sanitize_text_field( $_POST['data'][$field] );
 
-    update_user_meta( $user_id, 'shipping_address_1', $address );
-    update_user_meta( $user_id, 'shipping_city', $city );
-    update_user_meta( $user_id, 'shipping_company', $company );
-    update_user_meta( $user_id, 'shipping_country', $country );
-    update_user_meta( $user_id, 'shipping_email', $email );
-    update_user_meta( $user_id, 'shipping_first_name', $first_name );
-    update_user_meta( $user_id, 'shipping_last_name', $last_name );
-    update_user_meta( $user_id, 'shipping_phone', $phone );
-    update_user_meta( $user_id, 'shipping_postcode', $zip );
-    update_user_meta( $user_id, 'shipping_state', $region );
+        if ( $field === 'password' && ! empty( $value ) ) {
+          wp_set_password( $value, $user_id );
+        }
+
+        update_user_meta( $user_id, $field, $value );
+      }
+    }
 
     wc_update_new_customer_past_orders( $user_id );
 
     wp_set_auth_cookie( $user_id );
 
     wp_send_json_success( [ 'status' => 'OK' ] );
+
+  } catch ( Exception $e ) {
+    wp_send_json_error( [ 'error' => $e ] );
+  }
+  wp_die();
+}
+
+/**
+ * Register AJAX handler for user account data updating
+ *
+ * @version 1.0.0
+ */
+function mst_bodleid_update_account_data() {
+  try {
+    /* @var int $user_id */
+    $user_id = get_current_user_id();
+
+    /* @var string $nonce */
+    $nonce = $_POST['data']['update_account_data_nonce'];
+
+    if ( ! $user_id ) {
+      wp_send_json_error( [ 'error' => __( 'Please, login to update your account', 'mst_bodleid' ) ] );
+      wp_die();
+    }
+
+    if ( ! wp_verify_nonce( $nonce, 'update_account_data' ) ) {
+      wp_send_json_error( [ 'error' => __( 'Nonce error', 'mst_bodleid' ) ] );
+      wp_die();
+    }
+
+    /* @var array $fields Accepted form fields */
+    $fields = [
+      'billing_first_name',
+      'billing_last_name',
+      'billing_email',
+      'billing_phone',
+      'password',
+      'billing_company',
+      'billing_address_1',
+      'billing_city',
+      'billing_postcode',
+      'billing_postcode',
+      'billing_state',
+    ];
+
+    foreach ( $fields as $field ) {
+      if ( ! empty( $_POST['data'][$field] ) ) {
+
+        /* @var string $value Data from POST request */
+        $value = sanitize_text_field( $_POST['data'][$field] );
+
+        if ( $field === 'password' && ! empty( $value ) ) {
+          wp_set_password( $value, $user_id );
+        }
+
+        update_user_meta( $user_id, $field, $value );
+      }
+    }
+
+    wc_update_new_customer_past_orders( $user_id );
+
+    wp_send_json_success( [ 'status' => 'OK' ] );
+
+  } catch ( Exception $e ) {
+    wp_send_json_error( [ 'error' => $e ] );
+  }
+  wp_die();
+}
+
+/**
+ * COMPARING
+ */
+function mst_bodleid_add_to_comparing() {
+  try {
+    $product_id = (int) $_POST['data']['product_id'];
+
+    $list = WC()->session->get( 'mst_bodleid_comparing_list' );
+
+    if ( ! in_array( $product_id, $list ) ) {
+      $list[] = $product_id;
+      WC()->session->set( 'mst_bodleid_comparing_list', $list );
+    }
+
+    wp_send_json_success( [ 'status' => wp_json_encode( $list ) ] );
+
+  } catch ( Exception $e ) {
+    wp_send_json_error( [ 'error' => $e ] );
+  }
+
+  wp_die();
+}
+
+function mst_bodleid_remove_from_comparing() {
+  try {
+    $product_id = (int) $_POST['data']['product_id'];
+
+    $list = WC()->session->get( 'mst_bodleid_comparing_list' );
+
+    if ( in_array( $product_id, $list ) ) {
+      $i = array_search( $product_id, $list );
+      unset( $list[$i] );
+      WC()->session->set( 'mst_bodleid_comparing_list', $list );
+    }
+
+    wp_send_json_success( [ 'status' => wp_json_encode( $list ) ] );
 
   } catch ( Exception $e ) {
     wp_send_json_error( [ 'error' => $e ] );
@@ -217,3 +299,12 @@ add_action( 'wp_ajax_nopriv_mst_bodleid_user_orders', 'mst_bodleid_user_orders' 
 
 add_action( 'wp_ajax_mst_bodleid_sign_up', 'mst_bodleid_sign_up' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_sign_up', 'mst_bodleid_sign_up' );
+
+add_action( 'wp_ajax_mst_bodleid_add_to_comparing', 'mst_bodleid_add_to_comparing' );
+add_action( 'wp_ajax_nopriv_mst_bodleid_add_to_comparing', 'mst_bodleid_add_to_comparing' );
+
+add_action( 'wp_ajax_mst_bodleid_remove_from_comparing', 'mst_bodleid_remove_from_comparing' );
+add_action( 'wp_ajax_nopriv_mst_bodleid_remove_from_comparing', 'mst_bodleid_remove_from_comparing' );
+
+add_action( 'wp_ajax_mst_bodleid_update_account_data', 'mst_bodleid_update_account_data' );
+add_action( 'wp_ajax_nopriv_mst_bodleid_update_account_data', 'mst_bodleid_update_account_data' );

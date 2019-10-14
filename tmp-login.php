@@ -18,8 +18,19 @@ get_header();
     <section class="login">
       <div class="container">
         <div class="row">
+          <div class="woocommerce-notices-wrapper">
+            <div class="woocommerce-message woocommerce-message--hidden woocommerce-message--login-page"
+                 role="alert">
+              <button class="w-close-btn"
+                      aria-label="<?php esc_html_e( 'Close alert', 'mst_bodleid' ); ?>">
+              </button>
+              <p class="woocommerce-message__text"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="login__wrapper">
-            <div class="notification"></div>
             <?php
               get_template_part( 'components/account/account', 'login-form' );
 

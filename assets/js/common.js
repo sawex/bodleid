@@ -15,9 +15,11 @@ const Main = function() {
   this.isCart = !!document.querySelector('.woocommerce-cart');
   this.quantityContainers = document.querySelectorAll('.product-quantity');
   this.quantityInputs = document.querySelectorAll('.qty');
+  this.updateCartBtn = document.querySelector('button[name="update_cart"]');
 
   this.isShop = !!document.querySelector('.woocommerce-shop');
   this.shopSliderContainer = document.querySelector('.custom-banner__slider');
+  this.shopSidebar = document.querySelector('.widget_product_categories');
 
   this.isSingle = !!document.querySelector('.single-product');
 };
@@ -200,7 +202,7 @@ Main.prototype.validateForm = function(form, validateOptions = {}) {
 /**
  * Adds error class to invalid fields.
  *
- * @param {array} formElements Form fields
+ * @param {NodeList} formElements Form fields
  * @param {array} invalidFields Invalid fields
  */
 Main.prototype.highlightInvalidFields = function(formElements, invalidFields) {
@@ -306,6 +308,10 @@ Main.prototype.setCartInputButtons = function() {
 
         el.previousElementSibling.children[1].value = newValue;
       }
+
+      if (this.updateCartBtn) {
+        this.updateCartBtn.disabled = false;
+      }
     });
 
   });
@@ -326,6 +332,14 @@ Main.prototype.initShopSlider = function() {
 
   jQuery('.custom-banner__slider').slick({
     arrows: false,
+    dots: true,
+    appendDots: jQuery('.custom-banner__nav-list'),
+    customPaging: function (slider, i) {
+      if (i < 10) {
+        i = `0${i + 1}`;
+      }
+      return `<button class="custom-banner__nav-btn" data-count="${i}"></button>`;
+    },
   });
 };
 
@@ -369,6 +383,49 @@ Main.prototype.setCloseModalButton = function() {
   });
 };
 
+Main.prototype.initShopSidebar = function() {
+  if (!this.shopSidebar) return;
+
+  const currentCat = document.querySelector('li.current-cat');
+  const parentCats = document.querySelectorAll('li.cat-parent');
+
+  if (currentCat) {
+    currentCat.classList.add('cat-parent--active');
+  }
+
+  // parentCats.forEach((cat) => {
+  //   cat.addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     if (e.target.classList.contains('cat-parent')) {
+  //       return cat.classList.toggle('cat-parent--active');
+  //     } else if (e.target.tagName === 'A') {
+  //       location = e.target.href;
+  //     }
+  //
+  //   });
+  // });
+};
+
+Main.prototype.listenCompareBtns = function() {
+  if (!document.querySelector('.compare-btn')) return;
+
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('compare-btn')) {
+      const id = e.target.parentElement.parentElement.dataset.id;
+
+      jQuery.ajax({
+        type: 'POST',
+        url: mainState.ajaxUrl,
+        data: {
+          action: 'mst_bodleid_add_to_comparing',
+          data: {
+            product_id: id,
+          },
+        },
+      });
+    }
+  });
+};
 
 Main.prototype.init = function() {
   this.initHamburgerMenu();
@@ -381,7 +438,10 @@ Main.prototype.init = function() {
   this.setFormFloatedLabels();
 
   this.setCartInputButtons();
+
   this.initShopSlider();
+  this.initShopSidebar();
+  this.listenCompareBtns();
 
   this.setSingleInputButtons();
   this.setCloseModalButton();
@@ -393,12 +453,25 @@ Main.prototype.init = function() {
  *
  */
 const Account = function() {
-  this.loginForm = document.querySelector('.login__form');
-  this.loginNotification = document.querySelector('.notification');
+  this.loginForm = document.querySelector('.login__form--login');
+  this.signupForm = document.querySelector('.login__new-client--signup');
+  this.loginPageNoticeWrapper = document.querySelector('.woocommerce-message--login-page');
+  this.loginPageNoticeParagraph = document.querySelector('.woocommerce-message--login-page .woocommerce-message__text');
 
   this.accountMenu = document.querySelector('.account__nav-list');
 
   this.accountForms = document.querySelectorAll('.login__form');
+};
+
+Account.prototype.alert = function(message = '') {
+  if (!this.loginPageNoticeWrapper) return;
+
+  this.loginPageNoticeWrapper.classList.remove('woocommerce-message--hidden');
+  this.loginPageNoticeParagraph.innerText = message;
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 };
 
 Account.prototype.initLoginForm = function() {
@@ -412,11 +485,13 @@ Account.prototype.initLoginForm = function() {
     const isValid = main.validateForm(e.target, {
       fields: {
         email: (value) => /\S+@\S+\.\S+/.test(value),
-        password: (value) => value.trim().length > 6,
+        user_password: (value) => value.trim().length > 6,
       }
     });
 
     if (isValid.result) {
+      const self = this;
+
       jQuery.ajax({
         type: 'POST',
         url: mainState.ajaxUrl,
@@ -429,12 +504,75 @@ Account.prototype.initLoginForm = function() {
           if (resp.success) {
             location = mainState.accountUrl;
           } else {
-            this.loginNotification.innerText = resp.data.error;
+            self.alert(resp.data.error);
           }
         },
       });
     } else {
-      main.highlightInvalidFields(e.target.querySelectorAll('.form__input'), isValid.invalidFields);
+      main.highlightInvalidFields(
+        e.target.querySelectorAll('.login__form--login .form__input'),
+        isValid.invalidFields
+      );
+    }
+  });
+};
+
+Account.prototype.initSignupForm = function() {
+  if (!this.signupForm) return;
+
+  this.signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const main = new Main;
+
+    const isValid = main.validateForm(e.target, {
+      fields: {
+        billing_first_name: (value) => {
+          return (
+            /^[ÁáÐðÉéÍíÓóÚúÝýÞþÆæÖöA-Za-z\s]+$/.test(value.trim()) &&
+            value.trim().length &&
+            value.trim().length <= 20
+          );
+        },
+        billing_email: (value) => /\S+@\S+\.\S+/.test(value),
+        billing_phone: (value) => {
+          return (
+            /^[0-9]+$/.test(value.trim()) &&
+            value.trim().length &&
+            value.trim().length <= 12
+          );
+        },
+        password: (value) => value.trim().length > 6,
+        billing_address_1: (value) => value.trim().length > 5,
+        billing_city: (value) => value.trim().length > 2,
+        billing_postcode: (value) => value.trim().length > 3,
+      }
+    });
+
+    if (isValid.result) {
+      const self = this;
+
+      jQuery.ajax({
+        type: 'POST',
+        url: mainState.ajaxUrl,
+        data: {
+          action: 'mst_bodleid_sign_up',
+          data: isValid.data,
+        },
+        success(resp) {
+          console.log(resp);
+          if (resp.success) {
+            location = mainState.accountUrl;
+          } else {
+            self.alert(resp.data.error);
+          }
+        },
+      });
+    } else {
+      main.highlightInvalidFields(
+        e.target.querySelectorAll('.login__new-client--signup .form__input'),
+        isValid.invalidFields
+      );
     }
   });
 };
@@ -465,24 +603,6 @@ Account.prototype.initAccountMenu = function() {
   });
 };
 
-Account.prototype.loadOrders = function() {
-  if (typeof jQuery === 'function') {
-    jQuery.ajax({
-      type: 'POST',
-      url: mainState.ajaxUrl,
-      data: {
-        action: 'mst_bodleid_user_orders',
-        data: {
-          page: 1,
-        },
-      },
-      success(resp) {
-        console.log(resp);
-      },
-    });
-  }
-};
-
 Account.prototype.setFormsCollapsing = function() {
   if (!this.accountForms.length) return;
 
@@ -496,11 +616,10 @@ Account.prototype.setFormsCollapsing = function() {
   });
 };
 
-
 Account.prototype.init = function() {
   this.initLoginForm();
+  this.initSignupForm();
   this.initAccountMenu();
-  // this.loadOrders();
   this.setFormsCollapsing();
 };
 

@@ -9,10 +9,10 @@
  */
 
 /* @var string $login_text */
-$login_text = wp_kses_post( get_field( 'login_text', 'option' ) );
+$login_text = wp_kses_post( get_field( 'account', 'option' )['login_text'] );
 ?>
 
-<form class="login__form">
+<form class="login__form login__form--login">
   <h3 class="tertiary-title login__title login__title--active">
     <?php esc_html_e( 'Log in', 'mst_bodleid' ); ?>
   </h3>
@@ -21,15 +21,15 @@ $login_text = wp_kses_post( get_field( 'login_text', 'option' ) );
 
   <div class="login__input-wrap">
     <div class="form__input-box">
-      <input class="form__input" type="text" name="email" id="email-field">
-      <label class="form__label" for="email-field">
+      <input class="form__input" type="text" name="email" id="login-email-field">
+      <label class="form__label" for="login-email-field">
         <?php esc_html_e( 'Email*', 'mst_bodleid' ); ?>
       </label>
     </div>
 
     <div class="form__input-box">
-      <input class="form__input" type="password" name="password" id="password-field">
-      <label class="form__label" for="password-field">
+      <input class="form__input" type="password" name="user_password" id="login-password-field">
+      <label class="form__label" for="login-password-field">
         <?php esc_html_e( 'Password*', 'mst_bodleid' ); ?>
       </label>
     </div>

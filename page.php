@@ -23,6 +23,17 @@ $show_testimonials = get_field( 'show_testimonials' );
 
 /* @var bool $dark_bg */
 $dark_bg = get_field( 'dark_background' );
+
+/* @var string $section_class */
+$section_class = '';
+
+if ( is_cart() ) {
+  $section_class = 'cart';
+} else if ( is_checkout() ) {
+  $section_class = '';
+} else {
+  $section_class = 'products__wrapper';
+}
 ?>
 
   <main class="main" id="content" role="main">
@@ -35,7 +46,8 @@ $dark_bg = get_field( 'dark_background' );
     <section class="products <?php echo $dark_bg ? 'bg--black' : ''; ?>">
       <div class="container">
         <div class="row">
-          <div class="<?php echo is_cart() ? 'cart' : 'products__wrapper'; ?>">
+            <div class="<?php echo esc_attr( $section_class ); ?>">
+
             <?php
               if ( have_posts() ) {
                 while ( have_posts() ) {

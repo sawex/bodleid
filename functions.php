@@ -211,7 +211,7 @@ function mst_bodleid_scripts() {
     'mainState',
     [
       'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-      'accountUrl' => home_url(),
+      'accountUrl' => esc_url( get_permalink( get_page_by_path( 'account' ) ) ),
     ]
   );
 

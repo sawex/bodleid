@@ -358,6 +358,7 @@ function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
     return null;
   }
 
+  $id = esc_html( $product->get_id() );
   $title = esc_html( $product->get_title() );
   $desc = wp_kses_post( wp_trim_words( $product->get_short_description(), 15, '...' ) );
   $price = wp_kses_post( $product->get_price_html() );
@@ -368,8 +369,8 @@ function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
 
   ?>
 
-  <<?php echo $node; ?> class="product-item">
-    <a href="<?php echo $url; ?>" class="product-link">
+  <<?php echo $node; ?> class="product-item" data-id="<?php echo $id; ?>">
+    <a href="<?php echo $url; ?>" class="product-link" style="height: initial;">
       <div class="product-img-box">
         <img src="<?php echo $image_url; ?>" alt="#" class="product-img">
       </div>
@@ -378,13 +379,13 @@ function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
         <h4><?php echo $title; ?></h4>
         <p><?php echo $desc; ?></p>
       </div>
-
-      <div class="product-price">
-        <?php echo $price; ?>
-        <button class="compare-btn"></button>
-      </div>
-
     </a>
+
+    <div class="product-price">
+      <?php echo $price; ?>
+      <button class="compare-btn"></button>
+    </div>
+
     <div class="to-cart-box">
       <!-- TODO: add-to-catr-bnt -->
       <a href="<?php echo $add_to_cart_url; ?>" class="add-to-catr-bnt">Setja í körfu</a>
@@ -427,3 +428,17 @@ add_filter( 'body_class', 'mst_bodleid_add_shop_class' );
  * Remove hooks from checkout
  */
 remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
+
+add_action( 'woocommerce_thankyou', 'mst_bodleid_thank_you_redirect');
+
+function mst_bodleid_thank_you_redirect( $order_id ){
+  $order = wc_get_order( $order_id );
+
+  $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order-received' ) ) );
+  $order_url = esc_url( add_query_arg( [ 'order_id' => $order_id ], $thank_you_page_url ) );
+
+  if ( ! $order->has_status( 'failed' ) ) {
+    wp_safe_redirect( $order_url );
+    exit;
+  }
+}

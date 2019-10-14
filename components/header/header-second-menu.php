@@ -12,6 +12,9 @@ $account_page = esc_url( get_permalink( get_page_by_path( 'account' ) ) );
 
 /* @var string $login_page */
 $login_page = esc_url( get_permalink( get_page_by_path( 'login' ) ) );
+
+/* @var string $compairing_page */
+$comparing_page = esc_url( get_permalink( get_page_by_path( 'products-comparing' ) ) );
 ?>
 
 <ul class="header__user-cases">
@@ -30,7 +33,7 @@ $login_page = esc_url( get_permalink( get_page_by_path( 'login' ) ) );
   </li>
 
   <li class="header__comparison-item">
-    <a href="#" class="header__comparison-link">
+    <a href="<?php echo $comparing_page; ?>" class="header__comparison-link">
       <?php mst_bodleid_the_theme_svg( 'comparison' ); ?>
     </a>
   </li>

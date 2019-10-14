@@ -29,11 +29,13 @@ if ( post_password_required() ) {
 	return;
 }
 
+/* @var int $post_thumbnail_id */
 $post_thumbnail_id = $product->get_image_id();
 
 /* @var string $image_url */
 $image_url = esc_url( wp_get_attachment_image_src( $post_thumbnail_id, 'full' )[0] );
 
+/* @var array $related */
 $related = $product->get_cross_sell_ids();
 ?>
 <div id="product-<?php the_ID(); ?>" class="one-product">
@@ -93,7 +95,10 @@ $related = $product->get_cross_sell_ids();
 
           <ul class="one-product__nav-menu">
             <li class="one-product__nav-item">
-              <a href="#" class="one-product__nav-link one-product__compare-link">Samanburður</a>
+              <a class="one-product__nav-link one-product__compare-link"
+                 data-id="<?php the_ID(); ?>">
+                <?php esc_html_e( 'Comparison', 'mst_bodleid' ); ?>
+              </a>
             </li>
             <li class="one-product__nav-item">
               <a href="<?php echo add_query_arg(
@@ -101,7 +106,8 @@ $related = $product->get_cross_sell_ids();
                     'https://www.facebook.com/sharer.php'
                   );
                 ?>"
-                 class="one-product__nav-link one-product__share-link">
+                 class="one-product__nav-link one-product__share-link"
+                 target="_blank">
                 <?php esc_html_e( 'Share', 'mst_bodleid' ); ?>
               </a>
             </li>
@@ -113,7 +119,9 @@ $related = $product->get_cross_sell_ids();
     <div class="row">
       <div class="one-product__product-detail-container">
         <div class="one-product__detail-title-box">
-          <h3 class="tertiary-title one-product__detail-title">Vörulýsing</h3>
+          <h3 class="tertiary-title one-product__detail-title">
+            <?php esc_html_e( 'Product Description', 'mst_bodleid' ); ?>
+          </h3>
         </div>
         <div class="one-product__detail">
           <p><?php echo $product->get_description(); ?></p>
@@ -121,26 +129,27 @@ $related = $product->get_cross_sell_ids();
       </div>
     </div>
 
-    <div class="row">
-      <div class="one-product__related-prod-container">
-        <div class="one-product__detail-title-box">
-          <h3 class="tertiary-title one-product__related-title">Skyldar vörur</h3>
-        </div>
+    <?php if ( ! empty( $related ) && function_exists( 'mst_bodleid_the_product_html' ) ) { ?>
+      <div class="row">
+        <div class="one-product__related-prod-container">
+          <div class="one-product__detail-title-box">
+            <h3 class="tertiary-title one-product__related-title">
+              <?php esc_html_e( 'Related products', 'mst_bodleid' ); ?>
+            </h3>
+          </div>
 
-        <div class="one-product__related-products">
-          <ul class="product-menu">
-            <?php
-              if ( ! empty( $related ) && function_exists( 'mst_bodleid_the_product_html' ) ) {
+          <div class="one-product__related-products">
+            <ul class="product-menu">
+              <?php
                 foreach ( $related as $related_product ) {
                   mst_bodleid_the_product_html( $related_product );
                 }
-              }
-            ?>
-          </ul>
+              ?>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-
+    <?php } ?>
   </div>
 
 	<?php

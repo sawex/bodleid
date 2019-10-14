@@ -28,13 +28,30 @@ get_header( 'shop' );
  */
 do_action( 'woocommerce_before_main_content' );
 
-if ( is_shop() ) {
+if ( ! is_search() && is_shop() ) {
   get_template_part( 'components/page/content', 'banner-shop' );
 }
 
 /* @var array|stdClass $featured_products */
-$featured_products = wc_get_products( [ 'featured' => true ] );
-?>
+$featured_products = wc_get_products( [
+  'featured' => true,
+  'paginate' => false,
+  'limit' => 6,
+  ] );
+
+/* @var array $catalogs_ids */
+$catalogs_ids = get_field( 'catalogs', 'option' );
+
+if ( ! is_shop() ) { ?>
+  <div class="breadcrumbs">
+    <div class="container">
+      <div class="row">
+        <?php get_template_part( 'components/page/content', 'breadcrumbs' ); ?>
+      </div>
+    </div>
+  </div>
+<?php } ?>
+
   <section class="shop" id="shop">
     <div class="container">
       <div class="row">
@@ -50,9 +67,19 @@ $featured_products = wc_get_products( [ 'featured' => true ] );
 
       <aside class="filters"><?php get_sidebar(); ?></aside>
       <div class="shop__products-container">
-        <?php if ( ! is_search() ) { ?>
-          <h2 class="shop__title secondary-title shop__title--abs"><?php woocommerce_page_title(); ?></h2>
-        <?php } ?>
+        <?php
+          if ( ! is_search() ) {
+            if (is_shop()) {
+              ?>
+              <h2 class="shop__title secondary-title shop__title--abs">
+                <?php esc_html_e( 'Featured products', 'mst_bodleid' ); ?>
+              </h2>
+            <?php } else { ?>
+              <h2 class="shop__title secondary-title shop__title--abs"><?php woocommerce_page_title(); ?></h2>
+              <?php
+            }
+          }
+        ?>
 
       <?php
         if ( woocommerce_product_loop() ) {
@@ -78,21 +105,29 @@ $featured_products = wc_get_products( [ 'featured' => true ] );
               do_action( 'woocommerce_shop_loop' );
 
               mst_bodleid_the_product_html();
+
             }
           } else {
             foreach ( $featured_products as $featured_product ) {
               mst_bodleid_the_product_html( $featured_product );
             }
+            ?>
+            <div class="fake-item"></div>
+            <?php
           }
+
 
           woocommerce_product_loop_end();
 
-          /**
-           * Hook: woocommerce_after_shop_loop.
-           *
-           * @hooked woocommerce_pagination - 10
-           */
-          do_action( 'woocommerce_after_shop_loop' );
+          if ( ! is_shop() ) {
+            /**
+             * Hook: woocommerce_after_shop_loop.
+             *
+             * @hooked woocommerce_pagination - 10
+             */
+            do_action('woocommerce_after_shop_loop');
+          }
+
         } else {
           /**
            * Hook: woocommerce_no_products_found.
@@ -120,7 +155,87 @@ $featured_products = wc_get_products( [ 'featured' => true ] );
       </div>
     </div>
   </div>
+</section>
+
+<?php if ( is_shop() ) { ?>
+  <section class="catalogs">
+    <?php
+      if ( ! empty( $catalogs_ids ) ) {
+        foreach ( $catalogs_ids as $catalog ) {
+          $rows = get_field( 'catalog_rows', $catalog );
+
+          if ( is_array( $rows ) ) {
+            foreach ($rows as $index => $row) {
+              /* @var string $title Row title */
+              $title = esc_html($row['row_info']['title']);
+
+              /* @var string $desc Row description */
+              $desc = wp_kses_post($row['row_info']['desc']);
+
+              /* @var string $image_src Row right image */
+              $image_src = esc_url($row['row_info']['image']['url']);
+
+              /* @var string $image_alt */
+              $image_alt = esc_url($row['row_info']['image']['alt']);
+
+              /* @var array $products WC products IDs */
+              $products = $row['products'];
+
+              /* @var string $button_title */
+              $button_title = esc_html($row['button']['title']);
+
+              /* @var string $button_href */
+              $button_href = esc_url($row['button']['href']);
+              ?>
+
+              <section class="category-product
+            <?php echo $index % 2 === 0 ? 'category-product--yellow' : 'category-product--black'; ?>">
+                <div class="container">
+                  <div class="row">
+                    <div class="category-product__wrapper">
+                      <div class="products__service">
+                        <h3 class="tertiary-title products__service-title"><?php echo $title; ?></h3>
+                        <div class="fake-list products__service-desc">
+                          <?php echo $desc; ?>
+
+                          <div class="products__img-box">
+                            <img src="<?php echo $image_src; ?>" alt="<?php echo $image_alt; ?>" class="products__img">
+                          </div>
+                        </div>
+
+                        <?php if ( $button_title && ! $products ) { ?>
+                          <a href="<?php echo $button_href; ?>" class="shop-link shop-link--align-left">
+                            <?php echo $button_title; ?>
+                          </a>
+                        <?php } ?>
+                      </div>
+
+                      <?php if ( ! empty( $products ) && function_exists( 'mst_bodleid_the_product_html' ) ) { ?>
+                        <ul class="category-product__product-list">
+                          <?php
+                          foreach ( $products as $product ) {
+                            mst_bodleid_the_product_html( $product );
+                          }
+                          ?>
+                        </ul>
+                      <?php } ?>
+
+                      <?php if ( $button_title && $products ) { ?>
+                        <a href="<?php echo $button_href; ?>" class="shop-link"><?php echo $button_title; ?></a>
+                      <?php } ?>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <?php
+            }
+          }
+        }
+      }
+    ?>
   </section>
+<?php } ?>
 
 <?php
 get_footer( 'shop' );

@@ -19,7 +19,16 @@ defined( 'ABSPATH' ) || exit;
 
 do_action( 'woocommerce_before_cart' ); ?>
 
+<section class="breadcrumbs">
+  <div class="container">
+    <div class="row">
+      <?php get_template_part( 'components/page/content', 'breadcrumbs' ); ?>
+    </div>
+  </div>
+</section>
+
 <section class="cart" id="cart">
+
   <div class="container">
     <div class="row">
       <div class="woocommerce-notices-wrapper">
@@ -128,7 +137,8 @@ do_action( 'woocommerce_before_cart' ); ?>
                       <p class="total__sum"><?php echo WC()->cart->get_total(); ?></p>
                     </div>
                     <div class="wc-proceed-to-checkout">
-                      <a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="checkout-button button alt wc-forward">
+                      <a href="<?php echo esc_url( wc_get_checkout_url() ); ?>"
+                         class="checkout-button button alt wc-forward">
                         <?php esc_html_e( 'Proceed to checkout', 'woocommerce' ); ?>
                       </a>
                     </div>
