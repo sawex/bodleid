@@ -1,3 +1,7 @@
+#cart {
+  padding-bottom: 250px;
+}
+
 .cart__orders-list-container,
 .woocommerce-cart-form,
 .shop_table {
@@ -12,6 +16,10 @@
   height: 141px;
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.12);
   border-bottom: 8px solid #323232;
+}
+
+.shop_table thead .cart-title {
+  font-size: 45px;
 }
 
 table.shop_table_responsive tr td {
@@ -238,6 +246,23 @@ tfoot .actions > .button::before {
   font-size: 31px;
   font-weight: 700;
   margin: 0;
+}
+
+.coupon .form__input-filled + .form__label, 
+.coupon .form__input:focus + .form__label {
+  top: -25px !important;
+}
+
+.product-model {
+  display: table;
+}
+
+.product-price {
+  // width: 100%;
+  // height: 66px;
+  // display: flex;
+  // align-items: center;
+  padding-top: 20px;
 }
 
 //fix under woocommerce
