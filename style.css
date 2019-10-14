@@ -25,6 +25,13 @@ html {
 .bg--black {
   background-image: none !important;
   background-color: #323232 !important;
+<<<<<<< HEAD
+=======
+}
+.screen-reader-text {
+  display: none;
+
+>>>>>>> cc7db42fccfbcfe2ac4e90c2861622accac76447
 }
 @font-face {
   font-family: 'Brandon Grotesque';

@@ -7,8 +7,6 @@
  * @package Bodleid
  * @since 1.0.0
  */
-
-if ( is_cart() ) return;
 ?>
 
 <section class="instructions-banner">

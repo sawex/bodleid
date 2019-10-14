@@ -207,7 +207,7 @@ if ( ! function_exists( 'mst_bodleid_woocommerce_cart_link_fragment' ) ) {
 	function mst_bodleid_woocommerce_cart_link_fragment( $fragments ) {
 		ob_start();
 		mst_bodleid_woocommerce_cart_link();
-		$fragments['a.cart-contents'] = ob_get_clean();
+		$fragments['li.header__cart-item'] = ob_get_clean();
 
 		return $fragments;
 	}
@@ -224,16 +224,13 @@ if ( ! function_exists( 'mst_bodleid_woocommerce_cart_link' ) ) {
 	 */
 	function mst_bodleid_woocommerce_cart_link() {
 		?>
-		<a class="cart-contents" href="<?php echo esc_url( wc_get_cart_url() ); ?>" title="<?php esc_attr_e( 'View your shopping cart', 'mst_bodleid' ); ?>">
-			<?php
-			$item_count_text = sprintf(
-				/* translators: number of items in the mini cart. */
-				_n( '%d item', '%d items', WC()->cart->get_cart_contents_count(), 'mst_bodleid' ),
-				WC()->cart->get_cart_contents_count()
-			);
-			?>
-			<span class="amount"><?php echo wp_kses_data( WC()->cart->get_cart_subtotal() ); ?></span> <span class="count"><?php echo esc_html( $item_count_text ); ?></span>
-		</a>
+    <li class="header__cart-item" data-count="<?php echo WC()->cart->get_cart_contents_count(); ?>">
+      <a href="<?php echo esc_url( wc_get_cart_url() ); ?>"
+         class="header__cart-link"
+         title="<?php esc_attr_e( 'View your shopping cart', 'mst_bodleid' ); ?>">
+        <?php mst_bodleid_the_theme_svg( 'cart' ); ?>
+      </a>
+    </li>
 		<?php
 	}
 }
@@ -272,6 +269,8 @@ if ( ! function_exists( 'mst_bodleid_woocommerce_header_cart' ) ) {
 /**
  * Remove hooks from content-single-product.php
  */
+remove_all_actions( 'woocommerce_before_single_product' );
+add_action( 'mst_bodleid_wc_notices', 'wc_print_notices', 10 );
 remove_all_actions( 'woocommerce_before_single_product_summary' );
 remove_all_actions( 'woocommerce_after_single_product_summary' );
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
@@ -347,7 +346,12 @@ add_filter( 'woocommerce_short_description', 'mst_bodleid_woocommerce_short_desc
  *
  * @return void
  */
-function mst_bodleid_the_product_html( $id, $node = 'li' ) {
+function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
+  global $product;
+
+  if ( empty( $id) ) {
+    $id = $product->get_id();
+  }
   $product = wc_get_product( $id );
 
   if ( empty( $product ) ) {
@@ -360,6 +364,7 @@ function mst_bodleid_the_product_html( $id, $node = 'li' ) {
   $url = $product->get_permalink();
   $post_thumbnail_id = $product->get_image_id();
   $image_url = esc_url( wp_get_attachment_image_src( $post_thumbnail_id, 'medium' )[0] );
+  $add_to_cart_url = esc_url( $product->add_to_cart_url() )
 
   ?>
 
@@ -381,7 +386,8 @@ function mst_bodleid_the_product_html( $id, $node = 'li' ) {
 
     </a>
     <div class="to-cart-box">
-      <a href="<?php echo $url; ?>" class="add-to-catr-bnt">Setja í körfu</a>
+      <!-- TODO: add-to-catr-bnt -->
+      <a href="<?php echo $add_to_cart_url; ?>" class="add-to-catr-bnt">Setja í körfu</a>
     </div>
   </<?php echo $node; ?>>
 
@@ -391,5 +397,33 @@ function mst_bodleid_the_product_html( $id, $node = 'li' ) {
 /**
  * Remove hooks from cart.php
  */
-
 remove_all_actions( 'woocommerce_cart_collaterals' );
+
+/**
+ * Remove hooks from archive-product.php
+ */
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper' );
+remove_action( 'woocommerce_after_main_content', 'woocommerce_after_main_content' );
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+remove_action( 'woocommerce_before_cart', 'wc_print_notices', 20 );
+
+/**
+ * Add woocommerce-shop class to the /shop page
+ *
+ * @param array $classes HTML <body> classes
+ * @return array Updated classes
+ */
+function mst_bodleid_add_shop_class( $classes ) {
+  if ( is_shop() ) {
+    $classes[] = 'woocommerce-shop';
+  }
+
+  return $classes;
+}
+
+add_filter( 'body_class', 'mst_bodleid_add_shop_class' );
+
+/**
+ * Remove hooks from checkout
+ */
+remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
