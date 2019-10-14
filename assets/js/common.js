@@ -11,6 +11,15 @@ const Main = function() {
   this.footerFormSuccessMessage = document.querySelector('.form__success');
 
   this.instructionVideoLinks = document.querySelectorAll('.main-instructions__video');
+
+  this.isCart = !!document.querySelector('.woocommerce-cart');
+  this.quantityContainers = document.querySelectorAll('.product-quantity');
+  this.quantityInputs = document.querySelectorAll('.qty');
+
+  this.isShop = !!document.querySelector('.woocommerce-shop');
+  this.shopSliderContainer = document.querySelector('.custom-banner__slider');
+
+  this.isSingle = !!document.querySelector('.single-product');
 };
 
 Main.prototype.setAnimations = function() {
@@ -273,6 +282,94 @@ Main.prototype.setFormFloatedLabels = function() {
   });
 };
 
+Main.prototype.setCartInputButtons = function() {
+  if (!this.isCart) return;
+
+  this.quantityContainers.forEach((container) => {
+    container.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const el = e.target;
+
+      if (el.classList.contains('one-product__btn--plus')) {
+        const newValue = parseInt(el.nextElementSibling.children[1].value) + 1;
+        el.nextElementSibling.children[1].value = newValue;
+      }
+
+      if (el.classList.contains('one-product__btn--minus')) {
+        const newValue = parseInt(el.previousElementSibling.children[1].value) - 1;
+
+        if (newValue <= 0) {
+          el.previousElementSibling.children[1].value = 0;
+          return;
+        }
+
+        el.previousElementSibling.children[1].value = newValue;
+      }
+    });
+
+  });
+
+  this.quantityInputs.forEach((input) => {
+    input.addEventListener('change', () => {
+      if (parseInt(input.value) === 0) {
+        input.parentElement.nextElementSibling.classList.add('one-product__btn--inactive');
+      } else {
+        input.parentElement.nextElementSibling.classList.remove('one-product__btn--inactive');
+      }
+    });
+  });
+};
+
+Main.prototype.initShopSlider = function() {
+  if (!this.shopSliderContainer) return;
+
+  jQuery('.custom-banner__slider').slick({
+    arrows: false,
+  });
+};
+
+Main.prototype.setSingleInputButtons = function() {
+  if (!this.isSingle) return;
+
+  document.
+    querySelector('.one-product__btn--plus').
+    addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const el = e.target;
+      const newValue = parseInt(el.nextElementSibling.children[1].value) + 1;
+
+      el.nextElementSibling.children[1].value = newValue;
+  });
+
+  document.
+    querySelector('.one-product__btn--minus').
+    addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const el = e.target;
+      const newValue = parseInt(el.previousElementSibling.children[1].value) - 1;
+
+      if (newValue <= 0) {
+        el.previousElementSibling.children[1].value = 1;
+        return;
+      }
+
+      el.previousElementSibling.children[1].value = newValue;
+  });
+};
+
+
+Main.prototype.setCloseModalButton = function() {
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('w-close-btn')) {
+      e.target.parentElement.remove();
+    }
+  });
+};
+
+
 Main.prototype.init = function() {
   this.initHamburgerMenu();
   this.setAnimations();
@@ -282,6 +379,12 @@ Main.prototype.init = function() {
   this.setClientsSlider();
   this.setTestimonialsSlider();
   this.setFormFloatedLabels();
+
+  this.setCartInputButtons();
+  this.initShopSlider();
+
+  this.setSingleInputButtons();
+  this.setCloseModalButton();
 };
 
 /**

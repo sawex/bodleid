@@ -22,6 +22,19 @@ do_action( 'woocommerce_before_cart' ); ?>
 <section class="cart" id="cart">
   <div class="container">
     <div class="row">
+      <div class="woocommerce-notices-wrapper">
+        <?php
+        /**
+         * Hook: mst_bodleid_wc_notices.
+         *
+         * @hooked wc_print_notices - 10
+         */
+        do_action( 'mst_bodleid_wc_notices' );
+        ?>
+      </div>
+    </div>
+
+    <div class="row">
       <div class="cart__orders-list-container">
         <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 
@@ -139,9 +152,6 @@ do_action( 'woocommerce_before_cart' ); ?>
               <tr class="woocommerce-cart-form__cart-item cart_item <?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
 
                 <td class="product-thumbnail" data-title="<?php esc_attr_e( 'Cart', 'woocommerce' ); ?>">
-<!--                  <a href="https://bodleid.ludur.net/product/happy-ninja-2/">-->
-<!--                    <img width="300" height="300" src="https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-300x300.jpg 300w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-150x150.jpg 150w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-768x768.jpg 768w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-600x600.jpg 600w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front-100x100.jpg 100w, https://bodleid.ludur.net/wp-content/uploads/2019/10/T_7_front.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px">-->
-<!--                  </a>-->
                   <?php
                   $thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
 
@@ -154,26 +164,22 @@ do_action( 'woocommerce_before_cart' ); ?>
                 </td>
 
                 <td class="product-name" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
-<!--                  <a href="https://bodleid.ludur.net/product/happy-ninja-2/">-->
-<!--                    Happy Ninja-->
-<!--                    <span class="product-model">Vörunúmer: AVER_CAM520</span>-->
-<!--                  </a>-->
                   <?php
-                  if ( ! $product_permalink ) {
-                    echo wp_kses_post(apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;' );
-                  } else {
-                    echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) );
-                  }
+                    if ( ! $product_permalink ) {
+                      echo wp_kses_post(apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key ) . '&nbsp;' );
+                    } else {
+                      echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $cart_item, $cart_item_key ) );
+                    }
 
-                  do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
+                    do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
 
-                  // Meta data.
-                  echo wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok.
+                    // Meta data.
+                    echo wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok.
 
-                  // Backorder notification.
-                  if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
-                    echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>', $product_id ) );
-                  }
+                    // Backorder notification.
+                    if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
+                      echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>', $product_id ) );
+                    }
                   ?>
 
                   <span class="product-model">
@@ -218,7 +224,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
                     echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item ); // PHPCS: XSS ok.
                     ?>
-                    <button class="one-product__btn one-product__btn--minus one-product__btn--inactive">-</button>
+                    <button class="one-product__btn one-product__btn--minus">-</button>
                   </div>
                 </td>
 

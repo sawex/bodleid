@@ -21,8 +21,6 @@ global $product;
 
 /**
  * Hook: woocommerce_before_single_product.
- *
- * @hooked wc_print_notices - 10
  */
 do_action( 'woocommerce_before_single_product' );
 
@@ -40,6 +38,19 @@ $related = $product->get_cross_sell_ids();
 ?>
 <div id="product-<?php the_ID(); ?>" class="one-product">
   <div class="container">
+    <div class="row">
+      <div class="woocommerce-notices-wrapper">
+        <?php
+          /**
+           * Hook: mst_bodleid_wc_notices.
+           *
+           * @hooked wc_print_notices - 10
+           */
+            do_action( 'mst_bodleid_wc_notices' );
+          ?>
+      </div>
+    </div>
+
     <div class="row">
       <?php
       /**
