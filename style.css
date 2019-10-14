@@ -26,6 +26,9 @@ html {
   background-image: none !important;
   background-color: #323232 !important;
 }
+.screen-reader-text {
+  display: none;
+}
 @font-face {
   font-family: 'Brandon Grotesque';
   font-style: normal;
