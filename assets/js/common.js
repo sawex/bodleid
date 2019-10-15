@@ -22,6 +22,8 @@ const Main = function() {
   this.shopSidebar = document.querySelector('.widget_product_categories');
 
   this.isSingle = !!document.querySelector('.single-product');
+
+  this.isComparison = !!document.querySelector('.page-comparison');
 };
 
 Main.prototype.setAnimations = function() {
@@ -374,6 +376,28 @@ Main.prototype.setSingleInputButtons = function() {
   });
 };
 
+Main.prototype.setSingleCompareButton = function() {
+  if (!this.isSingle) return;
+
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('one-product__compare-link')) {
+      const id = e.target.dataset.id;
+
+      jQuery.ajax({
+        type: 'POST',
+        url: mainState.ajaxUrl,
+        data: {
+          action: 'mst_bodleid_add_to_comparing',
+          data: {
+            product_id: id,
+          },
+        },
+      });
+    }
+  });
+
+};
+
 
 Main.prototype.setCloseModalButton = function() {
   document.addEventListener('click', (e) => {
@@ -427,6 +451,45 @@ Main.prototype.listenCompareBtns = function() {
   });
 };
 
+Main.prototype.initComparisonRemoveBtns = function() {
+  if (!this.isComparison) return;
+
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('compare__remove-bnt')) {
+      const id = e.target.parentElement.dataset.id;
+
+      jQuery.ajax({
+        type: 'POST',
+        url: mainState.ajaxUrl,
+        data: {
+          action: 'mst_bodleid_remove_from_comparing',
+          data: {
+            product_id: id,
+          },
+        },
+        success(resp) {
+          if (resp.success) {
+            document.querySelectorAll(`[data-product-id="${id}"]`).forEach(el => el.remove());
+
+            if (!document.querySelector('[data-product-id]')) {
+              document.querySelector('.compare__table').remove();
+              document.querySelector('.compare__table-wrap').innerHTML = `
+               <div class="search__result-title-box">
+                <h2 class="secondary-title search__result-title">
+                  No products were found matching your selection.
+                </h2>
+              </div>
+              `;
+              document.querySelector('.compare__table-wrap').classList.remove('compare__table-wrap');
+
+            }
+          }
+        },
+      });
+    }
+  });
+};
+
 Main.prototype.init = function() {
   this.initHamburgerMenu();
   this.setAnimations();
@@ -444,7 +507,10 @@ Main.prototype.init = function() {
   this.listenCompareBtns();
 
   this.setSingleInputButtons();
+  this.setSingleCompareButton();
   this.setCloseModalButton();
+
+  this.initComparisonRemoveBtns();
 };
 
 /**
@@ -455,6 +521,7 @@ Main.prototype.init = function() {
 const Account = function() {
   this.loginForm = document.querySelector('.login__form--login');
   this.signupForm = document.querySelector('.login__new-client--signup');
+  this.accountForm = document.querySelector('.login__new-client--account');
   this.loginPageNoticeWrapper = document.querySelector('.woocommerce-message--login-page');
   this.loginPageNoticeParagraph = document.querySelector('.woocommerce-message--login-page .woocommerce-message__text');
 
@@ -577,6 +644,65 @@ Account.prototype.initSignupForm = function() {
   });
 };
 
+Account.prototype.initAccountForm = function() {
+  if (!this.accountForm) return;
+
+  this.accountForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const main = new Main;
+
+    const isValid = main.validateForm(e.target, {
+      fields: {
+        billing_first_name: (value) => {
+          return (
+            /^[ÁáÐðÉéÍíÓóÚúÝýÞþÆæÖöA-Za-z\s]+$/.test(value.trim()) &&
+            value.trim().length &&
+            value.trim().length <= 20
+          );
+        },
+        billing_email: (value) => /\S+@\S+\.\S+/.test(value),
+        billing_phone: (value) => {
+          return (
+            /^[0-9]+$/.test(value.trim()) &&
+            value.trim().length &&
+            value.trim().length <= 12
+          );
+        },
+        billing_address_1: (value) => value.trim().length > 5,
+        billing_city: (value) => value.trim().length > 2,
+        billing_postcode: (value) => value.trim().length > 3,
+      }
+    });
+
+    if (isValid.result) {
+      const self = this;
+
+      jQuery.ajax({
+        type: 'POST',
+        url: mainState.ajaxUrl,
+        data: {
+          action: 'mst_bodleid_update_account_data',
+          data: isValid.data,
+        },
+        success(resp) {
+          console.log(resp);
+          if (resp.success) {
+            location = mainState.accountUrl;
+          } else {
+            self.alert(resp.data.error);
+          }
+        },
+      });
+    } else {
+      main.highlightInvalidFields(
+        e.target.querySelectorAll('.login__new-client--signup .form__input'),
+        isValid.invalidFields
+      );
+    }
+  });
+};
+
 Account.prototype.initAccountMenu = function() {
   if (!this.accountMenu) return;
 
@@ -619,6 +745,7 @@ Account.prototype.setFormsCollapsing = function() {
 Account.prototype.init = function() {
   this.initLoginForm();
   this.initSignupForm();
+  this.initAccountForm();
   this.initAccountMenu();
   this.setFormsCollapsing();
 };

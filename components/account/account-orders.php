@@ -31,65 +31,78 @@ $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order-received'
 
 <div class="orders">
   <?php if ( ! empty( $orders ) ) { ?>
-    <div class="orders__headlines-box">
-      <h3 class="orders__headline orders__headline--id">
-        <?php esc_html_e( 'Order number', 'mst_bodleid' ); ?>
-      </h3>
-      <h3 class="orders__headline orders__headline--date">
-        <?php esc_html_e( 'Date', 'mst_bodleid' ); ?>
-      </h3>
-      <h3 class="orders__headline orders__headline--status">
-        <?php esc_html_e( 'Status', 'mst_bodleid' ); ?>
-      </h3>
-      <h3 class="orders__headline orders__headline--total-summ">
-        <?php esc_html_e( 'Total', 'mst_bodleid' ); ?>
-      </h3>
-    </div>
+    <table class="orders__table">
+      <thead>
+        <tr>
+          <th class="orders__headline orders__headline--id">
+            <?php esc_html_e( 'Order number', 'mst_bodleid' ); ?>
+          </th>
+          <th class="orders__headline orders__headline--date">
+            <?php esc_html_e( 'Date', 'mst_bodleid' ); ?>
+          </th>
+          <th class="orders__headline orders__headline--status">
+            <?php esc_html_e( 'Status', 'mst_bodleid' ); ?>
+          </th>
+          <th class="orders__headline orders__headline--total-summ">
+            <?php esc_html_e( 'Total', 'mst_bodleid' ); ?>
+          </th>
+          <th> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        foreach ( $orders as $order ) {
+          /* @var string $id */
+          $id = esc_html( sprintf( '#%d', $order->get_id() ) );
 
-    <?php
-      foreach ( $orders as $order ) {
-        /* @var string $id */
-        $id = esc_html( sprintf( '#%d', $order->get_id() ) );
+          /* @var string $status */
+          $status = esc_html( ucfirst( $order->get_status() ) );
 
-        /* @var string $status */
-        $status = esc_html( ucfirst( $order->get_status() ) );
+          /* @var string $date */
+          $date = esc_html( $order->get_date_created()->date_i18n( 'M d, Y' ) );
 
-        /* @var string $date */
-        $date = esc_html( $order->get_date_created()->date_i18n( 'M d, Y' ) );
+          /* @var string $total */
+          $total = wp_kses_post( $order->get_formatted_order_total() );
 
-        /* @var string $total */
-        $total = wp_kses_post( $order->get_formatted_order_total() );
+          /* @var string $order_url */
+          $order_url = esc_url( add_query_arg( [ 'order_id' => $order->get_id() ], $thank_you_page_url ) );
+          ?>
 
-        /* @var string $order_url */
-        $order_url = esc_url( add_query_arg( [ 'order_id' => $order->get_id() ], $thank_you_page_url ) );
-      }
-    ?>
+            <tr>
+              <td data-text="<?php esc_html_e( 'Order number', 'mst_bodleid' ); ?>"
+                  class="orders__info-id">
+                <span><?php echo $id; ?></span>
+              </td>
+              <td data-text="<?php esc_html_e( 'Date', 'mst_bodleid' ); ?>"
+                  class="orders__info-datе">
+                <span><?php echo $date; ?></span>
+              </td>
+              <td data-text="<?php esc_html_e( 'Status', 'mst_bodleid' ); ?>"
+                  class="orders__info-status">
+                <span><?php echo $status; ?></span>
+              </td>
+              <td data-text="<?php esc_html_e( 'Total', 'mst_bodleid' ); ?>"
+                  class="orders__info-total-summ">
+                <?php echo $total; ?>
+              </td>
+              <td>
+                <a href="<?php echo $order_url; ?>" class="orders__view-btn">
+                  <?php esc_html_e( 'View', 'mst_bodleid' ); ?>
+                </a>
+              </td>
+            </tr>
 
-    <div class="orders__order-info-box">
-      <p class="orders__info-id"><?php echo $id; ?></p>
-      <p class="orders__info-datе"><?php echo $date; ?></p>
-      <p class="orders__info-status"><?php echo $status; ?></p>
-      <p class="orders__info-total-summ"><?php echo $total; ?></p>
-      <a href="<?php echo $order_url; ?>" class="orders__view-btn">
-        <?php esc_html_e( 'View', 'mst_bodleid' ); ?>
-      </a>
-    </div>
+          <?php } ?>
 
-    <?php if ( ! empty( $pages ) && (int) $pages !== 1 ) { ?>
-      <ul class="orders__pagination">
-        <?php for ( $counter = 1; $counter <= $pages; $counter++ ) { ?>
-          <li class="orders__pagination-item">
-            <a class="orders__pagination-link orders__pagination-link--active">
-              <?php echo $counter; ?>
-            </a>
-          </li>
-        <?php } ?>
-      </ul>
-    <?php } ?>
+
+      </tbody>
+    </table>
 
   <?php } else { ?>
-    <p class="orders__none">
-      <?php esc_html_e( 'You don\'t have orders for now', 'mst_bodleid' ); ?>
-    </p>
+    <div class="search__result-title-box">
+      <h2 class="secondary-title search__result-title">
+        <?php esc_html_e( 'No orders were found matching your selection.', 'woocommerce' ); ?>
+      </h2>
+    </div>
   <?php } ?>
 </div>

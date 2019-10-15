@@ -19,7 +19,7 @@
 	display: block;
 	width: 10px;
 	height: 19px;
-	background-image: url(../images/icons/bc-arrow.svg);
+	background-image: url(./assets/images/icons/bc-arrow.svg);
 	position: absolute;
 	right: -25px;
 	top: 3px;
@@ -46,7 +46,42 @@
 	display: block;
 	width: 24px;
 	height: 24px;
-	background-image: url(../images/icons/home-icon.svg);
+	background-image: url(./assets/images/icons/home-icon.svg);
 }
 
 .breadcrumbs__link-content {}
+
+.breadcrumbs__list li {
+	.breadcrumbs__list-item;
+}
+
+.breadcrumbs__list li::after {
+	content: '';
+	display: block;
+	width: 10px;
+	height: 19px;
+	background-image: url(./assets/images/icons/bc-arrow.svg);
+	position: absolute;
+	right: -25px;
+	top: 3px;
+}
+
+.breadcrumbs__list li:last-child::after {
+	content: none;
+}
+
+.breadcrumbs__list li:last-child a {
+	cursor: default;
+}
+
+.breadcrumbs__list li:first-child a span {
+	display: block;
+	width: 24px;
+	height: 24px;
+	background-image: url(./assets/images/icons/home-icon.svg);
+}
+
+.breadcrumbs__list li a,
+.breadcrumbs__list li span {
+	.breadcrumbs__link;
+}

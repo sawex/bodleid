@@ -7,12 +7,13 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="woocommerce.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
   <main class="main">
     <section class="compare" id="compare">
       <div class="container">
-        <div class="row compare--overflow">
+        <div class="row ">
           <h2 class="secondary-title compare__title">Samanburður</h2>
           <form action="#" method="POST" class="compare__hide-filter">
             <input class="compare__hide-input" type="checkbox" name="hide-filter" id="hide-filter-check" checked>
@@ -20,9 +21,11 @@
               Hide attributes with same values
             </label>
           </form>
-          <table class="compare__table">
+          <div class="compare__table-wrap">
+            <table class="compare__table">
             <thead>
               <tr class="compare__name-row" data-desc="Vara">
+                <th>Vara</th>
                 <th>Yealink T46S</th>
                 <th>Yealink T46S</th>
                 <th>Yealink T46S</th>
@@ -32,6 +35,7 @@
             </thead>
             <tbody>
               <tr class="compare__model-row" data-desc="Módel">
+                <th>Módel</th>
                 <td>Lýsing</td>
                 <td>Lýsing</td>
                 <td>Lýsing</td>
@@ -39,6 +43,7 @@
                 <td>Lýsing</td>
               </tr>
               <tr class="compare__img-row" data-desc="Mynd">
+                <th>Mynd</th>
                 <td>
                   <div class="compare__img-box">
                     <img src="assets/images/product-img.png" alt="camera" class="compare__img">
@@ -66,6 +71,7 @@
                 </td>
               </tr>
               <tr class="compare__price-row" data-desc="Verð">
+                <th>Verð</th>
                 <td>
                   <p>126.189kr</p>
                   <span>án/vsk: 21.120kr</span>
@@ -88,6 +94,7 @@
                 </td>
               </tr>
               <tr class="compare__status-row" data-desc="Lagerstaða">
+                <th>Lagerstaða</th>
                 <td>
                   <div class="compare__status">
                     <p>Til á lager</p>
@@ -115,6 +122,7 @@
                 </td>
               </tr>
               <tr class="compare__desc-row" data-desc="Lýsing">
+                <th>Lýsing</th>
                 <td>
                   <p>SIP-T46G er frábær 6-línu sími fyrir þá sem nota símann mikið, með 4,3" baklýstum skjá og með 10 flýtihnöppum þar sem hægt er að forrita allt að 40 númer inn.POE stuðningur og EHS stuðningur fyrir þrá.. </p>
 
@@ -172,7 +180,8 @@
                 </td>
               </tr>
             </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       </div>
     </section>

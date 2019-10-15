@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Orders page</title>
+  <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="../style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <main class="main">
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row">
+          <ol class="breadcrumbs__list" itemtype="http://schema.org/BreadcrumbList">
+            <li class="breadcrumbs__list-item" itemprop="itemListElement" itemscope
+            itemtype="http://schema.org/ListItem">
+            <a class="breadcrumbs__link" itemprop="item" href="/">
+            <span class="breadcrumbs__link-content" itemprop="name"></span>
+            </a>
+            <meta itemprop="position" content="1" />
+            </li>
+
+            <li class="breadcrumbs__list-item" itemprop="itemListElement" itemscope
+            itemtype="http://schema.org/ListItem">
+            <a class="breadcrumbs__link" itemprop="item" href="/Vefverslun/">
+            <span class="breadcrumbs__link-content" itemprop="name">Vefverslun</span>
+            </a>
+            <meta itemprop="position" content="2" />
+            </li>
+            <li class="breadcrumbs__list-item" itemprop="itemListElement" itemscope
+            itemtype="http://schema.org/ListItem">
+            <a class="breadcrumbs__link" itemprop="item" href=" /Vefverslun/Reikningurinn/">
+            <span class="breadcrumbs__link-content" itemprop="name">Reikningurinn</span>
+            </a>
+            <meta itemprop="position" content="3" />
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <section class="account">
+      <div class="container">
+        <div class="row">
+          <div class="account__wrapper">
+            <nav class="account__navigation">
+              <ul class="account__nav-list">
+                <li class="account__nav-list-item">
+                  <a href="#" class="account__nav-link account__nav-link--active">Orders</a>
+                </li>
+                <li class="account__nav-list-item">
+                  <a href="#" class="account__nav-link">Account details</a>
+                </li>
+                <li class="account__nav-list-item">
+                  <a href="#" class="account__nav-link">Log out</a>
+                </li>
+              </ul>
+            </nav>
+
+            <!-- <div class="orders">
+              <div class="orders__headlines-box">
+                <h3 class="orders__headline orders__headline--id">Pöntunarnúmer</h3>
+                <h3 class="orders__headline orders__headline--date">Dagsetning</h3>
+                <h3 class="orders__headline orders__headline--status">Status</h3>
+                <h3 class="orders__headline orders__headline--total-summ">Samtals</h3>
+              </div>
+
+              <div class="orders__order-info-box">
+                <p class="orders__info-id">#23949623AHF</p>
+                <p class="orders__info-datе">Mars 2, 2019</p>
+                <p class="orders__info-status">Proccessing</p>
+                <p class="orders__info-total-summ">52.378 kr. fyrir 3 vörur</p>
+                <a href="#" class="orders__view-btn">Skoða</a>
+              </div>
+
+              <div class="orders__order-info-box">
+                <p class="orders__info-id">#23949623AHF</p>
+                <p class="orders__info-datе">Mars 2, 2019</p>
+                <p class="orders__info-status">Proccessing</p>
+                <p class="orders__info-total-summ">52.378 kr. fyrir 3 vörur</p>
+                <a href="#" class="orders__view-btn">Skoða</a>
+              </div>
+
+              <div class="orders__order-info-box">
+                <p class="orders__info-id">#23949623AHF</p>
+                <p class="orders__info-datе">Mars 2, 2019</p>
+                <p class="orders__info-status">Proccessing</p>
+                <p class="orders__info-total-summ">52.378 kr. fyrir 3 vörur</p>
+                <a href="#" class="orders__view-btn">Skoða</a>
+              </div>
+
+              <div class="orders__order-info-box">
+                <p class="orders__info-id">#23949623AHF</p>
+                <p class="orders__info-datе">Mars 2, 2019</p>
+                <p class="orders__info-status">Proccessing</p>
+                <p class="orders__info-total-summ">52.378 kr. fyrir 3 vörur</p>
+                <a href="#" class="orders__view-btn">Skoða</a>
+              </div>
+
+             <ul class="orders__pagination">
+                <li class="orders__pagination-item">
+                  <a href="#" class="orders__pagination-link orders__pagination-link--active">1</a>
+                </li>
+                <li class="orders__pagination-item">
+                  <a href="#" class="orders__pagination-link">2</a>
+                </li>
+                <li class="orders__pagination-item">
+                  <a href="#" class="orders__pagination-link">3</a>
+                </li>
+                <li class="orders__pagination-item">
+                  <a href="#" class="orders__pagination-link">4</a>
+                </li>
+                <li class="orders__pagination-item">
+                  <a href="#" class="orders__pagination-link">5</a>
+                </li>
+              </ul>
+            </div> -->
+
+            <div class="orders">
+              <table class="orders__table">
+                <thead>
+                  <tr>
+                    <th class="orders__headline orders__headline--id">Pöntunarnúmer</th>
+                    <th class="orders__headline orders__headline--date">Dagsetning</th>
+                    <th class="orders__headline orders__headline--status">Status</th>
+                    <th class="orders__headline orders__headline--total-summ">Samtals</th>
+                    <th> </th>
+                  </tr>
+                </thead>
+                <tbody> 
+                  <tr>
+                    <td data-text="Pöntunarnúmer" class="orders__info-id">
+                      <span>#23949623AHF</span>
+                    </td>
+                    <td data-text="Dagsetning" class="orders__info-datе">
+                      <span>Mars 2, 2019</span>
+                    </td>
+                    <td data-text="Status" class="orders__info-status">
+                      <span>Proccessing</span>
+                    </td>
+                    <td data-text="Samtals" class="orders__info-total-summ">
+                      <span>52.378 kr. fyrir 3 vörur</span>
+                    </td>
+                    <td><a href="#" class="orders__view-btn">Skoða</a></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <ul class="orders__pagination">
+                <li class="orders__pagination-item">
+                  <a href="#" class="orders__pagination-link orders__pagination-link--active">1</a>
+                </li>
+                <li class="orders__pagination-item">
+                  <a href="#" class="orders__pagination-link">2</a>
+                </li>
+                <li class="orders__pagination-item">
+                  <a href="#" class="orders__pagination-link">3</a>
+                </li>
+                <li class="orders__pagination-item">
+                  <a href="#" class="orders__pagination-link">4</a>
+                </li>
+                <li class="orders__pagination-item">
+                  <a href="#" class="orders__pagination-link">5</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

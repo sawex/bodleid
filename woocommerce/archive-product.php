@@ -108,9 +108,46 @@ if ( ! is_shop() ) { ?>
 
             }
           } else {
-            foreach ( $featured_products as $featured_product ) {
-              mst_bodleid_the_product_html( $featured_product );
+            $paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+            $ordering = WC()->query->get_catalog_ordering_args();
+            $ordering['orderby'] = array_shift( explode(' ', $ordering['orderby'] ) );
+            $ordering['orderby'] = stristr( $ordering['orderby'], 'price' ) ?
+              'meta_value_num' :
+              $ordering['orderby'];
+
+            $featured_products = wc_get_products( [
+              'meta_key' => '_price',
+              'status' => 'publish',
+              'limit' => 6,
+              'page' => $paged,
+              'featured' => true,
+              'paginate' => true,
+              'return' => 'ids',
+              'orderby' => $ordering['orderby'],
+              'order' => $ordering['order'],
+            ] );
+
+            wc_set_loop_prop( 'current_page', $paged );
+            wc_set_loop_prop( 'is_paginated', wc_string_to_bool( true ) );
+            wc_set_loop_prop( 'page_template', get_page_template_slug() );
+            wc_set_loop_prop( 'per_page', 6 );
+            wc_set_loop_prop( 'total', $featured_products->total );
+            wc_set_loop_prop( 'total_pages', $featured_products->max_num_pages );
+
+            if( $featured_products ) {
+
+              foreach ( $featured_products->products as $featured_product ) {
+                $post_object = get_post( $featured_product );
+                setup_postdata( $GLOBALS['post'] =& $post_object );
+                mst_bodleid_the_product_html();
+              }
+
+              wp_reset_postdata();
+
+            } else {
+              do_action('woocommerce_no_products_found');
             }
+
             ?>
             <div class="fake-item"></div>
             <?php
@@ -119,14 +156,13 @@ if ( ! is_shop() ) { ?>
 
           woocommerce_product_loop_end();
 
-          if ( ! is_shop() ) {
             /**
              * Hook: woocommerce_after_shop_loop.
              *
              * @hooked woocommerce_pagination - 10
              */
-            do_action('woocommerce_after_shop_loop');
-          }
+            do_action( 'woocommerce_after_shop_loop' );
+
 
         } else {
           /**

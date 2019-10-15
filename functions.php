@@ -391,6 +391,7 @@ function mst_bodleid_shuffle_posts( $posts, $query ) {
 
 add_filter( 'the_posts', 'mst_bodleid_shuffle_posts', 10, 2 );
 
+/* TODO: rewrite it properly */
 function mst_bodleid_add_pdf_viewer( $content ) {
   if ( is_page( 'baeklingur' ) ) {
     /* @var string $pdf PDF file URL */
@@ -419,10 +420,17 @@ HTML;
 add_filter( 'the_content', 'mst_bodleid_add_pdf_viewer' );
 
 /**
- * Wrapper for HTML class adding.
+ * Add page-comparison class to the comparison page
  *
- * @param string $class HTML class or classes
+ * @param array $classes HTML <body> classes
+ * @return array Updated classes
  */
-function mst_bodleid_add_class( $class ) {
-  echo esc_attr( $class );
+function mst_bodleid_add_comparison_class( $classes ) {
+  if ( is_page_template( 'tmp-comparing.php' ) ) {
+    $classes[] = 'page-comparison';
+  }
+
+  return $classes;
 }
+
+add_filter( 'body_class', 'mst_bodleid_add_comparison_class' );
