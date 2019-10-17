@@ -6,6 +6,30 @@
   .order-received__products-info-column {
     margin-top: 50px;
   }
+
+  .order-received {
+    padding-bottom: 185px;
+  }
+
+  .order-received__forms-container .woocommerce-checkout {
+    width: 686px;
+  }
+
+  .order-received__forms-container .order-received__products-info-column {
+    position: static;
+  }
+
+  .order-received__forms-container .order-received__products-info-column .order-received__product-info-table {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .woocommerce-NoticeGroup-checkout {
+    top: auto;
+    bottom: -85px;
+    right: auto;
+    left: 0;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -18,6 +42,11 @@
 
   .order-received__order-info-box {
     margin-right: 20px;
+  }
+
+  .order-received__forms-container .woocommerce-checkout,
+  .order-received__forms-container .order-received__order-info-column {
+    width: 100%;
   }
 }
 
@@ -127,10 +156,26 @@
   .order-received__continue-btn::before {
     left: 20px;
   }
+
+  .order-received__forms-container .order-received__products-info-column .order-received__product-info-table {
+    width: auto;
+  }
 }
 
 @media screen and (max-width: 380px) {
   .order-received__continue-btn::before {
     left: 10px;
+  }
+
+  .login__form .form__input-box,
+  .login__form .form__input {
+    width: 100%;
+  }
+}
+
+
+@media screen and (max-width: 330px) {
+  .order-received__product-info-content td::before {
+    left: -65px;
   }
 }

@@ -1,6 +1,6 @@
 .order-received {
   padding-top: 24px;
-  padding-bottom: 85px;
+  padding-bottom: 185px;
 }
 
 .order-received__title {
@@ -154,6 +154,10 @@
   height: 100%;
   align-self: center;
   padding: 0 54px;
+  background-image: url(./assets/images/valitor.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80%;
 }
 
 .order-received__continue-img {
@@ -184,6 +188,9 @@
   align-self: center;
   padding: 20px 0;
   padding-left: 28px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
 }
 
 .order-received__continue-btn::before {
@@ -201,12 +208,75 @@
   transform: translateY(-50%);
 }
 
-.order-received__content-wrap .login__form {
-  padding: 20px;
-  width: auto;
-  margin: 0;
-}
+// .order-received__content-wrap .login__form {
+//   padding: 20px;
+//   width: auto;
+//   margin: 0;
+// }
 
 .order-received__content-wrap .login__personal-info {
   margin-right: 30px;
 }
+
+//after woocommerce fix
+.checkout-forms-wrap,
+.order-received__forms-wrapper {
+  width: 100%;
+}
+
+.order-received__title {
+  margin-bottom: 24px;
+}
+
+.order-received__forms-container {
+  width: 100%;
+  position: relative;
+}
+
+.order-received__forms-container .login__form {
+  margin: 0;
+}
+
+.order-received__forms-container .order-received__products-info-column {
+  position: absolute;
+  right: 0;
+  top: -40px;
+}
+
+.required {
+  color: #fff !important;
+}
+
+.form-row.woocommerce-validated input.input-text {
+  box-shadow: none !important;
+}
+
+.form-row.woocommerce-invalid input.input-text {
+  box-shadow: none !important;
+  border-bottom: 2px solid #e2401c;
+}
+
+.order-received__product-info-table {
+  max-width: 485px;
+}
+
+.woocommerce-NoticeGroup-checkout {
+  position: absolute;
+  top: -130px;
+  right: 0;
+}
+
+
+
+
+// .login__new-client--checkout .login__new-client-wrap {
+//   transform-origin: 0 0;
+//   transform: scaleY(1);
+//   transition: ease-in-out .3s;
+// }
+
+// .collapsed .login__new-client-wrap {
+//   transform-origin: 0 0;
+//   transform: scaleY(0);
+//   transition: ease-in-out .3s;
+// }
