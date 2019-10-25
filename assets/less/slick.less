@@ -25,6 +25,24 @@
   margin-right: 0;
 }
 
+.slick-list,
+.slick-track,
+.slick-slide > div,
+.custom-banner__slider img {
+  min-height: 416px;
+}
+
+@media screen and (max-width: 768px) {
+  .custom-banner__slider-wrapper,
+  .custom-banner__slider,
+  .slick-list,
+  .slick-track,
+  .slick-slide > div,
+  .custom-banner__slider img {
+    min-height: 159px;
+  }
+}
+
 @media screen and (max-width: 575px) {
   .clients__carousel-container .slick-list {
     padding: 0 30% 0 0;
