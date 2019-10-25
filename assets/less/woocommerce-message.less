@@ -19,10 +19,19 @@
   align-items: center;
   padding-right: 150px;
   padding-left: 50px;
-  position: relative;
+  // position: relative;
   font-size: 16px;
   font-weight: 400;
   color: #323232;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  top: -60px;
+}
+
+.woocommerce-shop .woocommerce-message {
+  position: relative;
+  top: -10px;
 }
 
 .woocommerce-message a {
@@ -57,3 +66,23 @@
   position: absolute;
   left: 20px;
 }
+
+.woocommerce-shipping-methods {
+  list-style: none;
+}
+
+.woocommerce-message--hidden {
+  display: none !important;
+}
+
+ .woocommerce-password-strength, .woocommerce-password-hint, .optiona {
+  display: none;
+ }
+
+ @media screen and (max-width: 992px) {
+   .woocommerce-message {
+      position: relative;
+      right: 0;
+      top: -10px;
+   }
+ }
