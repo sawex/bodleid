@@ -10,36 +10,36 @@
 
 <form class="form">
   <div class="form__input-box">
-    <input class="form__input" type="text" name="name" id="name-field">
-    <label class="form__label" for="name-field">
+    <input class="form__input" type="text" name="name" id="footer-name-field">
+    <label class="form__label" for="footer-name-field">
       <?php esc_html_e( 'Name', 'mst_bodleid' ); ?>
     </label>
   </div>
 
   <div class="form__input-box">
-    <input class="form__input" type="tel" name="phone" id="phone-field">
-    <label class="form__label" for="phone-field">
+    <input class="form__input" type="tel" name="phone" id="footer-phone-field">
+    <label class="form__label" for="footer-phone-field">
       <?php esc_html_e( 'Phone number', 'mst_bodleid' ); ?>
     </label>
   </div>
 
   <div class="form__input-box">
-    <input class="form__input" type="text" name="email" id="email-field">
-    <label class="form__label" for="email-field">
+    <input class="form__input" type="text" name="email" id="footer-email-field">
+    <label class="form__label" for="footer-email-field">
       <?php esc_html_e( 'Email', 'mst_bodleid' ); ?>
     </label>
   </div>
 
   <div class="form__input-box">
-    <input class="form__input" type="text" name="company" id="company-field">
-    <label class="form__label" for="company-field">
+    <input class="form__input" type="text" name="company" id="footer-company-field">
+    <label class="form__label" for="footer-company-field">
       <?php esc_html_e( 'Company', 'mst_bodleid' ); ?>
     </label>
   </div>
 
   <div class="form__input-box form__input-box--textarea">
-    <textarea class="form__message form__input" name="message" id="message-field"></textarea>
-    <label class="form__label" for="message-field">
+    <textarea class="form__message form__input" name="message" id="footer-message-field"></textarea>
+    <label class="form__label" for="footer-message-field">
       <?php esc_html_e( 'Message', 'mst_bodleid' ); ?>
     </label>
   </div>

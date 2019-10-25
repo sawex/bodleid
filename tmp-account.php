@@ -10,6 +10,7 @@ if ( ! is_user_logged_in() ) {
 }
 
 get_header();
+
 ?>
 
   <main class="main" id="content" role="main">
@@ -17,6 +18,10 @@ get_header();
 
     <section class="account">
       <div class="container">
+        <div class="row account_notices">
+          <?php do_action( 'mst_bodleid_wc_notices' ); ?>
+        </div>
+
         <div class="row">
           <div class="account__wrapper">
             <nav class="account__navigation">

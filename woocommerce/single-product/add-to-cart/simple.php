@@ -23,6 +23,10 @@ if ( ! $product->is_purchasable() ) {
 	return;
 }
 
+$product_cart_id = WC()->cart->generate_cart_id( $product->get_id() );
+
+$in_cart = WC()->cart->find_product_in_cart( $product_cart_id );
+
 echo wc_get_stock_html( $product ); // WPCS: XSS ok.
 
 if ( $product->is_in_stock() ) : ?>
@@ -38,24 +42,32 @@ if ( $product->is_in_stock() ) : ?>
 		<?php
     do_action( 'woocommerce_before_add_to_cart_button' );
 
-		do_action( 'woocommerce_before_add_to_cart_quantity' );
+    if ( ! $in_cart ) {
+      do_action( 'woocommerce_before_add_to_cart_quantity' );
 
-		woocommerce_quantity_input( array(
-			'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
-			'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
-			'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
-      'classes'     => 'one-product__input',
-		) );
+      woocommerce_quantity_input( array(
+        'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
+        'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+        'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
+        'classes'     => 'one-product__input',
+      ) );
 
-		do_action( 'woocommerce_after_add_to_cart_quantity' );
-		?>
+      do_action( 'woocommerce_after_add_to_cart_quantity' );
+    ?>
 
-		<button type="submit"
-            name="add-to-cart"
-            value="<?php echo esc_attr( $product->get_id() ); ?>"
-            class="single_add_to_cart_button button alt one-product__to-cart-btn">
-      <?php echo esc_html( $product->single_add_to_cart_text() ); ?>
-    </button>
+      <button type="submit"
+              name="add-to-cart"
+              value="<?php echo esc_attr( $product->get_id() ); ?>"
+              class="single_add_to_cart_button button alt one-product__to-cart-btn">
+        <?php echo esc_html( $product->single_add_to_cart_text() ); ?>
+      </button>
+    <?php } else { ?>
+      <a href="<?php echo wc_get_cart_url(); ?>"
+         name="add-to-cart"
+         class="single_add_to_cart_button button alt one-product__to-cart-btn">
+        <?php esc_html_e( 'View cart', 'woocommerce' ); ?>
+      </a>
+    <?php } ?>
 
 		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 	</form>
@@ -64,12 +76,3 @@ if ( $product->is_in_stock() ) : ?>
 	<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
 
 <?php endif; ?>
-<!---->
-<!--<div class="one-product__order">-->
-<!--  <form action="#" method="POST" class="one-product__form">-->
-<!--    <button class="one-product__btn one-product__btn--plus">+</button>-->
-<!--    <input type="number" class="one-product__input" step="1" min="1" name="quantity" value="1">-->
-<!--    <button class="one-product__btn one-product__btn--minus one-product__btn--inactive">-</button>-->
-<!--  </form>-->
-<!--  <a href="" class="one-product__to-cart-btn">Bæta við í körfu</a>-->
-<!--</div>-->

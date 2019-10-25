@@ -1,0 +1,357 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Bodleid\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-08 13:21+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.0; wp-5.2.3"
+
+#. Name of the template
+msgid "Thank you page"
+msgstr ""
+
+#: tmp-thank-you.php:38
+msgid "Thanks, order received"
+msgstr ""
+
+#: tmp-thank-you.php:46 components/account/account-orders.php:36
+msgid "Order number"
+msgstr ""
+
+#: tmp-thank-you.php:52 components/account/account-orders.php:39
+msgid "Date"
+msgstr ""
+
+#: tmp-thank-you.php:58 tmp-thank-you.php:87 tmp-thank-you.php:126
+#: tmp-thank-you.php:149 components/account/account-orders.php:45
+msgid "Total"
+msgstr ""
+
+#: tmp-thank-you.php:66
+msgid "Payment method"
+msgstr ""
+
+#: tmp-thank-you.php:81
+msgid "Product"
+msgstr ""
+
+#: tmp-thank-you.php:84 tmp-thank-you.php:122
+msgid "Amount"
+msgstr ""
+
+#: tmp-thank-you.php:119
+msgid "Model"
+msgstr ""
+
+#: tmp-thank-you.php:137
+msgid "Price without VAT"
+msgstr ""
+
+#: tmp-thank-you.php:141
+msgid "Home delivery within Iceland"
+msgstr ""
+
+#. Name of the template
+msgid "Login page"
+msgstr ""
+
+#. Name of the template
+msgid "About us page"
+msgstr ""
+
+#: tmp-about.php:42
+msgid "Staff"
+msgstr ""
+
+#. 1: title.
+#: comments.php:35
+#, php-format
+msgid "One thought on &ldquo;%1$s&rdquo;"
+msgstr ""
+
+#. 1: comment count number, 2: title.
+#: comments.php:41
+#, php-format
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:66
+msgid "Comments are closed."
+msgstr ""
+
+#: 404.php:19
+msgid "Page not found"
+msgstr ""
+
+#: 404.php:22
+msgid "We apologize, but no page is found on this URL."
+msgstr ""
+
+#: 404.php:25
+msgid "Go to the front page"
+msgstr ""
+
+#. Name of the template
+msgid "Home page"
+msgstr ""
+
+#. Name of the template
+msgid "Account page"
+msgstr ""
+
+#. %s: search query.
+#: search.php:22
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#. Name of the template
+msgid "Instructions page"
+msgstr ""
+
+#: footer.php:56
+msgid "Service requests send to:"
+msgstr ""
+
+#: functions.php:21
+msgid "Theme settings"
+msgstr ""
+
+#: functions.php:80
+msgid "Header primary menu"
+msgstr ""
+
+#: functions.php:121
+msgid "Sidebar"
+msgstr ""
+
+#: functions.php:123
+msgid "Add widgets here."
+msgstr ""
+
+#: functions.php:300
+msgid "Testimonials"
+msgstr ""
+
+#: functions.php:301
+msgid "Testimonial"
+msgstr ""
+
+#: functions.php:310
+msgid "Catalogs"
+msgstr ""
+
+#: functions.php:311 components/home/home-catalogs.php:18
+msgid "Catalog"
+msgstr ""
+
+#: inc/ajax.php:23
+msgid "There is a new submitted form on Bodleid"
+msgstr ""
+
+#: inc/ajax.php:46 inc/ajax.php:53
+msgid "Invalid username or password"
+msgstr ""
+
+#: inc/woocommerce.php:227
+msgid "View your shopping cart"
+msgstr ""
+
+#. number of items in the mini cart.
+#: inc/woocommerce.php:231
+#, php-format
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/account.php:50
+msgid "New customer"
+msgstr ""
+
+#: inc/account.php:58
+msgid "Update data"
+msgstr ""
+
+#: inc/account.php:65
+msgid "Personal information"
+msgstr ""
+
+#: inc/account.php:71
+msgid "First Name*"
+msgstr ""
+
+#: inc/account.php:78
+msgid "Extensions"
+msgstr ""
+
+#: inc/account.php:85 components/account/account-login-form.php:32
+msgid "Email*"
+msgstr ""
+
+#: inc/account.php:92
+msgid "Phone number*"
+msgstr ""
+
+#: inc/account.php:99
+msgid "Create a password*"
+msgstr ""
+
+#: inc/account.php:106
+msgid "Your address"
+msgstr ""
+
+#: inc/account.php:112 components/footer/footer-form.php:36
+msgid "Company"
+msgstr ""
+
+#: inc/account.php:119
+msgid "Address*"
+msgstr ""
+
+#: inc/account.php:126
+msgid "City / Town*"
+msgstr ""
+
+#: inc/account.php:133
+msgid "Post number*"
+msgstr ""
+
+#: inc/account.php:140
+msgid "Country*"
+msgstr ""
+
+#: inc/account.php:156
+msgid "Region*"
+msgstr ""
+
+#: inc/account.php:164 inc/account.php:165
+msgid "Register"
+msgstr ""
+
+#: components/home/home-clients.php:20
+msgid "Our clients"
+msgstr ""
+
+#: components/account/account-orders.php:42
+msgid "Status"
+msgstr ""
+
+#: components/account/account-orders.php:74
+msgid "View"
+msgstr ""
+
+#: components/account/account-orders.php:92
+msgid "You don't have orders for now"
+msgstr ""
+
+#: components/account/account-login-form.php:14
+#: components/account/account-login-form.php:45
+#: components/account/account-login-form.php:46
+msgid "Log in"
+msgstr ""
+
+#: components/account/account-login-form.php:19
+msgid ""
+"Bidding route offers a complete solution in telephone and online language "
+"for small and \n"
+"                    large companies and hotels, from telephone networks to "
+"internal online affairs and connection \n"
+"                    to the world"
+msgstr ""
+
+#: components/account/account-login-form.php:39
+msgid "Password*"
+msgstr ""
+
+#: components/account/account-login-form.php:51
+msgid "Remember me"
+msgstr ""
+
+#: components/account/account-login-form.php:55
+msgid "Forgotten password?"
+msgstr ""
+
+#: components/account/account-menu.php:15
+msgid "Orders"
+msgstr ""
+
+#: components/account/account-menu.php:20
+msgid "Account details"
+msgstr ""
+
+#: components/account/account-menu.php:26
+msgid "Log out"
+msgstr ""
+
+#: components/footer/footer-form.php:15
+msgid "Name"
+msgstr ""
+
+#: components/footer/footer-form.php:22
+msgid "Phone number"
+msgstr ""
+
+#: components/footer/footer-form.php:29
+msgid "Email"
+msgstr ""
+
+#: components/footer/footer-form.php:43
+msgid "Message"
+msgstr ""
+
+#: components/footer/footer-form.php:48
+msgid "Please fill in the selected fields."
+msgstr ""
+
+#: components/footer/footer-form.php:53
+msgid "Send"
+msgstr ""
+
+#: components/footer/footer-form.php:57
+msgid "Thank you, message received"
+msgstr ""
+
+#: components/page/content-testimonials.php:18
+msgid "Customer Reviews"
+msgstr ""
+
+#: components/header/header-second-menu.php:22
+msgid "Account"
+msgstr ""
+
+#: components/header/header-second-menu.php:26
+msgid "Sign in"
+msgstr ""
+
+#. Name of the theme
+msgid "Bodleid"
+msgstr ""
+
+#. Description of the theme
+msgid "Simple theme for eCommerce"
+msgstr ""
+
+#. URI of the theme
+msgid "http://underscores.me/"
+msgstr ""
+
+#. Author of the theme
+msgid "Pavlo Knyazevich"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://github.com/Knyazevich"
+msgstr ""

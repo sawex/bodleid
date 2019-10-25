@@ -8,8 +8,27 @@
  */
 
 if ( ! defined( 'MST_BODLEID_VER' ) ) {
-  define( 'MST_BODLEID_VER', '1.0.1' );
+  define( 'MST_BODLEID_VER', '1.0.4' );
 }
+
+function mst_bodleid_dkplus_update_username( $value ) {
+  update_option( 'dk_login', $value );
+  return $value;
+}
+
+function mst_bodleid_dkplus_update_password( $value ) {
+  update_option( 'dk_password', $value );
+  return $value;
+}
+
+function mst_bodleid_dkplus_update_token( $value ) {
+  update_option( 'dk_token', $value );
+  return $value;
+}
+
+add_filter( 'acf/update_value/name=dkplus_username', 'mst_bodleid_dkplus_update_username', 10, 1 );
+add_filter( 'acf/update_value/name=dkplus_password', 'mst_bodleid_dkplus_update_password', 10, 1 );
+add_filter( 'acf/update_value/name=dkplus_token', 'mst_bodleid_dkplus_update_token', 10, 1 );
 
 /**
  * Creates custom ACF theme settings page.
@@ -42,6 +61,13 @@ function mst_bodleid_register_settings() {
     'menu_title'    => 'Shop',
     'parent_slug'   => $parent['menu_slug'],
     'menu_slug'     => 'shop-settings',
+  ] );
+
+  acf_add_options_sub_page( [
+    'page_title'    => 'dkPlus API',
+    'menu_title'    => 'dkPlus API',
+    'parent_slug'   => $parent['menu_slug'],
+    'menu_slug'     => 'dkplus-api-settings',
   ] );
 }
 
@@ -212,6 +238,9 @@ function mst_bodleid_scripts() {
     [
       'ajaxUrl' => admin_url( 'admin-ajax.php' ),
       'accountUrl' => esc_url( get_permalink( get_page_by_path( 'account' ) ) ),
+      'comparisonUrl' => mst_bodleid_get_comparison_page_url(),
+      'i18n_inComparisonList' => esc_html__( 'View comparison list', 'mst_bodleid' ),
+      'i18n_comparingEmpty' => esc_html__( 'No products were found matching your selection.', 'woocommerce' ),
     ]
   );
 
@@ -261,6 +290,13 @@ if ( file_exists( get_template_directory() . '/inc/svg-icons.php' ) ) {
  */
 if ( file_exists( get_template_directory() . '/inc/account.php' ) ) {
   require get_template_directory() . '/inc/account.php';
+}
+
+/**
+ * Product comparing helpers.
+ */
+if ( file_exists( get_template_directory() . '/inc/comparing.php' ) ) {
+  require get_template_directory() . '/inc/comparing.php';
 }
 
 /**
@@ -365,15 +401,6 @@ function mst_bodleid_set_page_query_vars() {
 add_action( 'wp', 'mst_bodleid_set_page_query_vars' );
 
 /**
- * Set Icelandic locale instead of en_US
- */
-function mst_bodleid_set_locale() {
-  return 'is_IS';
-}
-
-add_filter( 'locale', 'mst_bodleid_set_locale' );
-
-/**
  * Shuffle returned posts if "_shuffle" parameter equals true.
  *
  * @param array $posts
@@ -418,19 +445,3 @@ HTML;
 }
 
 add_filter( 'the_content', 'mst_bodleid_add_pdf_viewer' );
-
-/**
- * Add page-comparison class to the comparison page
- *
- * @param array $classes HTML <body> classes
- * @return array Updated classes
- */
-function mst_bodleid_add_comparison_class( $classes ) {
-  if ( is_page_template( 'tmp-comparing.php' ) ) {
-    $classes[] = 'page-comparison';
-  }
-
-  return $classes;
-}
-
-add_filter( 'body_class', 'mst_bodleid_add_comparison_class' );

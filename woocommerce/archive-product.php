@@ -72,7 +72,7 @@ if ( ! is_shop() ) { ?>
             if (is_shop()) {
               ?>
               <h2 class="shop__title secondary-title shop__title--abs">
-                <?php esc_html_e( 'Featured products', 'mst_bodleid' ); ?>
+                <?php esc_html_e( 'Featured products', 'woocommerce' ); ?>
               </h2>
             <?php } else { ?>
               <h2 class="shop__title secondary-title shop__title--abs"><?php woocommerce_page_title(); ?></h2>
