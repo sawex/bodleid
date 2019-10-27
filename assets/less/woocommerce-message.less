@@ -75,9 +75,19 @@
   display: none !important;
 }
 
- .woocommerce-password-strength, .woocommerce-password-hint, .optiona {
+.woocommerce-password-strength, .woocommerce-password-hint, .optiona {
   display: none;
- }
+}
+
+@media screen and (min-width: 1280px) {
+  .woocommerce-NoticeGroup-checkout .woocommerce-message {
+    min-width: 500px
+  }
+
+  .woocommerce-NoticeGroup-checkout .woocommerce-message li:not(:last-child) {
+    margin-right: 14px;
+  }
+}
 
  @media screen and (max-width: 992px) {
    .woocommerce-message {
