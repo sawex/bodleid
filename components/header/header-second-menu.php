@@ -18,7 +18,7 @@ $account_page = esc_url( get_permalink( get_page_by_path( 'account' ) ) );
 /* @var string $login_page */
 $login_page = esc_url( get_permalink( get_page_by_path( 'login' ) ) );
 
-/* @var string $compairing_page */
+/* @var string $comparing_page */
 $comparing_page = esc_url( get_permalink( get_page_by_path( 'products-comparing' ) ) );
 ?>
 
@@ -39,16 +39,22 @@ $comparing_page = esc_url( get_permalink( get_page_by_path( 'products-comparing'
 
   <li class="header__comparison-item <?php echo $slug === 'products-comparing' ? 'header__user-list--active' : ''; ?>">
     <a href="<?php echo $comparing_page; ?>" class="header__comparison-link">
-      <?php mst_bodleid_the_theme_svg( 'comparison' ); ?>
+      <?php
+        mst_bodleid_the_theme_svg( 'comparison' );
+
+        if ( mst_bodleid_comparison_products_count() ) {
+      ?>
+        <span class="quantity-product-circle"><?php echo esc_html( mst_bodleid_comparison_products_count() ); ?></span>
+      <?php } ?>
     </a>
   </li>
 
   <?php if ( function_exists( 'wc_get_cart_url' ) ) { ?>
-    <li class="header__cart-item <?php echo $slug === 'cart' ? 'header__user-list--active' : ''; ?>"
-        data-count="<?php echo WC()->cart->get_cart_contents_count(); ?>">
+    <li class="header__cart-item <?php echo $slug === 'cart' ? 'header__user-list--active' : ''; ?>">
       <a href="<?php echo esc_url( wc_get_cart_url() ); ?>"
          class="header__cart-link">
         <?php mst_bodleid_the_theme_svg( 'cart' ); ?>
+        <span class="quantity-product-circle"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
       </a>
     </li>
   <?php } ?>

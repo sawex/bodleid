@@ -78,34 +78,6 @@ function mst_bodleid_login() {
 }
 
 /**
- * Returns user orders by page number
- */
-function mst_bodleid_user_orders() {
-  try {
-    $page = (int) sanitize_text_field( $_POST['data']['page'] );
-    $user_id = get_current_user_id();
-
-    if ( ! $user_id ) {
-      wp_send_json_error( [ 'error' => 'Log in to get this information' ] );
-      wp_die();
-    }
-
-    $orders = wc_get_orders( [
-      'customer_id' => $user_id,
-      'limit' => 4,
-      'paged' => $page ?: 1,
-    ] );
-
-    wp_send_json_success( [ 'status' => wp_json_encode( $orders ) ] );
-
-  } catch ( Exception $e ) {
-    wp_send_json_error( [ 'error' => $e ] );
-  }
-
-  wp_die();
-}
-
-/**
  * Register AJAX handler for user sign up form
  *
  * @version 1.0.0
@@ -124,15 +96,12 @@ function mst_bodleid_sign_up() {
     /* @var array $fields Accepted form fields */
     $fields = [
       'billing_first_name',
-      'billing_last_name',
       'billing_email',
       'billing_phone',
       'billing_company',
       'billing_address_1',
       'billing_city',
       'billing_postcode',
-      'billing_postcode',
-      'billing_state',
     ];
 
     if ( ! wp_verify_nonce( $sign_up_nonce, 'sign_up' ) ) {
@@ -169,6 +138,9 @@ function mst_bodleid_sign_up() {
         update_user_meta( $user_id, $field, $value );
       }
     }
+
+    update_user_meta( $user_id, 'billing_country', 'IS' );
+
 
     wc_update_new_customer_past_orders( $user_id );
 
@@ -208,7 +180,6 @@ function mst_bodleid_update_account_data() {
     /* @var array $fields Accepted form fields */
     $fields = [
       'billing_first_name',
-      'billing_last_name',
       'billing_email',
       'billing_phone',
       'password',
@@ -216,8 +187,6 @@ function mst_bodleid_update_account_data() {
       'billing_address_1',
       'billing_city',
       'billing_postcode',
-      'billing_postcode',
-      'billing_state',
     ];
 
     foreach ( $fields as $field ) {
@@ -236,6 +205,7 @@ function mst_bodleid_update_account_data() {
 
     wc_update_new_customer_past_orders( $user_id );
 
+    wc_add_notice( 'Account data updated successfully', 'success' );
     wp_send_json_success( [ 'status' => 'OK' ] );
 
   } catch ( Exception $e ) {
@@ -256,6 +226,9 @@ function mst_bodleid_add_to_comparing() {
     if ( ! in_array( $product_id, $list ) ) {
       $list[] = $product_id;
       WC()->session->set( 'mst_bodleid_comparing_list', $list );
+    } else {
+      wp_send_json_error( [ 'error' => 'Product is already in your compare list' ] );
+      wp_die();
     }
 
     wp_send_json_success( [ 'status' => wp_json_encode( $list ) ] );
@@ -294,17 +267,14 @@ add_action( 'wp_ajax_nopriv_mst_bodleid_cb', 'mst_bodleid_handleCallback' );
 add_action( 'wp_ajax_mst_bodleid_login', 'mst_bodleid_login' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_login', 'mst_bodleid_login' );
 
-add_action( 'wp_ajax_mst_bodleid_user_orders', 'mst_bodleid_user_orders' );
-add_action( 'wp_ajax_nopriv_mst_bodleid_user_orders', 'mst_bodleid_user_orders' );
-
 add_action( 'wp_ajax_mst_bodleid_sign_up', 'mst_bodleid_sign_up' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_sign_up', 'mst_bodleid_sign_up' );
+
+add_action( 'wp_ajax_mst_bodleid_update_account_data', 'mst_bodleid_update_account_data' );
+add_action( 'wp_ajax_nopriv_mst_bodleid_update_account_data', 'mst_bodleid_update_account_data' );
 
 add_action( 'wp_ajax_mst_bodleid_add_to_comparing', 'mst_bodleid_add_to_comparing' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_add_to_comparing', 'mst_bodleid_add_to_comparing' );
 
 add_action( 'wp_ajax_mst_bodleid_remove_from_comparing', 'mst_bodleid_remove_from_comparing' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_remove_from_comparing', 'mst_bodleid_remove_from_comparing' );
-
-add_action( 'wp_ajax_mst_bodleid_update_account_data', 'mst_bodleid_update_account_data' );
-add_action( 'wp_ajax_nopriv_mst_bodleid_update_account_data', 'mst_bodleid_update_account_data' );

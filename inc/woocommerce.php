@@ -224,11 +224,12 @@ if ( ! function_exists( 'mst_bodleid_woocommerce_cart_link' ) ) {
 	 */
 	function mst_bodleid_woocommerce_cart_link() {
 		?>
-    <li class="header__cart-item" data-count="<?php echo WC()->cart->get_cart_contents_count(); ?>">
+    <li class="header__cart-item">
       <a href="<?php echo esc_url( wc_get_cart_url() ); ?>"
          class="header__cart-link"
          title="<?php esc_attr_e( 'View your shopping cart', 'mst_bodleid' ); ?>">
         <?php mst_bodleid_the_theme_svg( 'cart' ); ?>
+        <span class="quantity-product-circle"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
       </a>
     </li>
 		<?php
@@ -318,8 +319,8 @@ function mst_bodleid_add_qty_minus_btn() {
  echo '<button class="one-product__btn one-product__btn--minus">-</button>';
 }
 
-add_action( 'woocommerce_before_add_to_cart_quantity', 'mst_bodleid_add_qty_plus_btn' );
-add_action( 'woocommerce_after_add_to_cart_quantity', 'mst_bodleid_add_qty_minus_btn' );
+add_action( 'woocommerce_after_add_to_cart_quantity', 'mst_bodleid_add_qty_plus_btn' );
+add_action( 'woocommerce_before_add_to_cart_quantity', 'mst_bodleid_add_qty_minus_btn' );
 
 /**
  * Limit WooCommerce Short Description Field
@@ -349,12 +350,17 @@ add_filter( 'woocommerce_short_description', 'mst_bodleid_woocommerce_short_desc
 function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
   global $product;
 
-  if ( empty( $id) ) {
+  if ( empty( $id ) ) {
     $id = $product->get_id();
   }
+
+  $product_cart_id = WC()->cart->generate_cart_id( $id );
+  $in_cart = WC()->cart->find_product_in_cart( $product_cart_id );
+  $in_comparison = mst_bodleid_is_product_in_comparison_list( $id );
+
   $product = wc_get_product( $id );
 
-  if ( empty( $product ) ) {
+  if ( empty( $product ) || ! $product->is_visible() ) {
     return null;
   }
 
@@ -369,7 +375,8 @@ function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
 
   ?>
 
-  <<?php echo $node; ?> class="product-item" data-id="<?php echo $id; ?>">
+  <<?php echo $node; ?> class="product-item <?php echo $in_comparison ? 'header__user-list--active ' : ''; ?>"
+                        data-id="<?php echo $id; ?>">
     <a href="<?php echo $url; ?>" class="product-link" style="height: initial;">
       <div class="product-img-box">
         <img src="<?php echo $image_url; ?>" alt="#" class="product-img">
@@ -383,13 +390,23 @@ function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
 
     <div class="product-price">
       <?php echo $price; ?>
-      <button class="compare-btn"></button>
+      <button class="compare-btn <?php echo $in_comparison ? 'compare-btn--active ' : ''; ?>"></button>
     </div>
 
+  <?php if ( ! $in_cart ) { ?>
     <div class="to-cart-box">
-      <!-- TODO: add-to-catr-bnt -->
-      <a href="<?php echo $add_to_cart_url; ?>" class="add-to-catr-bnt">Setja í körfu</a>
+        <!-- TODO: add-to-catr-bnt -->
+      <?php woocommerce_template_loop_add_to_cart( [ 'class' => 'add-to-catr-bnt ajax_add_to_cart' ] ); ?>
     </div>
+
+  <?php } else { ?>
+    <div class="to-cart-box to-cart-box--added">
+    <!-- TODO: add-to-catr-bnt -->
+      <a href="<?php echo wc_get_cart_url(); ?>" class="add-to-catr-bnt">
+        <?php esc_html_e( 'View cart', 'woocommerce' ); ?>
+      </a>
+    </div>
+  <?php } ?>
   </<?php echo $node; ?>>
 
   <?php
@@ -430,9 +447,8 @@ add_filter( 'body_class', 'mst_bodleid_add_shop_class' );
  */
 remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
 
-add_action( 'woocommerce_thankyou', 'mst_bodleid_thank_you_redirect');
 
-function mst_bodleid_thank_you_redirect( $order_id ){
+function mst_bodleid_thank_you_redirect( $order_id ) {
   $order = wc_get_order( $order_id );
 
   $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order-received' ) ) );
@@ -443,3 +459,49 @@ function mst_bodleid_thank_you_redirect( $order_id ){
     exit;
   }
 }
+
+add_action( 'woocommerce_thankyou', 'mst_bodleid_thank_you_redirect');
+
+/**
+ * Add classes to checkout inputs and labels
+ */
+function mst_bodleid_checkout_fields_styling( $fields ) {
+  unset( $fields['billing']['billing_state'] );
+  unset( $fields['billing']['billing_address_2'] );
+
+  $fields['billing']['billing_postcode']['priority'] = 70;
+  $fields['billing']['billing_city']['priority'] = 65;
+
+  return $fields;
+}
+
+add_filter( 'woocommerce_checkout_fields' , 'mst_bodleid_checkout_fields_styling', 999 );
+add_filter( 'woocommerce_enable_order_notes_field', '__return_false', 9999 );
+
+update_option( 'woocommerce_registration_generate_password', 'no' );
+
+/**
+ * Remove zero decimals
+ */
+function mst_bodleid_remove_zero_decimals( $formatted_price, $price, $decimal_places, $decimal_separator, $thousand_separator ) {
+  if ( $price - intval( $price ) == 0 ) {
+    // Format units, including thousands separator if necessary.
+    return $unit = number_format( intval( $price ), 0, $decimal_separator, $thousand_separator );
+  }
+  else {
+    return $formatted_price;
+  }
+}
+
+add_filter( 'formatted_woocommerce_price', 'mst_bodleid_remove_zero_decimals', 10, 5 );
+
+/**
+ * Init WC session for unlogged users.
+ */
+add_action( 'woocommerce_init', function() {
+  if ( WC()->session ) {
+    if ( ! WC()->session->has_session()) {
+      WC()->session->set_customer_session_cookie(true);
+    }
+  }
+} );

@@ -27,11 +27,15 @@ global $product;
     <p class="one-product__product-price <?php echo esc_attr( apply_filters( 'woocommerce_product_price_class', 'price' ) );?>">
       <?php echo $product->get_price_html(); ?>
     </p>
-    <!--              <p class="one-product__no-vat">án/vsk: 21.120kr</p>-->
   </div>
+
   <?php if ( $product->is_in_stock() ) { ?>
     <div class="one-product__product-status">
-      <p><?php esc_html_e( 'In stock', 'mst_bodleid' ); ?></p>
+      <p><?php esc_html_e( 'In stock', 'woocommerce' ); ?></p>
+    </div>
+  <?php } else { ?>
+    <div class="one-product__product-status one-product__product-status--out">
+      <p><?php esc_html_e( 'Out of stock', 'woocommerce' ); ?></p>
     </div>
   <?php } ?>
 </div>

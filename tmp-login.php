@@ -5,8 +5,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/* @var string $account_page */
+$account_page = esc_url( get_permalink( get_page_by_path( 'account' ) ) );
+
 if ( is_user_logged_in() ) {
-  wp_redirect( get_permalink( get_page_by_path( 'account' ) ) );
+  wp_redirect( $account_page );
 }
 
 get_header();
@@ -17,7 +20,7 @@ get_header();
 
     <section class="login">
       <div class="container">
-        <div class="row">
+        <div class="row account-notices">
           <div class="woocommerce-notices-wrapper">
             <div class="woocommerce-message woocommerce-message--hidden woocommerce-message--login-page"
                  role="alert">
@@ -32,7 +35,9 @@ get_header();
         <div class="row">
           <div class="login__wrapper">
             <?php
-              get_template_part( 'components/account/account', 'login-form' );
+              if ( function_exists( 'mst_bodleid_the_login_form' ) ) {
+                mst_bodleid_the_login_form( false, true, $account_page  );
+              }
 
               if ( function_exists( 'mst_bodleid_the_sign_up_form' ) ) {
                 mst_bodleid_the_sign_up_form( 'registration-page' );

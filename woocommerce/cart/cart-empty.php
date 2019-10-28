@@ -22,7 +22,7 @@ do_action( 'woocommerce_cart_is_empty' );
 if ( wc_get_page_id( 'shop' ) > 0 ) : ?>
   <div class="search__result-title-box">
     <h2 class="secondary-title search__result-title">
-      <?php esc_html_e( 'No products were found matching your selection.', 'woocommerce' ); ?>
+      <?php esc_html_e( 'Your cart is empty', 'mst_bodleid' ); ?>
     </h2>
   </div>
 <?php endif; ?>

@@ -30,7 +30,7 @@ $section_class = '';
 if ( is_cart() ) {
   $section_class = 'cart';
 } else if ( is_checkout() ) {
-  $section_class = '';
+  $section_class = 'checkout-forms-wrap';
 } else {
   $section_class = 'products__wrapper';
 }
@@ -69,5 +69,12 @@ if ( is_cart() ) {
     ?>
   </main>
 
+  <style>
+    .woocommerce-order-pay .checkout-forms-wrap {
+      display: none !important;
+    }
+  </style>
+
 <?php
 get_footer();
+

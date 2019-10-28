@@ -33,10 +33,13 @@ if ( ! empty( $product_ids ) ) {
 
     /* @var string $stock_status */
     $stock_status = $product->get_stock_status() ?
-      esc_html__( 'In stock', 'mst_bodleid' ) :
-      esc_html__( 'Not in stock', 'mst_bodleid' );
+      esc_html__( 'In stock', 'woocommerce' ) :
+      esc_html__( 'Out of stock', 'woocommerce' );
 
-    $titles_row .= sprintf( '<th data-product-id="%s">%s</th>', $product_id, $product->get_title() );
+    $product_cart_id = WC()->cart->generate_cart_id( $product_id );
+    $in_cart = WC()->cart->find_product_in_cart( $product_cart_id );
+
+    $titles_row .= sprintf( '<th data-product-id="%s"><a href="%s">%s</a></th>', $product_id, $product->get_permalink(), $product->get_title() );
     $skus_row .= sprintf( '<td data-product-id="%s">%s</td>', $product_id, $product->get_sku() );
     $images_row .= sprintf( '<td data-product-id="%s"><div class="compare__img-box"><img src="%s" alt="" class="compare__img"></div></td>', $product_id, $product_image );
     $prices_row .= sprintf( '<td data-product-id="%s">%s</td>', $product_id, $product->get_price_html() );
@@ -47,12 +50,20 @@ if ( ! empty( $product_ids ) ) {
     <td data-product-id="<?php echo esc_attr( $product_id ); ?>">
       <p><?php echo $product->get_short_description(); ?></p>
 
-      <div class="to-cart-box">
-        <!-- TODO: .add-to-catr-bnt -->
-        <a href="<?php esc_url( $product->add_to_cart_url() ); ?>" class="add-to-catr-bnt">
-          <?php esc_html_e( 'Add to cart', 'mst_bodleid' ); ?>
-        </a>
-      </div>
+      <?php if ( ! $in_cart ) { ?>
+        <div class="to-cart-box">
+          <!-- TODO: add-to-catr-bnt -->
+          <?php woocommerce_template_loop_add_to_cart( [ 'class' => 'add-to-catr-bnt ajax_add_to_cart' ] ); ?>
+        </div>
+
+      <?php } else { ?>
+        <div class="to-cart-box to-cart-box--added">
+          <!-- TODO: add-to-catr-bnt -->
+          <a href="<?php echo wc_get_cart_url(); ?>" class="add-to-catr-bnt">
+            <?php esc_html_e( 'View cart', 'woocommerce' ); ?>
+          </a>
+        </div>
+      <?php } ?>
 
       <div class="compare__remove-box" data-id="<?php echo esc_attr( $product_id ); ?>">
         <a class="compare__remove-bnt">

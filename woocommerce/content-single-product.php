@@ -65,7 +65,7 @@ $related = $product->get_cross_sell_ids();
       ?>
       <div class="one-product__container">
         <div class="one-product__image-box">
-          <a href="<?php echo $image_url; ?>" class="one-product__open-img">
+          <a class="one-product__open-img">
             <img src="<?php echo $image_url; ?>"
                  alt="camera"
                  class="one-product__image">
@@ -95,10 +95,20 @@ $related = $product->get_cross_sell_ids();
 
           <ul class="one-product__nav-menu">
             <li class="one-product__nav-item">
-              <a class="one-product__nav-link one-product__compare-link"
-                 data-id="<?php the_ID(); ?>">
-                <?php esc_html_e( 'Comparison', 'mst_bodleid' ); ?>
-              </a>
+
+              <?php if ( ! mst_bodleid_is_product_in_comparison_list( $product->get_id() ) ) { ?>
+                <a class="one-product__nav-link one-product__compare-link"
+                   data-id="<?php the_ID(); ?>">
+                  <?php esc_html_e( 'Comparison', 'mst_bodleid' ); ?>
+                </a>
+              <?php } else { ?>
+                <a class="one-product__nav-link one-product__compare-link"
+                   data-id="<?php the_ID(); ?>"
+                   href="<?php echo mst_bodleid_get_comparison_page_url(); ?>">
+                  <?php esc_html_e( 'View comparison list', 'mst_bodleid' ); ?>
+                </a>
+              <?php } ?>
+
             </li>
             <li class="one-product__nav-item">
               <a href="<?php echo add_query_arg(
@@ -120,7 +130,7 @@ $related = $product->get_cross_sell_ids();
       <div class="one-product__product-detail-container">
         <div class="one-product__detail-title-box">
           <h3 class="tertiary-title one-product__detail-title">
-            <?php esc_html_e( 'Product Description', 'mst_bodleid' ); ?>
+            <?php esc_html_e( 'Product description', 'woocommerce' ); ?>
           </h3>
         </div>
         <div class="one-product__detail">

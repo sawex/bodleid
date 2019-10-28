@@ -1,0 +1,465 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Bodleid\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-14 20:45+0000\n"
+"PO-Revision-Date: 2019-10-14 20:53+0000\n"
+"Last-Translator: root <psknyazevich@gmail.com>\n"
+"Language-Team: Íslenska\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.0; wp-5.2.3"
+
+#. Name of the template
+msgid "Thank you page"
+msgstr ""
+
+#: tmp-thank-you.php:38
+msgid "Thanks, order received"
+msgstr "Takk fyrir, pöntun móttekin"
+
+#: tmp-thank-you.php:46 components/account/account-orders.php:36
+msgid "Order number"
+msgstr "Pöntunarnúmer"
+
+#: tmp-thank-you.php:52 components/account/account-orders.php:39
+msgid "Date"
+msgstr "Dagsetning"
+
+#: tmp-thank-you.php:58 tmp-thank-you.php:86 tmp-thank-you.php:125
+#: tmp-thank-you.php:148 components/account/account-orders.php:45
+#: woocommerce/checkout/form-checkout.php:67
+#: woocommerce/checkout/form-checkout.php:103
+#: woocommerce/checkout/form-checkout.php:134
+msgid "Total"
+msgstr "Samtals"
+
+#: tmp-thank-you.php:66
+msgid "Payment method"
+msgstr "Greiðslumáti"
+
+#: tmp-thank-you.php:80 woocommerce/checkout/form-checkout.php:61
+msgid "Product"
+msgstr "Vara"
+
+#: tmp-thank-you.php:83 tmp-thank-you.php:121
+#: woocommerce/checkout/form-checkout.php:64
+#: woocommerce/checkout/form-checkout.php:99
+msgid "Amount"
+msgstr "Magn"
+
+#: tmp-thank-you.php:118 woocommerce/content-single-product.php:76
+#: woocommerce/cart/cart.php:187 woocommerce/checkout/form-checkout.php:96
+msgid "Model"
+msgstr "Módel"
+
+#: tmp-thank-you.php:136 woocommerce/checkout/form-checkout.php:122
+msgid "Price without VAT"
+msgstr "Verð án/vsk"
+
+#: tmp-thank-you.php:140 woocommerce/checkout/form-checkout.php:126
+msgid "Home delivery within Iceland"
+msgstr "Heimsending innan íslands"
+
+#. Name of the template
+msgid "Login page"
+msgstr ""
+
+#. Name of the template
+msgid "About us page"
+msgstr ""
+
+#: tmp-about.php:42
+msgid "Staff"
+msgstr "Starfsmenn"
+
+#. 1: title.
+#: comments.php:35
+#, php-format
+msgid "One thought on &ldquo;%1$s&rdquo;"
+msgstr ""
+
+#. 1: comment count number, 2: title.
+#: comments.php:41
+#, php-format
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:66
+msgid "Comments are closed."
+msgstr ""
+
+#: 404.php:19
+msgid "Page not found"
+msgstr "Síða fannst ekki"
+
+#: 404.php:22
+msgid "We apologize, but no page is found on this URL."
+msgstr "Við biðjumst velvirðingar en engin síða finnst á þessari slóð."
+
+#: 404.php:25
+msgid "Go to the front page"
+msgstr "Fara á forsíðu"
+
+#. Name of the template
+msgid "Home page"
+msgstr ""
+
+#: searchform.php:17
+msgid "Search for..."
+msgstr ""
+
+#: searchform.php:21
+msgid "Search"
+msgstr ""
+
+#. Name of the template
+msgid "Account page"
+msgstr ""
+
+#. %s: search query.
+#: search.php:22
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#. Name of the template
+msgid "Instructions page"
+msgstr ""
+
+#: footer.php:56
+msgid "Service requests send to:"
+msgstr "Þjónustu beiðnir senda á:"
+
+#. Name of the template
+msgid "Comparing page"
+msgstr ""
+
+#: functions.php:21
+msgid "Theme settings"
+msgstr ""
+
+#: functions.php:87
+msgid "Header primary menu"
+msgstr ""
+
+#: functions.php:128
+msgid "Sidebar"
+msgstr ""
+
+#: functions.php:130
+msgid "Add widgets here."
+msgstr ""
+
+#: functions.php:307
+msgid "Testimonials"
+msgstr ""
+
+#: functions.php:308
+msgid "Testimonial"
+msgstr ""
+
+#: functions.php:317
+msgid "Catalogs"
+msgstr ""
+
+#: functions.php:318 components/home/home-catalogs.php:18
+msgid "Catalog"
+msgstr "Vöruflokkar"
+
+#: inc/ajax.php:23
+msgid "There is a new submitted form on Bodleid"
+msgstr ""
+
+#: inc/ajax.php:54 inc/ajax.php:139 inc/ajax.php:204
+msgid "Nonce error"
+msgstr ""
+
+#: inc/ajax.php:59 inc/ajax.php:66 inc/ajax.php:144
+msgid "Invalid username or password"
+msgstr ""
+
+#: inc/ajax.php:199
+msgid "Please, login to update your account"
+msgstr ""
+
+#: inc/woocommerce.php:230
+msgid "View your shopping cart"
+msgstr ""
+
+#: woocommerce/content-single-product.php:106
+msgid "Share"
+msgstr "Deila"
+
+#: woocommerce/archive-product.php:75
+msgid "Featured products"
+msgstr ""
+
+#: components/home/home-clients.php:20
+msgid "Our clients"
+msgstr "Okkar viðskiptavinir"
+
+#: components/account/form-checkout.php:41
+msgid "Customer data"
+msgstr ""
+
+#: components/account/form-checkout.php:43
+#: components/account/form-register.php:18
+msgid "New customer"
+msgstr "Nýr viðskiptavinur"
+
+#: components/account/form-checkout.php:51
+#: components/account/form-register.php:26
+#: components/account/form-account.php:45
+msgid "Personal information"
+msgstr "Persónulegar upplýsingar"
+
+#: components/account/form-checkout.php:61
+#: components/account/form-register.php:35
+#: components/account/form-account.php:55
+msgid "First Name*"
+msgstr "Fornafn*"
+
+#: components/account/form-checkout.php:72
+#: components/account/form-register.php:45
+#: components/account/form-account.php:66
+msgid "Last Name"
+msgstr "Extensions"
+
+#: components/account/form-checkout.php:83
+#: components/account/form-register.php:55
+#: components/account/form-account.php:77
+#: components/account/account-login-form.php:26
+msgid "Email*"
+msgstr "Netfang*"
+
+#: components/account/form-checkout.php:94
+#: components/account/form-register.php:65
+#: components/account/form-account.php:88
+msgid "Phone number*"
+msgstr "Símanúmer*"
+
+#: components/account/form-checkout.php:101
+#: components/account/form-register.php:82
+#: components/account/form-account.php:105
+msgid "Your address"
+msgstr "Heimilisfang þitt"
+
+#: components/account/form-checkout.php:111
+#: components/account/form-register.php:91
+#: components/account/form-account.php:115 components/footer/footer-form.php:36
+msgid "Company"
+msgstr "Fyrirtæki"
+
+#: components/account/form-checkout.php:122
+#: components/account/form-register.php:101
+#: components/account/form-account.php:126
+msgid "Address*"
+msgstr "Heimilisfang*"
+
+#: components/account/form-checkout.php:133
+#: components/account/form-register.php:111
+#: components/account/form-account.php:137
+msgid "City / Town*"
+msgstr ""
+"Borg/Bær*\n"
+
+#: components/account/form-checkout.php:144
+#: components/account/form-register.php:121
+#: components/account/form-account.php:148
+msgid "Post number*"
+msgstr "Póstnúmer*"
+
+#: components/account/form-checkout.php:153
+#: components/account/form-register.php:129
+#: components/account/form-account.php:157
+msgid "Capital Region"
+msgstr ""
+
+#: components/account/form-checkout.php:154
+#: components/account/form-register.php:130
+#: components/account/form-account.php:158
+msgid "Southern Peninsula"
+msgstr ""
+
+#: components/account/form-checkout.php:155
+#: components/account/form-register.php:131
+#: components/account/form-account.php:159
+msgid "Western Region"
+msgstr ""
+
+#: components/account/form-checkout.php:156
+#: components/account/form-register.php:132
+#: components/account/form-account.php:160
+msgid "Westfjords"
+msgstr ""
+
+#: components/account/form-checkout.php:157
+#: components/account/form-register.php:133
+#: components/account/form-account.php:161
+msgid "Northwestern Region"
+msgstr ""
+
+#: components/account/form-checkout.php:158
+#: components/account/form-register.php:134
+#: components/account/form-account.php:162
+msgid "Northeastern Region"
+msgstr ""
+
+#: components/account/form-checkout.php:159
+#: components/account/form-register.php:135
+#: components/account/form-account.php:163
+msgid "Eastern Region"
+msgstr ""
+
+#: components/account/form-checkout.php:160
+#: components/account/form-register.php:136
+#: components/account/form-account.php:164
+msgid "Southern Region"
+msgstr ""
+
+#: components/account/form-checkout.php:163
+#: components/account/form-register.php:139
+#: components/account/form-account.php:167
+msgid "Region*"
+msgstr "Svæði*"
+
+#: components/account/account-orders.php:42
+msgid "Status"
+msgstr ""
+
+#: components/account/account-orders.php:74
+msgid "View"
+msgstr "Skoða"
+
+#: components/account/account-orders.php:92
+msgid "You don't have orders for now"
+msgstr ""
+
+#: components/account/form-register.php:75
+#: components/account/form-account.php:98
+#: components/account/account-login-form.php:33
+msgid "Password*"
+msgstr ""
+"Lykilorð*\n"
+
+#: components/account/form-register.php:149
+#: components/account/form-register.php:150
+msgid "Register"
+msgstr ""
+
+#: components/account/form-account.php:39
+msgid "Update data"
+msgstr ""
+
+#: components/account/form-account.php:177
+#: components/account/form-account.php:178
+msgid "Update"
+msgstr ""
+
+#: components/account/account-login-form.php:17
+#: components/account/account-login-form.php:41
+#: components/account/account-login-form.php:42
+msgid "Log in"
+msgstr "Innskráning"
+
+#: components/account/account-login-form.php:47
+msgid "Remember me"
+msgstr ""
+"Muna eftir mér\n"
+
+#: components/account/account-login-form.php:51
+msgid "Forgotten password?"
+msgstr "Gleymt lykilorð?"
+
+#: components/account/account-menu.php:15
+msgid "Orders"
+msgstr ""
+
+#: components/account/account-menu.php:20
+msgid "Account details"
+msgstr ""
+
+#: components/account/account-menu.php:26
+msgid "Log out"
+msgstr ""
+
+#: components/footer/footer-form.php:15
+msgid "Name"
+msgstr "Nafn"
+
+#: components/footer/footer-form.php:22
+msgid "Phone number"
+msgstr "Sími"
+
+#: components/footer/footer-form.php:29
+msgid "Email"
+msgstr "Netfang"
+
+#: components/footer/footer-form.php:43
+msgid "Message"
+msgstr "Skilaboð"
+
+#: components/footer/footer-form.php:48
+msgid "Please fill in the selected fields."
+msgstr "Vinsamlegast fylltu út merkta reiti."
+
+#: components/footer/footer-form.php:53
+msgid "Send"
+msgstr "Senda"
+
+#: components/footer/footer-form.php:57
+msgid "Thank you, message received"
+msgstr "Takk fyrir, skilaboð móttekin"
+
+#: components/page/content-testimonials.php:18
+msgid "Customer Reviews"
+msgstr "Umsagnir Viðskiptavina"
+
+#: components/header/header-second-menu.php:25
+msgid "Account"
+msgstr ""
+
+#: components/header/header-second-menu.php:29
+msgid "Sign in"
+msgstr ""
+
+#: woocommerce/notices/success.php:31 woocommerce/notices/notice.php:31
+#: woocommerce/notices/error.php:29
+msgid "Close alert"
+msgstr ""
+
+#: woocommerce/single-product/price.php:34
+msgid "In stock"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:39
+msgid "Checkout"
+msgstr ""
+
+#. Name of the theme
+msgid "Bodleid"
+msgstr "Bodleid"
+
+#. Description of the theme
+msgid "Simple theme for eCommerce"
+msgstr ""
+
+#. URI of the theme
+msgid "http://underscores.me/"
+msgstr ""
+
+#. Author of the theme
+msgid "Pavlo Knyazevich"
+msgstr "Pavlo Knyazevich"
+
+#. Author URI of the theme
+msgid "https://github.com/Knyazevich"
+msgstr "https://github.com/Knyazevich"
