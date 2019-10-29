@@ -13,6 +13,7 @@ const Abstract = function() {
   this.isSingle = !!document.querySelector('.single-product');
   this.isCheckout = !!document.querySelector('.woocommerce-checkout');
   this.isComparison = !!document.querySelector('.page-comparison');
+  this.isLostPassword = !!document.querySelector('.page-template-tmp-lost-password');
 };
 
 /**
@@ -62,10 +63,6 @@ Abstract.prototype.highlightInvalidFields = function(formElements, invalidFields
 
   if (message.length > 9 && typeof this.alert === 'function') {
     this.alert(message);
-  }
-
-  if (this.footerFormErrorMessage) {
-    this.footerFormErrorMessage.classList.add('form__error--is-active');
   }
 };
 

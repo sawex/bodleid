@@ -5,11 +5,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/* @var string $account_page */
-$account_page = esc_url( get_permalink( get_page_by_path( 'account' ) ) );
-
 if ( is_user_logged_in() ) {
-  wp_redirect( $account_page );
+  wp_redirect( mst_bodleid_get_account_page() );
 }
 
 get_header();
@@ -20,16 +17,8 @@ get_header();
 
     <section class="login">
       <div class="container">
-        <div class="row account-notices">
-          <div class="woocommerce-notices-wrapper">
-            <div class="woocommerce-message woocommerce-message--hidden woocommerce-message--login-page"
-                 role="alert">
-              <button class="w-close-btn"
-                      aria-label="<?php esc_html_e( 'Close alert', 'mst_bodleid' ); ?>">
-              </button>
-              <p class="woocommerce-message__text"></p>
-            </div>
-          </div>
+        <div class="row">
+          <div class="woocommerce-notices-wrapper woocommerce-notices-wrapper--login"></div>
         </div>
 
         <div class="row">

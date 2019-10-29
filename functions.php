@@ -8,7 +8,7 @@
  */
 
 if ( ! defined( 'MST_BODLEID_VER' ) ) {
-  define( 'MST_BODLEID_VER', '1.0.4' );
+  define( 'MST_BODLEID_VER', '1.0.6' );
 }
 
 function mst_bodleid_dkplus_update_username( $value ) {
@@ -217,14 +217,6 @@ function mst_bodleid_scripts() {
   }
 
   wp_enqueue_script(
-    'mst_bodleid-pdfobject',
-    get_template_directory_uri() . '/assets/js/pdfobject.min.js',
-    [],
-    MST_BODLEID_VER,
-    true
-  );
-
-  wp_enqueue_script(
     'mst_bodleid-common',
     get_template_directory_uri() . '/assets/js/common.js',
     ['jquery'],
@@ -239,8 +231,10 @@ function mst_bodleid_scripts() {
       'ajaxUrl' => admin_url( 'admin-ajax.php' ),
       'accountUrl' => esc_url( get_permalink( get_page_by_path( 'account' ) ) ),
       'comparisonUrl' => mst_bodleid_get_comparison_page_url(),
-      'i18n_inComparisonList' => esc_html__( 'View comparison list', 'mst_bodleid' ),
-      'i18n_comparingEmpty' => esc_html__( 'No products were found matching your selection.', 'woocommerce' ),
+      'i18n' => [
+        'inComparisonList' => esc_html__( 'View comparison list', 'mst_bodleid' ),
+        'comparingIsEmpty' => esc_html__( 'No products were found matching your selection.', 'woocommerce' ),
+      ],
     ]
   );
 
@@ -417,31 +411,3 @@ function mst_bodleid_shuffle_posts( $posts, $query ) {
 }
 
 add_filter( 'the_posts', 'mst_bodleid_shuffle_posts', 10, 2 );
-
-/* TODO: rewrite it properly */
-function mst_bodleid_add_pdf_viewer( $content ) {
-  if ( is_page( 'baeklingur' ) ) {
-    /* @var string $pdf PDF file URL */
-    $pdf = esc_js( get_field( 'pdf' ) );
-    
-    if ( $pdf ) {    
-      $html = <<<HTML
-        <div class="pdf-wrapper"></div>
-
-        <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          if (typeof PDFObject === 'object') {
-            PDFObject.embed('{$pdf}', '.pdf-wrapper', { height: '600px' });
-          }
-        });
-        </script>
-HTML;
-
-      return $html;
-    }
-  }
-
-  return $content;
-}
-
-add_filter( 'the_content', 'mst_bodleid_add_pdf_viewer' );

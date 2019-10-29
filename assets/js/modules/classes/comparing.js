@@ -124,12 +124,18 @@ Comparing.prototype.initComparisonRemoveBtns = function() {
           if (resp.success) {
             document.querySelectorAll(`[data-product-id="${id}"]`).forEach(el => el.remove());
 
+            // Remove "Hide attributes with same values" checkbox if count of elements less than two
+            if (document.querySelectorAll('[data-product-id]').length < 2 &&
+                document.querySelector('.compare__hide-filter')) {
+              document.querySelector('.compare__hide-filter').remove();
+            }
+
             if (!document.querySelector('[data-product-id]')) {
               document.querySelector('.compare__table').remove();
               document.querySelector('.compare__table-wrap').innerHTML = `
                <div class="search__result-title-box">
                 <h2 class="secondary-title search__result-title">
-                  ${mainState.i18n_comparingEmpty}
+                  ${mainState.i18n.comparingIsEmpty}
                 </h2>
               </div>
               `;
@@ -180,7 +186,7 @@ Comparing.prototype.setSingleCompareButton = function() {
         },
         success(resp) {
           if (resp.success) {
-            el.innerText = mainState.i18n_inComparisonList;
+            el.innerText = mainState.i18n.inComparisonList;
             el.href = mainState.comparisonUrl;
             el.classList.add('one-product__compare-link--active');
 
@@ -207,6 +213,47 @@ Comparing.prototype.setSingleCompareButton = function() {
   });
 };
 
+Comparing.prototype.initHidingCheckbox = function() {
+  if (!this.isComparison) return;
+
+  const hideCheckbox = document.querySelector('#hide-filter-check');
+
+  if (hideCheckbox) {
+    hideCheckbox.addEventListener('change', (e) => {
+      const isChecked = e.target.checked;
+
+      const rows = {
+        skuRow: document.querySelectorAll('.compare__model-row td'),
+        imgRow: document.querySelectorAll('.compare__img-row td'),
+        priceRow: document.querySelectorAll('.compare__price-row td'),
+        availabilityRow: document.querySelectorAll('.compare__status-row td'),
+      };
+
+      // Return if only one product added
+      if (rows.skuRow.length <= 1) return;
+
+      if (isChecked) {
+        for (const row in rows) {
+          if (rows.hasOwnProperty(row)) {
+            const isEqual = [].every.call(rows[row], (cell) => {
+              return cell.innerHTML === rows[row][0].innerHTML;
+            });
+
+            if (isEqual) {
+              rows[row][0].parentElement.classList.add('hidden');
+            }
+          }
+        }
+      } else {
+        const hiddenRows = document.querySelectorAll('.compare__status-row.hidden');
+
+        if (hiddenRows) {
+          hiddenRows.forEach((row) => row.classList.remove('hidden'));
+        }
+      }
+    });
+  }
+};
 
 Comparing.prototype.init = function() {
   // Archive
@@ -216,6 +263,7 @@ Comparing.prototype.init = function() {
   this.setSingleCompareButton();
 
   // Comparing page
+  this.initHidingCheckbox();
   this.initComparisonRemoveBtns();
 };
 

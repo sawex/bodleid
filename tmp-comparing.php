@@ -9,6 +9,10 @@ defined( 'ABSPATH' ) || exit;
 $product_ids = (array) WC()->session->get( 'mst_bodleid_comparing_list' );
 
 if ( ! empty( $product_ids ) ) {
+
+  /* @var int $elements_count Count of products in comparing list */
+  $elements_count = count( $product_ids );
+
   /* @var array|stdClass $products */
   $products = wc_get_products( [
     'include' => $product_ids,
@@ -90,12 +94,14 @@ get_header();
 
           <?php if ( $product_ids ) { ?>
 
-<!--            <form class="compare__hide-filter">-->
-<!--              <input class="compare__hide-input" type="checkbox" name="hide-filter" id="hide-filter-check">-->
-<!--              <label class="compare__hide-label" for="hide-filter-check">-->
-<!--                --><?php //esc_html_e( 'Hide attributes with same values', 'mst_bodleid' ); ?>
-<!--              </label>-->
-<!--            </form>-->
+            <?php if ( $elements_count >= 2 ) { ?>
+              <form class="compare__hide-filter">
+                <input class="compare__hide-input" type="checkbox" name="hide-filter" id="hide-filter-check">
+                <label class="compare__hide-label" for="hide-filter-check">
+                  <?php esc_html_e( 'Hide attributes with same values', 'mst_bodleid' ); ?>
+                </label>
+              </form>
+            <?php } ?>
 
             <div class="compare__table-wrap">
               <table class="compare__table">

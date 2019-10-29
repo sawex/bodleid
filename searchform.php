@@ -8,7 +8,10 @@
  */
 ?>
 
-<form role="search" action="<?php echo get_permalink( get_page_by_path( 'shop' ) ); ?>" method="GET" class="search__form">
+<form role="search"
+      action="<?php echo get_permalink( get_page_by_path( 'shop' ) ); ?>"
+      method="GET"
+      class="search__form">
   <label for="search" class="search__form-label">
     <input type="search"
            name="s"

@@ -67,9 +67,21 @@ if ( ! is_shop() ) { ?>
 
       <aside class="filters"><?php get_sidebar(); ?></aside>
       <div class="shop__products-container">
+        <div class="shop__products-row">
+          <div class="woocommerce-notices-wrapper woocommerce-notices-wrapper--archive">
+            <?php
+            /**
+             * Hook: mst_bodleid_wc_notices.
+             *
+             * @hooked wc_print_notices - 10
+             */
+            do_action( 'mst_bodleid_wc_notices' );
+            ?>
+          </div>
+        </div>
         <?php
           if ( ! is_search() ) {
-            if (is_shop()) {
+            if ( is_shop() ) {
               ?>
               <h2 class="shop__title secondary-title shop__title--abs">
                 <?php esc_html_e( 'Featured products', 'woocommerce' ); ?>
@@ -87,7 +99,6 @@ if ( ! is_shop() ) { ?>
           /**
            * Hook: woocommerce_before_shop_loop.
            *
-           * @hooked woocommerce_output_all_notices - 10
            * @hooked woocommerce_result_count - 20
            * @hooked woocommerce_catalog_ordering - 30
            */

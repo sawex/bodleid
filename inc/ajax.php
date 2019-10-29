@@ -205,7 +205,6 @@ function mst_bodleid_update_account_data() {
 
     wc_update_new_customer_past_orders( $user_id );
 
-    wc_add_notice( 'Account data updated successfully', 'success' );
     wp_send_json_success( [ 'status' => 'OK' ] );
 
   } catch ( Exception $e ) {
@@ -261,6 +260,95 @@ function mst_bodleid_remove_from_comparing() {
   wp_die();
 }
 
+function mst_bodleid_restore_password_first() {
+  try {
+    /* @var string $email */
+    $email = sanitize_email( $_POST['data']['restore-email'] );
+
+    /* @var string $nonce */
+    $nonce = $_POST['data']['restore_password_nonce'];
+
+    if ( ! wp_verify_nonce( $nonce, 'restore-password' ) ) {
+      wp_send_json_error( [ 'error' => __( 'Nonce error', 'mst_bodleid' ) ] );
+      wp_die();
+    }
+
+    if ( ! is_email( $email ) ) {
+      wp_send_json_error( [ 'error' => __( 'Wrong email format', 'mst_bodleid' ) ] );
+      wp_die();
+    }
+
+    /* @var bool|int $user_id */
+    $user_id = email_exists( $email );
+
+    if ( ! is_bool( $user_id ) ) {
+      /* @var WP_User|false $user */
+      $user = get_user_by( 'id', $user_id );
+
+      /* @var string|WP_Error $reset_key */
+      $reset_key = get_password_reset_key( $user );
+
+      /* @var string $url */
+      $url = esc_url( add_query_arg( [
+        'rk' => $reset_key,
+        'u' => base64_encode( $user_id ),
+      ], mst_bodleid_lostpassword_url() ) );
+
+      wp_mail(
+        $email,
+        _x( 'Restore password', 'Subject for password restoring email', 'mst_bodleid' ),
+        "Click the link below for password restoring: \n" . $url
+      );
+    }
+
+    wp_send_json_success( [ 'status' => 'OK' ] );
+
+  } catch ( Exception $e ) {
+    wp_send_json_error( [ 'error' => $e ] );
+  }
+
+  wp_die();
+}
+
+function mst_bodleid_restore_password_second() {
+  try {
+    /* @var string $password */
+    $password = sanitize_email( $_POST['data']['new_password_first'] );
+
+    /* @var int $user_id */
+    $user_id = (int) $_POST['data']['user_id'];
+
+    /* @var string $reset_key User account restore key */
+    $reset_key = $_POST['data']['rk'];
+
+    /* @var string $user_id */
+    $user_id = base64_decode( $_POST['data']['u'] );
+
+    /* @var string $nonce */
+    $nonce = $_POST['data']['new_password_nonce'];
+
+    if ( ! wp_verify_nonce( $nonce, 'new-password' ) ) {
+      wp_send_json_error( [ 'error' => __( 'Nonce error', 'mst_bodleid' ) ] );
+      wp_die();
+    }
+
+    $login = get_user_by( 'id', $user_id )->user_login;
+
+    $user = check_password_reset_key( $reset_key, $login );
+
+    if ( is_wp_error( $user ) ) {
+      wp_send_json_error( [ 'error' => $e ] );
+    }
+
+    wp_send_json_success( [ 'status' => 'OK' ] );
+
+  } catch ( Exception $e ) {
+    wp_send_json_error( [ 'error' => $e ] );
+  }
+
+  wp_die();
+}
+
 add_action( 'wp_ajax_mst_bodleid_cb', 'mst_bodleid_handleCallback' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_cb', 'mst_bodleid_handleCallback' );
 
@@ -278,3 +366,6 @@ add_action( 'wp_ajax_nopriv_mst_bodleid_add_to_comparing', 'mst_bodleid_add_to_c
 
 add_action( 'wp_ajax_mst_bodleid_remove_from_comparing', 'mst_bodleid_remove_from_comparing' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_remove_from_comparing', 'mst_bodleid_remove_from_comparing' );
+
+add_action( 'wp_ajax_mst_bodleid_restore_password_first', 'mst_bodleid_restore_password_first' );
+add_action( 'wp_ajax_nopriv_mst_bodleid_restore_password_first', 'mst_bodleid_restore_password_first' );

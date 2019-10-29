@@ -10,16 +10,21 @@ if ( ! is_user_logged_in() ) {
 }
 
 get_header();
-
 ?>
 
   <main class="main" id="content" role="main">
     <?php get_template_part( 'components/page/content', 'breadcrumbs' ); ?>
 
+    <div class="container">
+      <div class="row account-notices">
+        <?php get_template_part( 'components/page/content', 'custom-notice' ); ?>
+      </div>
+    </div>
+
     <section class="account">
       <div class="container">
-        <div class="row account_notices">
-          <?php do_action( 'mst_bodleid_wc_notices' ); ?>
+        <div class="row">
+          <div class="woocommerce-notices-wrapper woocommerce-notices-wrapper--account"></div>
         </div>
 
         <div class="row">
@@ -37,7 +42,6 @@ get_header();
                 }
               ?>
             </div>
-
           </div>
         </div>
       </div>

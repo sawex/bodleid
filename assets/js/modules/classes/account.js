@@ -15,6 +15,7 @@ const Account = function() {
   this.loginForm = document.querySelector('.login__form--login');
   this.signupForm = document.querySelector('.login__new-client--signup');
   this.accountForm = document.querySelector('.login__new-client--account');
+  this.lostPassFirst = document.querySelector('.login__form--restore-password');
   this.accountForms = document.querySelectorAll('.login__form');
 
   // Validation rules for "Sign up" and "Update account data" forms
@@ -35,7 +36,6 @@ const Account = function() {
           value.trim().length <= 12
         );
       },
-      password: (value) => value.trim().length > 6,
       billing_address_1: (value) => value.trim().length,
       billing_city: (value) => value.trim().length,
       billing_postcode: (value) => value.trim().length,
@@ -124,7 +124,10 @@ Account.prototype.initSignupForm = function() {
   this.signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const isValid = validateForm(e.target, this.userFieldsRules);
+    const isValid = validateForm(e.target, {
+      password: (value) => value.trim().length > 6,
+      ...this.userFieldsRules,
+    });
 
     if (isValid.result) {
       jQuery.ajax({
@@ -163,6 +166,7 @@ Account.prototype.initAccountForm = function() {
     e.preventDefault();
 
     const isValid = validateForm(e.target, this.userFieldsRules);
+    const self = this;
 
     if (isValid.result) {
       jQuery.ajax({
@@ -175,9 +179,9 @@ Account.prototype.initAccountForm = function() {
         success(resp) {
           console.log(resp);
           if (resp.success) {
-            location = mainState.accountUrl;
+            self.alert('Data updated successfully');
           } else {
-            this.alert(resp.data.error);
+            self.alert(resp.data.error);
           }
         },
       });
@@ -186,6 +190,52 @@ Account.prototype.initAccountForm = function() {
         e.target.querySelectorAll('.login__new-client--signup .form__input'),
         isValid.invalidFields,
         this.userErrorMessages
+      );
+    }
+  });
+};
+
+/**
+ * FIRST LOST PASSWORD FORM
+ * */
+Account.prototype.initFirstLostPasswordForm = function() {
+  if (!this.isLostPassword) return;
+
+  this.lostPassFirst.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const isValid = validateForm(e.target, {
+      fields: {
+        'restore-email': (value) => /\S+@\S+\.\S+/.test(value),
+      },
+    });
+
+    const errorMessages = {
+      'restore-email': 'Enter valid email address',
+    };
+
+    if (isValid.result) {
+      jQuery.ajax({
+        type: 'POST',
+        url: mainState.ajaxUrl,
+        data: {
+          action: 'mst_bodleid_restore_password_first',
+          data: isValid.data,
+        },
+        success(resp) {
+          console.log(resp);
+          if (resp.success) {
+            console.log(true);
+          } else {
+            this.alert(resp.data.error);
+          }
+        },
+      });
+    } else {
+      this.highlightInvalidFields(
+        e.target.querySelectorAll('.login__form--restore-password .form__input'),
+        isValid.invalidFields,
+        errorMessages
       );
     }
   });
@@ -240,6 +290,7 @@ Account.prototype.init = function() {
   this.initSignupForm();
   this.initAccountForm();
   this.initAccountMenu();
+  this.initFirstLostPasswordForm();
   this.setFormsCollapsing();
 };
 

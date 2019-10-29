@@ -10,28 +10,28 @@
 
 <form class="form">
   <div class="form__input-box">
-    <input class="form__input" type="text" name="name" id="footer-name-field">
+    <input class="form__input" type="text" name="name" id="footer-name-field" autocomplete="off">
     <label class="form__label" for="footer-name-field">
       <?php esc_html_e( 'Name', 'mst_bodleid' ); ?>
     </label>
   </div>
 
   <div class="form__input-box">
-    <input class="form__input" type="tel" name="phone" id="footer-phone-field">
+    <input class="form__input" type="tel" name="phone" id="footer-phone-field" autocomplete="off">
     <label class="form__label" for="footer-phone-field">
       <?php esc_html_e( 'Phone number', 'mst_bodleid' ); ?>
     </label>
   </div>
 
   <div class="form__input-box">
-    <input class="form__input" type="text" name="email" id="footer-email-field">
+    <input class="form__input" type="text" name="email" id="footer-email-field" autocomplete="off">
     <label class="form__label" for="footer-email-field">
       <?php esc_html_e( 'Email', 'mst_bodleid' ); ?>
     </label>
   </div>
 
   <div class="form__input-box">
-    <input class="form__input" type="text" name="company" id="footer-company-field">
+    <input class="form__input" type="text" name="company" id="footer-company-field" autocomplete="off">
     <label class="form__label" for="footer-company-field">
       <?php esc_html_e( 'Company', 'mst_bodleid' ); ?>
     </label>

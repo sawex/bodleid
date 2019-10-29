@@ -31,7 +31,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
   <div class="container">
     <div class="row">
-      <div class="woocommerce-notices-wrapper">
+      <div class="woocommerce-notices-wrapper woocommerce-notices-wrapper--cart">
         <?php
         /**
          * Hook: mst_bodleid_wc_notices.

@@ -79,13 +79,19 @@ if ( ! function_exists( 'mst_bodleid_the_login_form' ) ) {
           <?php esc_html_e( 'Remember me', 'mst_bodleid' ); ?>
         </label>
 
-        <a href="#" class="login__forgotten-password">
+        <a href="<?php echo mst_bodleid_lostpassword_url(); ?>" class="login__forgotten-password">
           <?php esc_html_e( 'Forgotten password?', 'mst_bodleid' ); ?>
         </a>
       </div>
     </form>
   <?php
   }
-
 }
 
+function mst_bodleid_lostpassword_url() {
+  return esc_url( get_permalink( get_page_by_path( 'restore-password' ) ) );
+}
+
+function mst_bodleid_get_account_page() {
+  return esc_url( get_permalink( get_page_by_path( 'account' ) ) );
+}

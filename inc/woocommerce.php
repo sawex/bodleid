@@ -281,11 +281,16 @@ remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_singl
 
 /**
  * Remove single-product tabs
+ *
+ * @param array $tabs Single product tabs
+ *
+ * @return array Updated product tabs
  */
 function mst_bodleid_remove_product_tabs( $tabs ) {
   unset( $tabs['description'] );          // Remove the description tab
   unset( $tabs['reviews'] );          // Remove the reviews tab
   unset( $tabs['additional_information'] );   // Remove the additional information tab
+
   return $tabs;
 }
 
@@ -303,14 +308,13 @@ function mst_bodleid_remove_sidebar_product_pages() {
 add_action( 'wp', 'mst_bodleid_remove_sidebar_product_pages' );
 
 /**
- * Remove WooCommerce breadcrumbs
+ * Remove WooCommerce breadcrumbs.
  */
-remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
+remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 
 /**
- * Add single-product quantity buttons
+ * Add single-product quantity buttons.
  */
-
 function mst_bodleid_add_qty_plus_btn() {
  echo '<button class="one-product__btn one-product__btn--plus">+</button>';
 }
@@ -340,7 +344,7 @@ function mst_bodleid_woocommerce_short_description( $short_desc ) {
 add_filter( 'woocommerce_short_description', 'mst_bodleid_woocommerce_short_description' );
 
 /**
- * Returns product html by its id
+ * Returns product html by its id.
  *
  * @param int $id Product id
  * @param string $node Product wrapper HTML element
@@ -424,6 +428,7 @@ remove_action( 'woocommerce_cart_is_empty', 'wc_empty_cart_message' );
 remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper' );
 remove_action( 'woocommerce_after_main_content', 'woocommerce_after_main_content' );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_output_all_notices', 20 );
 remove_action( 'woocommerce_before_cart', 'wc_print_notices', 20 );
 
 /**
@@ -443,11 +448,30 @@ function mst_bodleid_add_shop_class( $classes ) {
 add_filter( 'body_class', 'mst_bodleid_add_shop_class' );
 
 /**
- * Remove hooks from checkout
+ * CHECKOUT
+ * */
+
+/**
+ * Remove hooks from checkout.
  */
 remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
 
+/**
+ * Remove checkout notices.
+ */
+function mst_bodleid_remove_default_notices() {
+  if ( function_exists( 'wc_cart_notices' ) ) {
+    remove_action( 'woocommerce_before_checkout_form', [ wc_cart_notices(), 'add_cart_notice' ], 999 );
+  }
+}
 
+add_action( 'init', 'mst_bodleid_remove_default_notices' );
+
+/**
+ * Sets custom thank-you page to redirect after success checkout.
+ *
+ * @param int $order_id Order id
+ */
 function mst_bodleid_thank_you_redirect( $order_id ) {
   $order = wc_get_order( $order_id );
 
@@ -463,25 +487,82 @@ function mst_bodleid_thank_you_redirect( $order_id ) {
 add_action( 'woocommerce_thankyou', 'mst_bodleid_thank_you_redirect');
 
 /**
- * Add classes to checkout inputs and labels
+ * Add classes to checkout inputs and labels.
+ *
+ * @param array $fields Checkout fields
+ *
+ * @return array Updated checkout fields
  */
 function mst_bodleid_checkout_fields_styling( $fields ) {
+  // Fields removing
   unset( $fields['billing']['billing_state'] );
   unset( $fields['billing']['billing_address_2'] );
+  unset( $fields['billing']['billing_last_name'] );
 
+  // Fields order updating
   $fields['billing']['billing_postcode']['priority'] = 70;
   $fields['billing']['billing_city']['priority'] = 65;
+
+  // Fields placeholder removing
+  unset( $fields['order']['order_comments']['placeholder'] );
+  unset( $fields['account']['account_password']['placeholder'] );
+
+  // Change label
+  $fields['order']['order_comments']['label'] = esc_html__( 'Any wishes, reference ...', 'mst_bodleid' );
 
   return $fields;
 }
 
-add_filter( 'woocommerce_checkout_fields' , 'mst_bodleid_checkout_fields_styling', 999 );
-add_filter( 'woocommerce_enable_order_notes_field', '__return_false', 9999 );
+add_filter( 'woocommerce_checkout_fields' , 'mst_bodleid_checkout_fields_styling', 9999 );
 
+/**
+ * Removes address placeholder.
+ *
+ * @param array $fields Default fields
+ *
+ * @return array Updated default fields
+ */
+function mst_bodleid_default_checkout_fields( $fields ) {
+  unset( $fields['address_1']['placeholder'] );
+
+  return $fields;
+}
+
+add_filter( 'woocommerce_default_address_fields', 'mst_bodleid_default_checkout_fields', 10, 1 );
+
+/**
+ * Add password field to checkout billing form for new users.
+ */
 update_option( 'woocommerce_registration_generate_password', 'no' );
 
 /**
- * Remove zero decimals
+ * Removes password strength meter from checkout.
+ */
+function mst_bodleid_remove_password_strength() {
+  if ( wp_script_is( 'wc-password-strength-meter', 'enqueued' ) ) {
+    wp_dequeue_script( 'wc-password-strength-meter' );
+  }
+}
+
+add_action( 'wp_print_scripts', 'mst_bodleid_remove_password_strength', 100 );
+
+/**
+ * MISC
+ */
+
+/**
+ * Init WC session for unlogged users.
+ */
+add_action( 'woocommerce_init', function() {
+  if ( WC()->session ) {
+    if ( ! WC()->session->has_session() ) {
+      WC()->session->set_customer_session_cookie( true );
+    }
+  }
+} );
+
+/**
+ * Remove zero decimals from prices
  */
 function mst_bodleid_remove_zero_decimals( $formatted_price, $price, $decimal_places, $decimal_separator, $thousand_separator ) {
   if ( $price - intval( $price ) == 0 ) {
@@ -494,14 +575,3 @@ function mst_bodleid_remove_zero_decimals( $formatted_price, $price, $decimal_pl
 }
 
 add_filter( 'formatted_woocommerce_price', 'mst_bodleid_remove_zero_decimals', 10, 5 );
-
-/**
- * Init WC session for unlogged users.
- */
-add_action( 'woocommerce_init', function() {
-  if ( WC()->session ) {
-    if ( ! WC()->session->has_session()) {
-      WC()->session->set_customer_session_cookie(true);
-    }
-  }
-} );

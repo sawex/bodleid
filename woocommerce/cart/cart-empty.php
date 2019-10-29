@@ -24,5 +24,9 @@ if ( wc_get_page_id( 'shop' ) > 0 ) : ?>
     <h2 class="secondary-title search__result-title">
       <?php esc_html_e( 'Your cart is empty', 'mst_bodleid' ); ?>
     </h2>
+
+    <a class="button wc-backward" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
+      <?php esc_html_e( 'Return to shop', 'woocommerce' ); ?>
+    </a>
   </div>
 <?php endif; ?>

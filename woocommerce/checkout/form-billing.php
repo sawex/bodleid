@@ -103,12 +103,14 @@ defined( 'ABSPATH' ) || exit;
         <h4 class="login__form-subtitle">
           <?php esc_html_e( 'Your address', 'mst_bodleid' ); ?>
         </h4>
+
         <?php foreach ( $fields as $key => $field ) {
           if ( ! in_array( $key, $left_fields ) ) { ?>
             <div class="form__input-box" <?php echo $key === 'billing_country' ? 'style="display: none"' : ''; ?>>
               <?php
                 $field['label_class'] = 'form__label';
                 $field['input_class'][0] = 'form__input';
+
                 woocommerce_form_field( $key, $field, $checkout->get_value( $key ) );
               ?>
             </div>
@@ -122,9 +124,3 @@ defined( 'ABSPATH' ) || exit;
 
   <?php do_action( 'woocommerce_after_checkout_billing_form', $checkout ); ?>
 </div>
-
-<style>
-  .optional {
-    display: none !important;
-  }
-</style>
