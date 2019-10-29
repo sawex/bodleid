@@ -375,6 +375,10 @@ Main.prototype.setSingleProductGallery = function() {
      focusOnSelect: true
    });
  }
+
+  window.addEventListener('resize', () => {
+    jQuery('.one-product__product-gallery').slick('refresh');
+  });
 };
 
 Main.prototype.initShopSidebar = function() {

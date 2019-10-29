@@ -62,6 +62,22 @@ defined( 'ABSPATH' ) || exit;
           }
         ?>
 
+        <div class="form__input-box">
+        <?php
+          woocommerce_form_field(
+            'billing_ssn',
+            [
+              'type'        => 'text',
+              'class'       => ['form-row-wide'],
+              'label_class' => 'form__label',
+              'label' => __('SSN', 'dk-woo-tenging'),
+              'input_class' => ['form__input', 'input-text'],
+            ],
+            $checkout->get_value('billing_ssn')
+          );
+        ?>
+        </div>
+
         <?php if ( ! is_user_logged_in() && $checkout->is_registration_enabled() ) : ?>
           <div class="woocommerce-account-fields">
             <?php if ( ! $checkout->is_registration_required() ) : ?>
