@@ -130,6 +130,8 @@ Account.prototype.initSignupForm = function() {
       ...this.userFieldsRules,
     });
 
+    const self = this;
+
     if (isValid.result) {
       jQuery.ajax({
         type: 'POST',
@@ -143,7 +145,7 @@ Account.prototype.initSignupForm = function() {
           if (resp.success) {
             location = mainState.accountUrl;
           } else {
-            this.alert(resp.data.error);
+            self.alert(resp.data.error);
           }
         },
       });

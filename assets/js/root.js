@@ -424,6 +424,73 @@ Main.prototype.initShopSidebar = function() {
   }
 };
 
+Main.prototype.initAddToCartAJAX = function(e) {
+  const btns = document.querySelectorAll('.ajax_add_to_cart');
+
+  if (btns.length) {
+    btns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const el = e.target;
+
+        if (el.classList.contains('is-disabled')) return;
+
+        const data = {
+          action: 'woocommerce_ajax_add_to_cart',
+          product_id: e.target.dataset.product_id,
+          product_sku: e.target.dataset.product_sku,
+          quantity: 1,
+          variation_id: e.target.dataset.variation,
+        };
+
+        const self = this;
+
+        jQuery.ajax({
+          type: 'POST',
+          url: wc_add_to_cart_params.ajax_url,
+          data: data,
+          beforeSend() {
+            el.classList.add('is-disabled');
+          },
+          complete() {
+            el.classList.remove('is-disabled');
+          },
+          success: (resp) => {
+            if (resp.success !== false) {
+              el.parentElement.classList.add('to-cart-box--added');
+              el.innerText = 'Skoða körfu';
+
+              el.classList.remove('ajax_add_to_cart');
+              const newBtn = el.cloneNode(true);
+              el.parentElement.replaceChild(newBtn, el);
+
+              const cartLink = document.querySelector('.header__cart-link');
+
+              cartLink.classList.add('heartBeat');
+              setTimeout(() => cartLink.classList.remove('heartBeat'), 1300);
+
+              if (cartLink.children[1]) {
+                const value = parseInt(cartLink.children[1].innerText);
+                cartLink.children[1].innerText = value + 1;
+              } else {
+                const span = document.createElement('span');
+
+                span.className = 'quantity-product-circle';
+                span.innerText = '1';
+
+                cartLink.appendChild(span);
+              }
+
+              self.alert('Product added', false);
+            }
+          },
+        });
+      });
+    });
+  }
+};
+
 Main.prototype.fixInputsInCheckout = function() {
   if (!this.isCheckout) return;
 
@@ -497,6 +564,7 @@ Main.prototype.init = function() {
 
   this.initShopSlider();
   this.initShopSidebar();
+  this.initAddToCartAJAX();
 
   this.setSingleInputButtons();
   this.setCloseModalButton();

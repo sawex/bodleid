@@ -20,8 +20,9 @@ const Abstract = function() {
  * Shows WooCommerce-like notice in account and some shop pages
  *
  * @param {string} message Notice text
+ * @param {boolean} scrollToTop
  */
-Abstract.prototype.alert = function(message = '') {
+Abstract.prototype.alert = function(message = '', scrollToTop = true) {
   const wrapper = document.querySelector('.woocommerce-notices-wrapper');
   const existsNotice = document.querySelector('.woocommerce-message');
 
@@ -45,12 +46,14 @@ Abstract.prototype.alert = function(message = '') {
       `;
     }
 
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }, 300);
+    if (scrollToTop) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }, 300);
+    }
   }
 };
 
