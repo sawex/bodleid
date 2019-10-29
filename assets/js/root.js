@@ -270,6 +270,29 @@ Main.prototype.setCartInputButtons = function() {
   });
 };
 
+Main.prototype.fixCheckoutNotice = function() {
+  if (!this.isCheckout) return;
+
+  jQuery(document.body).on('checkout_error', function() {
+    const $notice = jQuery('.woocommerce-NoticeGroup-checkout').detach();
+    jQuery($notice).appendTo('.woocommerce-notices-wrapper--checkout');
+
+    $notice.removeClass( "woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout" ).addClass('woocommerce-message');
+    $notice.attr('role', 'alert');
+
+    jQuery('ul.woocommerce-message').removeClass('woocommerce-message woocommerce-message--error').attr('role', '');
+
+    jQuery(jQuery('.w-close-btn').detach()).appendTo('.woocommerce-message');
+
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 500);
+  });
+};
+
 Main.prototype.initShopSlider = function() {
   if (!this.shopSliderContainer) return;
 
@@ -470,6 +493,7 @@ Main.prototype.init = function() {
   this.setFormFloatedLabels();
 
   this.setCartInputButtons();
+  this.fixCheckoutNotice();
 
   this.initShopSlider();
   this.initShopSidebar();
