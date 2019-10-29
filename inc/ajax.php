@@ -298,23 +298,24 @@ function mst_bodleid_restore_password_first() {
       ], mst_bodleid_lostpassword_url() );
 
       $message = <<<MSG
-  Einhver hefur óskað eftir nýju lykilorði fyrir eftirfarandi aðgang:
+  <p>Einhver hefur óskað eftir nýju lykilorði fyrir eftirfarandi aðgang:</p>
 
-  Site Name: Bodleid
+  <p>Site Name: <b>Bodleid</b></p>
   
-  Notandanafn: $user_login
+  <p>Notandanafn: <b>$user_login</b></p>
   
-  Ef þetta voru mistök þá er þér óhætt að hundsa þennan póst og ekkert verður aðhafst.
+  <p>Ef þetta voru mistök þá er þér óhætt að hundsa þennan póst og ekkert verður aðhafst.</p>
   
-  Til að endursetja lykilorð þarftu að heimsækja eftirfarandi veffang:
+  <p>Til að endursetja lykilorð þarftu að heimsækja eftirfarandi veffang:</p>
   
-  <$url>
+  <a href="$url">$url</a>
 MSG;
 
       wp_mail(
         $email,
         '[Bodleid] Lykilorð endursett',
-        $message
+        $message,
+        [ 'content-type: text/html' ]
       );
     }
 
@@ -351,6 +352,11 @@ function mst_bodleid_restore_password_second() {
 
     if ( is_wp_error( $user ) ) {
       wp_send_json_error( [ 'error' => $user->get_error_message() ] );
+      wp_die();
+    }
+
+    if ( wp_check_password( $password, $user->user_pass, $user->ID ) ) {
+      wp_send_json_error( [ 'error' => __( 'You cannot use your old password', 'mst_bodleid' ) ] );
       wp_die();
     }
 
