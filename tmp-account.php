@@ -15,12 +15,6 @@ get_header();
   <main class="main" id="content" role="main">
     <?php get_template_part( 'components/page/content', 'breadcrumbs' ); ?>
 
-    <div class="container">
-      <div class="row account-notices">
-        <?php get_template_part( 'components/page/content', 'custom-notice' ); ?>
-      </div>
-    </div>
-
     <section class="account">
       <div class="container">
         <div class="row">

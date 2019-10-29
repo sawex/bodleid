@@ -95,3 +95,7 @@ function mst_bodleid_lostpassword_url() {
 function mst_bodleid_get_account_page() {
   return esc_url( get_permalink( get_page_by_path( 'account' ) ) );
 }
+
+function mst_bodleid_get_login_page() {
+  return esc_url( get_permalink( get_page_by_path( 'login' ) ) );
+}

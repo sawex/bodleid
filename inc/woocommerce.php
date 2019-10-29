@@ -207,11 +207,12 @@ if ( ! function_exists( 'mst_bodleid_woocommerce_cart_link_fragment' ) ) {
 	function mst_bodleid_woocommerce_cart_link_fragment( $fragments ) {
 		ob_start();
 		mst_bodleid_woocommerce_cart_link();
-		$fragments['li.header__cart-item'] = ob_get_clean();
+		$fragments['a.header__cart-link'] = ob_get_clean();
 
 		return $fragments;
 	}
 }
+
 add_filter( 'woocommerce_add_to_cart_fragments', 'mst_bodleid_woocommerce_cart_link_fragment' );
 
 if ( ! function_exists( 'mst_bodleid_woocommerce_cart_link' ) ) {
@@ -224,14 +225,11 @@ if ( ! function_exists( 'mst_bodleid_woocommerce_cart_link' ) ) {
 	 */
 	function mst_bodleid_woocommerce_cart_link() {
 		?>
-    <li class="header__cart-item">
-      <a href="<?php echo esc_url( wc_get_cart_url() ); ?>"
-         class="header__cart-link"
-         title="<?php esc_attr_e( 'View your shopping cart', 'mst_bodleid' ); ?>">
-        <?php mst_bodleid_the_theme_svg( 'cart' ); ?>
-        <span class="quantity-product-circle"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
-      </a>
-    </li>
+    <a href="<?php echo esc_url( wc_get_cart_url() ); ?>"
+       class="header__cart-link">
+      <?php mst_bodleid_the_theme_svg( 'cart' ); ?>
+      <span class="quantity-product-circle"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+    </a>
 		<?php
 	}
 }

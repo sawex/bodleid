@@ -22,12 +22,28 @@ const Abstract = function() {
  * @param {string} message Notice text
  */
 Abstract.prototype.alert = function(message = '') {
-  const wrapper = document.querySelector('.woocommerce-message--login-page');
-  const paragraph = document.querySelector('.woocommerce-message--login-page .woocommerce-message__text');
+  const wrapper = document.querySelector('.woocommerce-notices-wrapper');
+  const existsNotice = document.querySelector('.woocommerce-message');
 
   if (wrapper) {
-    wrapper.classList.remove('woocommerce-message--hidden');
-    paragraph.innerHTML = message;
+    if (!existsNotice) {
+      const notice = document.createElement('div');
+
+      notice.className = 'woocommerce-message';
+      notice.setAttribute('role', 'alert');
+
+      notice.innerHTML = `
+        <button class="w-close-btn" aria-label="Close alert"></button>
+        ${message}
+    `;
+
+      wrapper.appendChild(notice);
+    } else {
+      existsNotice.innerHTML = `
+        <button class="w-close-btn" aria-label="Close alert"></button>
+        ${message}
+      `;
+    }
 
     setTimeout(() => {
       window.scrollTo({
@@ -35,7 +51,6 @@ Abstract.prototype.alert = function(message = '') {
         behavior: 'smooth'
       });
     }, 300);
-
   }
 };
 

@@ -288,16 +288,33 @@ function mst_bodleid_restore_password_first() {
       /* @var string|WP_Error $reset_key */
       $reset_key = get_password_reset_key( $user );
 
+      /* @var string $user_login */
+      $user_login = $user->user_login;
+
       /* @var string $url */
-      $url = esc_url( add_query_arg( [
-        'rk' => $reset_key,
-        'u' => base64_encode( $user_id ),
-      ], mst_bodleid_lostpassword_url() ) );
+      $url = add_query_arg( [
+        'key' => $reset_key,
+        'login' => $user_login,
+      ], mst_bodleid_lostpassword_url() );
+
+      $message = <<<MSG
+  Einhver hefur óskað eftir nýju lykilorði fyrir eftirfarandi aðgang:
+
+  Site Name: Bodleid
+  
+  Notandanafn: $user_login
+  
+  Ef þetta voru mistök þá er þér óhætt að hundsa þennan póst og ekkert verður aðhafst.
+  
+  Til að endursetja lykilorð þarftu að heimsækja eftirfarandi veffang:
+  
+  <$url>
+MSG;
 
       wp_mail(
         $email,
-        _x( 'Restore password', 'Subject for password restoring email', 'mst_bodleid' ),
-        "Click the link below for password restoring: \n" . $url
+        '[Bodleid] Lykilorð endursett',
+        $message
       );
     }
 
@@ -313,16 +330,13 @@ function mst_bodleid_restore_password_first() {
 function mst_bodleid_restore_password_second() {
   try {
     /* @var string $password */
-    $password = sanitize_email( $_POST['data']['new_password_first'] );
+    $password = sanitize_text_field( $_POST['data']['new_password_first'] );
 
-    /* @var int $user_id */
-    $user_id = (int) $_POST['data']['user_id'];
+    /* @var int $user_login */
+    $user_login = $_POST['data']['login'];
 
     /* @var string $reset_key User account restore key */
-    $reset_key = $_POST['data']['rk'];
-
-    /* @var string $user_id */
-    $user_id = base64_decode( $_POST['data']['u'] );
+    $reset_key = $_POST['data']['key'];
 
     /* @var string $nonce */
     $nonce = $_POST['data']['new_password_nonce'];
@@ -332,14 +346,15 @@ function mst_bodleid_restore_password_second() {
       wp_die();
     }
 
-    $login = get_user_by( 'id', $user_id )->user_login;
-
-    $user = check_password_reset_key( $reset_key, $login );
+    /* @var null|WP_User|WP_Error */
+    $user = check_password_reset_key( $reset_key, $user_login );
 
     if ( is_wp_error( $user ) ) {
-      wp_send_json_error( [ 'error' => $e ] );
+      wp_send_json_error( [ 'error' => $user->get_error_message() ] );
+      wp_die();
     }
 
+    wp_set_password( $password, $user->ID );
     wp_send_json_success( [ 'status' => 'OK' ] );
 
   } catch ( Exception $e ) {
@@ -369,3 +384,6 @@ add_action( 'wp_ajax_nopriv_mst_bodleid_remove_from_comparing', 'mst_bodleid_rem
 
 add_action( 'wp_ajax_mst_bodleid_restore_password_first', 'mst_bodleid_restore_password_first' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_restore_password_first', 'mst_bodleid_restore_password_first' );
+
+add_action( 'wp_ajax_mst_bodleid_restore_password_second', 'mst_bodleid_restore_password_second' );
+add_action( 'wp_ajax_nopriv_mst_bodleid_restore_password_second', 'mst_bodleid_restore_password_second' );

@@ -229,11 +229,21 @@ function mst_bodleid_scripts() {
     'mainState',
     [
       'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-      'accountUrl' => esc_url( get_permalink( get_page_by_path( 'account' ) ) ),
+      'accountUrl' => mst_bodleid_get_account_page(),
+      'loginUrl' => mst_bodleid_get_login_page(),
       'comparisonUrl' => mst_bodleid_get_comparison_page_url(),
       'i18n' => [
         'inComparisonList' => esc_html__( 'View comparison list', 'mst_bodleid' ),
         'comparingIsEmpty' => esc_html__( 'No products were found matching your selection.', 'woocommerce' ),
+        'dataUpdated' => esc_html__( 'Data updated successfully', 'mst_bodleid' ),
+        'error_billing_first_name' => esc_html__( 'First name field cannot be empty', 'mst_bodleid' ),
+        'error_billing_email' => esc_html__( 'Enter valid email address', 'mst_bodleid' ),
+        'error_billing_phone' => esc_html__( 'Phone number can contains digits only and cannot be longer than 12 digits', 'mst_bodleid' ),
+        'error_password' => esc_html__( 'Password cannot be empty or shorter than 6 symbols', 'mst_bodleid' ),
+        'error_billing_address_1' => esc_html__( 'Address cannot be empty', 'mst_bodleid' ),
+        'error_billing_city' => esc_html__( 'City field name cannot be empty', 'mst_bodleid' ),
+        'error_billing_postcode' => esc_html__( 'Postcode field cannot be empty', 'mst_bodleid' ),
+        'error_passwords_arent_equal' => esc_html__( 'Passwords are not equal', 'mst_bodleid' ),
       ],
     ]
   );
