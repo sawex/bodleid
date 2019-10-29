@@ -80,7 +80,7 @@
 
 .form__input,
 .form__message {
-	background-color: transparent;
+	background-color: transparent !important;
 	border: none;
 	border-bottom: 2px solid #323232;
 	width: 270px;
@@ -122,6 +122,18 @@
 .form__input--error::-moz-placeholder,
 .form__input::-webkit-placeholder {
 	color: #e10b00;
+}
+
+@-webkit-keyframes autofill {
+  to {
+    color: #fff;
+    background: transparent;
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
 }
 
 // .form__input:invalid {
