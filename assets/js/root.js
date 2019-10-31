@@ -6,7 +6,6 @@ import Comparing from './modules/classes/comparing.js';
 
 import smoothAnchors from './modules/mst/smooth-anchors.js';
 import validateForm from './modules/mst/form-validation.js';
-import highlightInvalidFields from './modules/highlight-invalid.js';
 
 /**
 * @constructor
@@ -188,7 +187,11 @@ Main.prototype.initFooterForm = function() {
         },
       });
     } else {
-      highlightInvalidFields(this.formInputs, isValid.invalidFields);
+      this.highlightInvalidFields(this.formInputs, isValid.invalidFields);
+
+      if (this.footerFormErrorMessage) {
+        this.footerFormErrorMessage.classList.add('form__error--is-active');
+      }
     }
   });
 };
@@ -215,6 +218,10 @@ Main.prototype.setFormFloatedLabels = function() {
 Main.prototype.setCartInputButtons = function() {
   if (!this.isCart) return;
 
+  const updateQuantity = () => {
+    setTimeout(() => jQuery('[name="update_cart"]').trigger('click'), 1200);
+  };
+
   document.addEventListener('click', (e) => {
     const el = e.target;
 
@@ -227,6 +234,8 @@ Main.prototype.setCartInputButtons = function() {
       if (document.querySelector('button[name="update_cart"]')) {
         document.querySelector('button[name="update_cart"]').disabled = false;
       }
+
+      updateQuantity();
     }
 
     if (el.classList.contains('one-product__btn--minus')) {
@@ -244,6 +253,8 @@ Main.prototype.setCartInputButtons = function() {
       if (document.querySelector('button[name="update_cart"]')) {
         document.querySelector('button[name="update_cart"]').disabled = false;
       }
+
+      updateQuantity();
     }
 
   });
@@ -256,6 +267,29 @@ Main.prototype.setCartInputButtons = function() {
         input.parentElement.nextElementSibling.classList.remove('one-product__btn--inactive');
       }
     });
+  });
+};
+
+Main.prototype.fixCheckoutNotice = function() {
+  if (!this.isCheckout) return;
+
+  jQuery(document.body).on('checkout_error', function() {
+    const $notice = jQuery('.woocommerce-NoticeGroup-checkout').detach();
+    jQuery($notice).appendTo('.woocommerce-notices-wrapper--checkout');
+
+    $notice.removeClass( "woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout" ).addClass('woocommerce-message');
+    $notice.attr('role', 'alert');
+
+    jQuery('ul.woocommerce-message').removeClass('woocommerce-message woocommerce-message--error').attr('role', '');
+
+    jQuery(jQuery('.w-close-btn').detach()).appendTo('.woocommerce-message');
+
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 500);
   });
 };
 
@@ -318,6 +352,31 @@ Main.prototype.setCloseModalButton = function() {
   });
 };
 
+Main.prototype.setSingleProductGallery = function() {
+ if (!this.isSingle) return;
+
+ const gallery = document.querySelector('.one-product__product-gallery');
+
+ if (gallery) {
+   jQuery('.one-product__open-img').slick({
+     slidesToShow: 1,
+     slidesToScroll: 1,
+     arrows: false,
+     fade: true,
+     asNavFor: '.one-product__product-gallery'
+   });
+
+   jQuery('.one-product__product-gallery').slick({
+     slidesToShow: 3,
+     slidesToScroll: 1,
+     asNavFor: '.one-product__open-img',
+     dots: false,
+     centerMode: true,
+     focusOnSelect: true
+   });
+ }
+};
+
 Main.prototype.initShopSidebar = function() {
   if (!this.shopSidebar) return;
 
@@ -335,9 +394,104 @@ Main.prototype.initShopSidebar = function() {
       cat.parentElement.classList.toggle('cat-parent--active');
     });
   });
+
+  const title = document.querySelector('.widget_product_categories .widget-title');
+
+  if (title) {
+    const toggleMobileSidebar = () => {
+      const list = document.querySelector('.widget_product_categories .product-categories');
+
+      if (list) {
+        if (list.style.display === '' || list.style.display === 'none') {
+          list.style.display = 'block';
+        } else {
+          list.style.display = 'none';
+        }
+      }
+    };
+
+    if (window.matchMedia('(max-width: 992px)').matches) {
+      title.addEventListener('click', toggleMobileSidebar);
+    }
+
+    window.addEventListener('resize', () => {
+      if (window.matchMedia('(max-width: 992px)').matches) {
+        title.addEventListener('click', toggleMobileSidebar);
+      } else {
+        title.removeEventListener('click', toggleMobileSidebar);
+      }
+    });
+  }
 };
 
-Main.prototype.fixInputsInCart = function() {
+Main.prototype.initAddToCartAJAX = function(e) {
+  const btns = document.querySelectorAll('.ajax_add_to_cart');
+
+  if (btns.length) {
+    btns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const el = e.target;
+
+        if (el.classList.contains('is-disabled')) return;
+
+        const data = {
+          action: 'woocommerce_ajax_add_to_cart',
+          product_id: e.target.dataset.product_id,
+          product_sku: e.target.dataset.product_sku,
+          quantity: 1,
+          variation_id: e.target.dataset.variation,
+        };
+
+        const self = this;
+
+        jQuery.ajax({
+          type: 'POST',
+          url: wc_add_to_cart_params.ajax_url,
+          data: data,
+          beforeSend() {
+            el.classList.add('is-disabled');
+          },
+          complete() {
+            el.classList.remove('is-disabled');
+          },
+          success: (resp) => {
+            if (resp.success !== false) {
+              el.parentElement.classList.add('to-cart-box--added');
+              el.innerText = 'Skoða körfu';
+
+              el.classList.remove('ajax_add_to_cart');
+              const newBtn = el.cloneNode(true);
+              el.parentElement.replaceChild(newBtn, el);
+
+              const cartLink = document.querySelector('.header__cart-link');
+
+              cartLink.classList.add('heartBeat');
+              setTimeout(() => cartLink.classList.remove('heartBeat'), 1300);
+
+              if (cartLink.children[1]) {
+                const value = parseInt(cartLink.children[1].innerText);
+                cartLink.children[1].innerText = value + 1;
+              } else {
+                const span = document.createElement('span');
+
+                span.className = 'quantity-product-circle';
+                span.innerText = '1';
+
+                cartLink.appendChild(span);
+              }
+
+              self.alert('Product added', false);
+            }
+          },
+        });
+      });
+    });
+  }
+};
+
+Main.prototype.fixInputsInCheckout = function() {
   if (!this.isCheckout) return;
 
   jQuery('.woocommerce-input-wrapper').each(function() {
@@ -345,6 +499,8 @@ Main.prototype.fixInputsInCart = function() {
   });
 
   jQuery('.login__new-client--checkout .form__input').unwrap();
+  jQuery('.form__input-box--textarea textarea').unwrap();
+  jQuery('#account_password').unwrap();
 };
 
 Main.prototype.initCatalogProductSliders = function() {
@@ -354,14 +510,22 @@ Main.prototype.initCatalogProductSliders = function() {
     if (typeof jQuery !== 'function') return;
 
     jQuery('.category-product__product-list').slick({
-      prevArrow: '',
-      nextArrow: '',
+      arrows: false,
       dots: false,
-      slidesToShow: 2,
-      slidesToScroll: 2,
       autoplay: true,
       autoplaySpeed: 5000,
       responsive: [
+        {
+          breakpoint: 99999,
+          settings: 'unslick',
+        },
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+          },
+        },
         {
           breakpoint: 575,
           settings: {
@@ -379,9 +543,7 @@ Main.prototype.initCatalogProductSliders = function() {
 
   window.addEventListener('resize', () => {
     if (window.matchMedia('(max-width: 992px)').matches) {
-      initSlick();
-    } else {
-      jQuery('.category-product__product-list').slick('unslick');
+      jQuery('.category-product__product-list').slick('refresh')
     }
   });
 };
@@ -398,14 +560,17 @@ Main.prototype.init = function() {
   this.setFormFloatedLabels();
 
   this.setCartInputButtons();
+  this.fixCheckoutNotice();
 
   this.initShopSlider();
   this.initShopSidebar();
+  this.initAddToCartAJAX();
 
   this.setSingleInputButtons();
   this.setCloseModalButton();
+  this.setSingleProductGallery();
 
-  this.fixInputsInCart();
+  this.fixInputsInCheckout();
   this.initCatalogProductSliders();
 };
 

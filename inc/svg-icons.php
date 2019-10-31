@@ -12,11 +12,11 @@ if ( ! function_exists('mst_bodleid_the_theme_svg')) {
    * Output and get the SVG markup for an icon in the TwentyTwenty_SVG_Icons class.
    *
    * @param string $svg_name The name of the icon.
-   * @param string $color Color code.
+   *
+   * @return void <svg> element.
    */
-  function mst_bodleid_the_theme_svg($svg_name, $color = '')
-  {
-    echo mst_bodleid_get_theme_svg($svg_name, $color);
+  function mst_bodleid_the_theme_svg( $svg_name ) {
+    echo mst_bodleid_get_theme_svg( $svg_name );
   }
 }
 
@@ -26,16 +26,14 @@ if ( ! function_exists('mst_bodleid_get_theme_svg')) {
    * Get information about the SVG icon.
    *
    * @param string $svg_name The name of the icon.
-   * @param string $color Color code.
    *
    * @return string|bool
    */
-  function mst_bodleid_get_theme_svg($svg_name, $color = '')
-  {
+  function mst_bodleid_get_theme_svg( $svg_name ) {
 
     // Make sure that only our allowed tags and attributes are included.
     $svg = wp_kses(
-      MST_Bodleid_SVG_Icons::get_svg($svg_name, $color),
+      MST_Bodleid_SVG_Icons::get_svg( $svg_name ),
       array(
         'svg' => array(
           'class' => true,
@@ -68,9 +66,10 @@ if ( ! function_exists('mst_bodleid_get_theme_svg')) {
       )
     );
 
-    if ( ! $svg) {
+    if ( ! $svg ) {
       return false;
     }
+
     return $svg;
   }
 }

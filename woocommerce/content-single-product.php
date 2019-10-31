@@ -32,16 +32,22 @@ if ( post_password_required() ) {
 /* @var int $post_thumbnail_id */
 $post_thumbnail_id = $product->get_image_id();
 
+/* @var array $post_gallery Gallery images ids */
+$post_gallery = $product->get_gallery_image_ids();
+
 /* @var string $image_url */
 $image_url = esc_url( wp_get_attachment_image_src( $post_thumbnail_id, 'full' )[0] );
 
 /* @var array $related */
 $related = $product->get_cross_sell_ids();
+
+/* @var array $additional_description */
+$additional_description = get_field( 'additional_description' );
 ?>
 <div id="product-<?php the_ID(); ?>" class="one-product">
   <div class="container">
     <div class="row">
-      <div class="woocommerce-notices-wrapper">
+      <div class="woocommerce-notices-wrapper woocommerce-notices-wrapper--single">
         <?php
           /**
            * Hook: mst_bodleid_wc_notices.
@@ -65,11 +71,49 @@ $related = $product->get_cross_sell_ids();
       ?>
       <div class="one-product__container">
         <div class="one-product__image-box">
-          <a class="one-product__open-img">
-            <img src="<?php echo $image_url; ?>"
-                 alt="camera"
-                 class="one-product__image">
-          </a>
+
+          <?php if ( empty( $post_gallery ) ) { ?>
+            <a class="one-product__open-img">
+              <img src="<?php echo $image_url; ?>"
+                   alt="<?php echo $product->get_title(); ?>"
+                   class="one-product__image">
+            </a>
+          <?php } else { ?>
+
+            <a class="one-product__open-img">
+              <?php
+                foreach( $post_gallery as $image ) {
+                /* @var string $src */
+                $src = esc_url( wp_get_attachment_image_src( $image, 'full' )[0] );
+
+                /* @var string $caption */
+                $caption = esc_html( wp_get_attachment_caption( $image ) );
+              ?>
+              <img src="<?php echo $src; ?>"
+                   alt="<?php echo $caption; ?>"
+                   class="one-product__image">
+              <?php } ?>
+            </a>
+
+            <ul class="one-product__product-gallery">
+              <?php
+                foreach( $post_gallery as $image ) {
+                  /* @var string $src */
+                  $src = esc_url( wp_get_attachment_image_src( $image )[0] );
+
+                  /* @var string $caption */
+                  $caption = esc_html( wp_get_attachment_caption( $image ) );
+              ?>
+                <li class="one-product__product-gallery-item">
+                  <a class="one-product__product-gallery-link">
+                    <img src="<?php echo $src; ?>"
+                         alt="<?php echo $caption; ?>"
+                         class="one-product__product-gallery-img">
+                  </a>
+                </li>
+              <?php } ?>
+            </ul>
+          <?php } ?>
         </div>
 
         <div class="one-product__product-info">
@@ -133,8 +177,24 @@ $related = $product->get_cross_sell_ids();
             <?php esc_html_e( 'Product description', 'woocommerce' ); ?>
           </h3>
         </div>
-        <div class="one-product__detail">
-          <p><?php echo $product->get_description(); ?></p>
+        <div class="one-product__details-container">
+          <div class="one-product__detail">
+            <p><?php echo $product->get_description(); ?></p>
+          </div>
+
+          <?php
+            if ( ! empty( $additional_description ) ) {
+              foreach ( $additional_description as $desc_item ) {
+          ?>
+
+             <div class="one-product__detail">
+               <p><?php echo wp_kses_post( $desc_item['text'] ); ?></p>
+             </div>
+
+          <?php
+              }
+            }
+          ?>
         </div>
       </div>
     </div>

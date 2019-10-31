@@ -11,11 +11,13 @@
 /* @var int $user_id */
 $user_id = get_current_user_id();
 
+$paged = get_query_var( 'paged' ) ?: 1;
+
 /* @var stdClass $orders */
 $orders_data = wc_get_orders( [
   'customer_id' => $user_id,
-  'limit' => 10,
-  'paged' => 1,
+  'limit' => 4,
+  'paged' => $paged,
   'paginate' => true,
 ] );
 
@@ -93,10 +95,48 @@ $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order-received'
             </tr>
 
           <?php } ?>
-
-
       </tbody>
     </table>
+
+    <?php
+    $pagination_elements = paginate_links( [
+      'base'         => '/account/page/%#%',
+      'total'        => $pages,
+      'current'      => max( 1, $paged ),
+      'format'       => '/account/page/%#%',
+      'show_all'     => false,
+      'prev_next'    => false,
+      'type'         => 'array',
+      'add_args'     => false,
+      'add_fragment' => '',
+    ] );
+    ?>
+
+    <ul class="orders__pagination">
+
+      <?php foreach ( $pagination_elements as $pagination_element ) {
+        $pagination_element = (string) $pagination_element;
+
+        $pagination_element = str_replace(
+          'page-numbers current',
+          'orders__pagination-link orders__pagination-link--active',
+          $pagination_element
+        );
+
+        $pagination_element = str_replace(
+          'page-numbers',
+          'orders__pagination-link',
+          $pagination_element
+        );
+
+        ?>
+
+        <li class="orders__pagination-item">
+          <?php echo $pagination_element; ?>
+        </li>
+      <?php } ?>
+
+    </ul>
 
   <?php } else { ?>
     <div class="search__result-title-box">

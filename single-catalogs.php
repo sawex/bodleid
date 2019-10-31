@@ -12,11 +12,10 @@ get_header();
 
 /* @var array $rows */
 $rows = get_field( 'catalog_rows' );
-
 ?>
 
-  <main class="main">
-    <?php get_template_part( 'components/content', 'banner' ); ?>
+  <main class="main" id="content" role="main">
+    <?php get_template_part( 'components/page/content', 'banner' ); ?>
 
     <?php
       if ( is_array( $rows ) ) {

@@ -21,7 +21,7 @@
     </a>
   </li>
   <li class="account__nav-list-item">
-    <a href="<?php echo wp_logout_url( home_url() ); ?>"
+    <a href="<?php echo wp_logout_url( mst_bodleid_get_login_page() ); ?>"
        class="account__nav-link">
       <?php esc_html_e( 'Log out', 'mst_bodleid' ); ?>
     </a>

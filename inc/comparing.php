@@ -45,6 +45,10 @@ if ( ! function_exists( 'mst_bodleid_is_product_in_comparison_list' ) ) {
   function mst_bodleid_is_product_in_comparison_list( $product_id ) {
     $list = WC()->session->get( 'mst_bodleid_comparing_list' );
 
+    if ( ! is_array( $list ) ) {
+      return false;
+    }
+
     if ( in_array( $product_id, $list ) ) {
       return true;
     }
@@ -54,7 +58,6 @@ if ( ! function_exists( 'mst_bodleid_is_product_in_comparison_list' ) ) {
 }
 
 function mst_bodleid_get_comparison_page_url() {
-  $url = esc_url( get_permalink( get_page_by_path( 'products-comparing' ) ) );
-  return $url ?: null;
+  return esc_url( get_permalink( get_page_by_path( 'products-comparing' ) ) );
 }
 

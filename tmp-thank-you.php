@@ -24,6 +24,15 @@ $date = esc_html( $order_data->get_date_created()->date_i18n( 'd M Y' ) );
 /* @var string $total */
 $total = wp_kses_post( $order_data->get_formatted_order_total() );
 
+/* @var string $order_shipping_total */
+$order_shipping_total = wc_price( $order_data->get_shipping_total() );
+
+/* @var string $taxes */
+$taxes = wc_price( $order_data->__get('total_tax') );
+
+/* @var string $total_ex_tax */
+$total_ex_tax = wc_price( $order_data->get_total() - $order_data->__get('total_tax')  );
+
 /* @var WC_Order_Item[] $items */
 $items = $order_data->get_items();
 
@@ -100,7 +109,7 @@ get_header();
                     $amount = esc_html( $item_data['quantity'] );
 
                     /* @var string $amount */
-                    $line_total = wc_price( $item_data['total'] );
+                    $line_total = wc_price( $item_data['subtotal'] + $item_data['subtotal_tax'] );
 
                     /* @var WC_Product $product */
                     $product = wc_get_product( $item_data['product_id'] );
@@ -110,7 +119,7 @@ get_header();
                   }
                 ?>
                   <tr class="order-received__product-info-content">
-                    <td data-label="Vara">
+                    <td data-label="<?php esc_attr_e( 'Product', 'mst_bodleid' ); ?>">
                       <p class="order-received__product-name">
                         <?php echo $title; ?>
                       </p>
@@ -134,15 +143,15 @@ get_header();
                 <tbody>
                 <tr class="order-received__total-price-table-row">
                   <td><?php esc_html_e( 'Price without VAT', 'mst_bodleid' ); ?></td>
-                  <td><?php echo $total; ?></td>
+                  <td><?php echo $total_ex_tax; ?></td>
                 </tr>
                 <tr class="order-received__total-price-table-row">
                   <td><?php esc_html_e( 'Home delivery within Iceland', 'mst_bodleid' ); ?></td>
-                  <td><?php echo wc_price( 0 ); ?></td>
+                  <td><?php echo $order_shipping_total; ?></td>
                 </tr>
                 <tr class="order-received__total-price-table-row">
                   <td>VSK (24%):</td>
-                  <td><?php echo wc_price( 326.19 * 0.24 ); ?></td>
+                  <td><?php echo $taxes; ?></td>
                 </tr>
                 <tr class="order-received__total-price-table-row">
                   <td><?php esc_html_e( 'Total', 'mst_bodleid' ); ?></td>

@@ -15,6 +15,8 @@ const Account = function() {
   this.loginForm = document.querySelector('.login__form--login');
   this.signupForm = document.querySelector('.login__new-client--signup');
   this.accountForm = document.querySelector('.login__new-client--account');
+  this.lostPassFirst = document.querySelector('.login__form--restore-password');
+  this.lostPassSecond = document.querySelector('.login__form--new-password');
   this.accountForms = document.querySelectorAll('.login__form');
 
   // Validation rules for "Sign up" and "Update account data" forms
@@ -35,7 +37,6 @@ const Account = function() {
           value.trim().length <= 12
         );
       },
-      password: (value) => value.trim().length > 6,
       billing_address_1: (value) => value.trim().length,
       billing_city: (value) => value.trim().length,
       billing_postcode: (value) => value.trim().length,
@@ -44,13 +45,13 @@ const Account = function() {
 
   // Validation errors for "Sign up" and "Update account data" forms
   this.userErrorMessages = {
-    billing_first_name: 'First name field cannot be empty',
-    billing_email: 'Enter valid email address',
-    billing_phone: 'Phone number can contains digits only and cannot be longer than 12 digits',
-    password: 'Password cannot be shorter than 6 symbols',
-    billing_address_1: 'Address field name cannot be empty',
-    billing_city: 'City field name cannot be empty',
-    billing_postcode: 'Postcode field cannot be empty',
+    billing_first_name: mainState.i18n.error_billing_first_name,
+    billing_email: mainState.i18n.error_billing_email,
+    billing_phone: mainState.i18n.error_billing_phone,
+    password: mainState.i18n.error_password,
+    billing_address_1: mainState.i18n.error_billing_address_1,
+    billing_city: mainState.i18n.error_billing_city,
+    billing_postcode: mainState.i18n.error_billing_postcode,
   };
 
   // Account
@@ -124,7 +125,12 @@ Account.prototype.initSignupForm = function() {
   this.signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const isValid = validateForm(e.target, this.userFieldsRules);
+    const isValid = validateForm(e.target, {
+      password: (value) => value.trim().length > 6,
+      ...this.userFieldsRules,
+    });
+
+    const self = this;
 
     if (isValid.result) {
       jQuery.ajax({
@@ -139,7 +145,7 @@ Account.prototype.initSignupForm = function() {
           if (resp.success) {
             location = mainState.accountUrl;
           } else {
-            this.alert(resp.data.error);
+            self.alert(resp.data.error);
           }
         },
       });
@@ -163,6 +169,7 @@ Account.prototype.initAccountForm = function() {
     e.preventDefault();
 
     const isValid = validateForm(e.target, this.userFieldsRules);
+    const self = this;
 
     if (isValid.result) {
       jQuery.ajax({
@@ -175,9 +182,15 @@ Account.prototype.initAccountForm = function() {
         success(resp) {
           console.log(resp);
           if (resp.success) {
-            location = mainState.accountUrl;
+            self.highlightInvalidFields(
+              e.target.querySelectorAll('.login__new-client--signup .form__input'),
+              [],
+              self.userErrorMessages
+            );
+
+            self.alert(mainState.i18n.dataUpdated);
           } else {
-            this.alert(resp.data.error);
+            self.alert(resp.data.error);
           }
         },
       });
@@ -186,6 +199,118 @@ Account.prototype.initAccountForm = function() {
         e.target.querySelectorAll('.login__new-client--signup .form__input'),
         isValid.invalidFields,
         this.userErrorMessages
+      );
+    }
+  });
+};
+
+/**
+ * FIRST LOST PASSWORD FORM
+ * */
+Account.prototype.initFirstLostPasswordForm = function() {
+  if (!this.isLostPassword || !this.lostPassFirst) return;
+
+  this.lostPassFirst.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const isValid = validateForm(e.target, {
+      fields: {
+        'restore-email': (value) => /\S+@\S+\.\S+/.test(value),
+      },
+    });
+
+    const errorMessages = {
+      'restore-email': 'Enter valid email address',
+    };
+
+    const self = this;
+
+    if (isValid.result) {
+      jQuery.ajax({
+        type: 'POST',
+        url: mainState.ajaxUrl,
+        data: {
+          action: 'mst_bodleid_restore_password_first',
+          data: isValid.data,
+        },
+        success(resp) {
+          console.log(resp);
+          if (resp.success) {
+            self.lostPassFirst.remove();
+            document.querySelector('.search__result-title-box').classList.remove('hidden');
+          } else {
+            self.alert(resp.data.error);
+          }
+        },
+      });
+    } else {
+      this.highlightInvalidFields(
+        e.target.querySelectorAll('.login__form--restore-password .form__input'),
+        isValid.invalidFields,
+        errorMessages
+      );
+    }
+  });
+};
+
+/**
+ * SECOND LOST PASSWORD FORM
+ * */
+Account.prototype.initSecondLostPasswordForm = function() {
+  if (!this.isLostPassword || !this.lostPassSecond) return;
+
+  this.lostPassSecond.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const isValid = validateForm(e.target, {
+      fields: {
+        'new_password_first': (value) => value.length >= 6,
+        'new_password_second': (value) => value.length >= 6,
+      },
+    });
+
+    const errorMessages = {
+      'new_password_first': mainState.i18n.error_password,
+    };
+
+    if (isValid.result) {
+      if (isValid.data.new_password_first !== isValid.data.new_password_second) {
+        return this.highlightInvalidFields(
+          e.target.querySelectorAll('.login__form--restore-password .form__input'),
+          ['new_password_first', 'new_password_second'],
+          {'new_password_first': mainState.i18n.error_passwords_arent_equal}
+        );
+      }
+
+      const body = {
+        key: restoreData.key,
+        login: restoreData.login,
+        ...isValid.data
+      };
+
+      const self = this;
+
+      jQuery.ajax({
+        type: 'POST',
+        url: mainState.ajaxUrl,
+        data: {
+          action: 'mst_bodleid_restore_password_second',
+          data: body,
+        },
+        success(resp) {
+          console.log(resp);
+          if (resp.success) {
+            location = mainState.loginUrl;
+          } else {
+            self.alert(resp.data.error);
+          }
+        },
+      });
+    } else {
+      this.highlightInvalidFields(
+        e.target.querySelectorAll('.login__form--restore-password .form__input'),
+        isValid.invalidFields,
+        errorMessages
       );
     }
   });
@@ -240,6 +365,8 @@ Account.prototype.init = function() {
   this.initSignupForm();
   this.initAccountForm();
   this.initAccountMenu();
+  this.initFirstLostPasswordForm();
+  this.initSecondLostPasswordForm();
   this.setFormsCollapsing();
 };
 

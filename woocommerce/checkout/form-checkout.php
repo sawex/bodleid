@@ -36,6 +36,10 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     </div>
 
     <div class="row">
+      <div class="woocommerce-notices-wrapper woocommerce-notices-wrapper--checkout"></div>
+    </div>
+
+    <div class="row">
       <div class="order-received__forms-wrapper">
         <div class="order-received__forms-container">
           <?php

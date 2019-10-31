@@ -17,18 +17,15 @@ if ( ! class_exists( 'MST_Bodleid_SVG_Icons' ) ) {
      * Get the SVG code for the specified icon
      *
      * @param string $icon Icon name.
-     * @param string $color Color.
      *
      * @return string|null
      */
-    public static function get_svg( $icon, $color = '#fff' ) {
+    public static function get_svg( $icon ) {
       $arr = self::$ui_icons;
 
       if ( array_key_exists( $icon, $arr ) ) {
         $repl = '<svg class="svg-icon" aria-hidden="true" role="img" focusable="false" ';
         $svg  = preg_replace( '/^<svg /', $repl, trim( $arr[ $icon ] ) ); // Add extra attributes to SVG code.
-//        $svg  = str_replace( '#fff', $color, $svg ); // Replace the color.
-//        $svg  = str_replace( '#', '%23', $svg ); // Urlencode hashes.
         $svg  = preg_replace( "/([\n\t]+)/", ' ', $svg ); // Remove newlines & tabs.
         $svg  = preg_replace( '/>\s*</', '><', $svg ); // Remove white space between SVG tags.
         return $svg;

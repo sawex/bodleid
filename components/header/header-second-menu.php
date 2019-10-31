@@ -23,7 +23,8 @@ $comparing_page = esc_url( get_permalink( get_page_by_path( 'products-comparing'
 ?>
 
 <ul class="header__user-cases">
-  <li class="header__user-item <?php echo $slug === 'account' ? 'header__user-list--active' : ''; ?>">
+  <li class="header__user-item
+    <?php echo ( $slug === 'account' || $slug === 'login' ) ? 'header__user-list--active ' : ''; ?>">
     <?php if ( is_user_logged_in() ) { ?>
       <a href="<?php echo $account_page; ?>"
          class="header__user-link"
@@ -37,7 +38,8 @@ $comparing_page = esc_url( get_permalink( get_page_by_path( 'products-comparing'
       </a>
   </li>
 
-  <li class="header__comparison-item <?php echo $slug === 'products-comparing' ? 'header__user-list--active' : ''; ?>">
+  <li class="header__comparison-item
+    <?php echo $slug === 'products-comparing' ? 'header__user-list--active ' : ''; ?>">
     <a href="<?php echo $comparing_page; ?>" class="header__comparison-link">
       <?php
         mst_bodleid_the_theme_svg( 'comparison' );
@@ -50,7 +52,7 @@ $comparing_page = esc_url( get_permalink( get_page_by_path( 'products-comparing'
   </li>
 
   <?php if ( function_exists( 'wc_get_cart_url' ) ) { ?>
-    <li class="header__cart-item <?php echo $slug === 'cart' ? 'header__user-list--active' : ''; ?>">
+    <li class="header__cart-item <?php echo ( is_cart() || is_checkout())  ? 'header__user-list--active ' : ''; ?>">
       <a href="<?php echo esc_url( wc_get_cart_url() ); ?>"
          class="header__cart-link">
         <?php mst_bodleid_the_theme_svg( 'cart' ); ?>

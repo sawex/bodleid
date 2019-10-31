@@ -205,7 +205,6 @@ function mst_bodleid_update_account_data() {
 
     wc_update_new_customer_past_orders( $user_id );
 
-    wc_add_notice( 'Account data updated successfully', 'success' );
     wp_send_json_success( [ 'status' => 'OK' ] );
 
   } catch ( Exception $e ) {
@@ -261,6 +260,139 @@ function mst_bodleid_remove_from_comparing() {
   wp_die();
 }
 
+function mst_bodleid_restore_password_first() {
+  try {
+    /* @var string $email */
+    $email = sanitize_email( $_POST['data']['restore-email'] );
+
+    /* @var string $nonce */
+    $nonce = $_POST['data']['restore_password_nonce'];
+
+    if ( ! wp_verify_nonce( $nonce, 'restore-password' ) ) {
+      wp_send_json_error( [ 'error' => __( 'Nonce error', 'mst_bodleid' ) ] );
+      wp_die();
+    }
+
+    if ( ! is_email( $email ) ) {
+      wp_send_json_error( [ 'error' => __( 'Wrong email format', 'mst_bodleid' ) ] );
+      wp_die();
+    }
+
+    /* @var bool|int $user_id */
+    $user_id = email_exists( $email );
+
+    if ( ! is_bool( $user_id ) ) {
+      /* @var WP_User|false $user */
+      $user = get_user_by( 'id', $user_id );
+
+      /* @var string|WP_Error $reset_key */
+      $reset_key = get_password_reset_key( $user );
+
+      /* @var string $user_login */
+      $user_login = $user->user_login;
+
+      /* @var string $url */
+      $url = add_query_arg( [
+        'key' => $reset_key,
+        'login' => $user_login,
+      ], mst_bodleid_lostpassword_url() );
+
+      $message = <<<MSG
+  Einhver hefur óskað eftir nýju lykilorði fyrir eftirfarandi aðgang:
+
+  Site Name: Bodleid
+  
+  Notandanafn: $user_login
+  
+  Ef þetta voru mistök þá er þér óhætt að hundsa þennan póst og ekkert verður aðhafst.
+  
+  Til að endursetja lykilorð þarftu að heimsækja eftirfarandi veffang:
+  
+  <$url>
+MSG;
+
+      wp_mail(
+        $email,
+        '[Bodleid] Lykilorð endursett',
+        $message
+      );
+    }
+
+    wp_send_json_success( [ 'status' => 'OK' ] );
+
+  } catch ( Exception $e ) {
+    wp_send_json_error( [ 'error' => $e ] );
+  }
+
+  wp_die();
+}
+
+function mst_bodleid_restore_password_second() {
+  try {
+    /* @var string $password */
+    $password = sanitize_text_field( $_POST['data']['new_password_first'] );
+
+    /* @var int $user_login */
+    $user_login = $_POST['data']['login'];
+
+    /* @var string $reset_key User account restore key */
+    $reset_key = $_POST['data']['key'];
+
+    /* @var string $nonce */
+    $nonce = $_POST['data']['new_password_nonce'];
+
+    if ( ! wp_verify_nonce( $nonce, 'new-password' ) ) {
+      wp_send_json_error( [ 'error' => __( 'Nonce error', 'mst_bodleid' ) ] );
+      wp_die();
+    }
+
+    /* @var null|WP_User|WP_Error */
+    $user = check_password_reset_key( $reset_key, $user_login );
+
+    if ( is_wp_error( $user ) ) {
+      wp_send_json_error( [ 'error' => $user->get_error_message() ] );
+      wp_die();
+    }
+
+    wp_set_password( $password, $user->ID );
+    wp_send_json_success( [ 'status' => 'OK' ] );
+
+  } catch ( Exception $e ) {
+    wp_send_json_error( [ 'error' => $e ] );
+  }
+
+  wp_die();
+}
+
+function woocommerce_ajax_add_to_cart() {
+  $product_id = apply_filters( 'woocommerce_add_to_cart_product_id', absint( $_POST['product_id'] ) );
+  $quantity = empty( $_POST['quantity'] ) ? 1 : wc_stock_amount( $_POST['quantity'] );
+  $variation_id = absint( $_POST['variation_id'] );
+  $passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity );
+  $product_status = get_post_status( $product_id );
+
+  if ( $passed_validation && WC()->cart->add_to_cart( $product_id, $quantity, $variation_id ) && 'publish' === $product_status ) {
+
+    do_action( 'woocommerce_ajax_added_to_cart', $product_id );
+
+    if ( 'yes' === get_option('woocommerce_cart_redirect_after_add' ) ) {
+      wc_add_to_cart_message( [ $product_id => $quantity ], true );
+    }
+
+    WC_AJAX :: get_refreshed_fragments();
+  } else {
+
+    $data = [
+      'error' => true,
+      'product_url' => apply_filters( 'woocommerce_cart_redirect_after_error', get_permalink( $product_id ), $product_id ),
+    ];
+
+    echo wp_send_json_error( $data );
+  }
+
+  wp_die();
+}
+
 add_action( 'wp_ajax_mst_bodleid_cb', 'mst_bodleid_handleCallback' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_cb', 'mst_bodleid_handleCallback' );
 
@@ -278,3 +410,12 @@ add_action( 'wp_ajax_nopriv_mst_bodleid_add_to_comparing', 'mst_bodleid_add_to_c
 
 add_action( 'wp_ajax_mst_bodleid_remove_from_comparing', 'mst_bodleid_remove_from_comparing' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_remove_from_comparing', 'mst_bodleid_remove_from_comparing' );
+
+add_action( 'wp_ajax_mst_bodleid_restore_password_first', 'mst_bodleid_restore_password_first' );
+add_action( 'wp_ajax_nopriv_mst_bodleid_restore_password_first', 'mst_bodleid_restore_password_first' );
+
+add_action( 'wp_ajax_mst_bodleid_restore_password_second', 'mst_bodleid_restore_password_second' );
+add_action( 'wp_ajax_nopriv_mst_bodleid_restore_password_second', 'mst_bodleid_restore_password_second' );
+
+add_action('wp_ajax_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');

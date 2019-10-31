@@ -13,28 +13,47 @@ const Abstract = function() {
   this.isSingle = !!document.querySelector('.single-product');
   this.isCheckout = !!document.querySelector('.woocommerce-checkout');
   this.isComparison = !!document.querySelector('.page-comparison');
+  this.isLostPassword = !!document.querySelector('.page-template-tmp-lost-password');
 };
 
 /**
  * Shows WooCommerce-like notice in account and some shop pages
  *
  * @param {string} message Notice text
+ * @param {boolean} scrollToTop
  */
-Abstract.prototype.alert = function(message = '') {
-  const wrapper = document.querySelector('.woocommerce-message--login-page');
-  const paragraph = document.querySelector('.woocommerce-message--login-page .woocommerce-message__text');
+Abstract.prototype.alert = function(message = '', scrollToTop = true) {
+  const wrapper = document.querySelector('.woocommerce-notices-wrapper');
+  const existsNotice = document.querySelector('.woocommerce-message');
 
   if (wrapper) {
-    wrapper.classList.remove('woocommerce-message--hidden');
-    paragraph.innerHTML = message;
+    if (!existsNotice) {
+      const notice = document.createElement('div');
 
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }, 300);
+      notice.className = 'woocommerce-message';
+      notice.setAttribute('role', 'alert');
 
+      notice.innerHTML = `
+        <button class="w-close-btn" aria-label="Close alert"></button>
+        ${message}
+    `;
+
+      wrapper.appendChild(notice);
+    } else {
+      existsNotice.innerHTML = `
+        <button class="w-close-btn" aria-label="Close alert"></button>
+        ${message}
+      `;
+    }
+
+    if (scrollToTop) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }, 300);
+    }
   }
 };
 
@@ -62,10 +81,6 @@ Abstract.prototype.highlightInvalidFields = function(formElements, invalidFields
 
   if (message.length > 9 && typeof this.alert === 'function') {
     this.alert(message);
-  }
-
-  if (this.footerFormErrorMessage) {
-    this.footerFormErrorMessage.classList.add('form__error--is-active');
   }
 };
 
