@@ -1,7 +1,19 @@
 .woocommerce-notices-wrapper {
   width: 100%;
   margin-bottom: 10px;
-  position: relative;
+  // position: relative;
+}
+
+.woocommerce-notices-wrapper--login,
+.woocommerce-notices-wrapper--account,
+.woocommerce-notices-wrapper--forgot-pass {
+  display: flex;
+  justify-content: center;
+}
+
+.woocommerce-notices-wrapper--checkout {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .woocommerce-message--login-page {
@@ -19,19 +31,30 @@
   align-items: center;
   padding-right: 150px;
   padding-left: 50px;
-  // position: relative;
+  position: relative;
   font-size: 16px;
   font-weight: 400;
   color: #323232;
   list-style: none;
-  position: absolute;
-  right: 0;
-  top: -60px;
+  // position: absolute;
+  // right: 0;
+  // top: -60px;
+}
+
+.woocommerce-notices-wrapper--login .woocommerce-message,
+.woocommerce-notices-wrapper--checkout .woocommerce-message,
+.woocommerce-notices-wrapper--account .woocommerce-message,
+.woocommerce-notices-wrapper--forgot-pass .woocommerce-message {
+  padding-right: 40px;
 }
 
 .woocommerce-shop .woocommerce-message {
   position: relative;
   top: -10px;
+}
+
+.woocommerce-notices-wrapper--forgot-pass ul {
+  list-style: none;
 }
 
 .woocommerce-message a {
@@ -79,6 +102,10 @@
   display: none;
 }
 
+// .login .woocommerce-message {
+//   position: static;
+// }
+
 @media screen and (min-width: 1280px) {
   .woocommerce-NoticeGroup-checkout .woocommerce-message {
     min-width: 500px
@@ -89,10 +116,48 @@
   }
 }
 
- @media screen and (max-width: 992px) {
-   .woocommerce-message {
-      position: relative;
-      right: 0;
-      top: -10px;
-   }
- }
+@media screen and (max-width: 1279px) {
+  .woocommerce-notices-wrapper--checkout {
+    justify-content: flex-start; 
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .woocommerce-message {
+    position: relative;
+    // right: 0;
+    // top: -10px;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .woocommerce-message {
+    width: 100%;
+    padding-right: 120px;
+    padding-left: 50px;
+  }
+
+  .woocommerce-message a {
+    padding: 0 12px;
+  }
+
+  .woocommerce-message .w-close-btn {
+    left: 10px;
+  }
+
+  .woocommerce-notices-wrapper--login,
+  .woocommerce-notices-wrapper--forgot-pass {
+    margin-top: 20px;
+  }
+
+  .woocommerce-notices-wrapper--login ul,
+  .woocommerce-notices-wrapper--account ul,
+  .woocommerce-notices-wrapper--forgot-pass ul {
+    padding-left: 10px;
+  }
+
+  .woocommerce-shipping-methods {
+    padding: 0;
+  }
+}

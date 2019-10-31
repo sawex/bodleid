@@ -22,12 +22,19 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   table.shop_table_responsive tr td:not(:last-child) {
     border-bottom: none;
   }
+}
+
+@media screen and (max-width: 768px) {
+  // table.shop_table_responsive tr td:not(:last-child) {
+  //   border-bottom: none;
+  // }
 
   table.shop_table_responsive tr td::before {
+    content: attr(data-title) "" !important;
     font-weight: 700;
     font-size: 21px;
   }

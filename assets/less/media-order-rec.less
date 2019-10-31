@@ -45,7 +45,34 @@
   }
 
   .order-received__forms-container .woocommerce-checkout,
-  .order-received__forms-container .order-received__order-info-column {
+  .order-received__forms-container .order-received__order-info-column,
+  .order-received__forms-container .send-comment-form {
+    width: 100%;
+  }
+
+  .order-received__forms-container .login__form {
+    height: 30em;
+  }
+
+  .order-received__forms-container .login__new-client {
+    height: 58em;
+  }
+
+  .order-received__forms-container .send-comment-form {
+    height: 13em !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .order-received__forms-container .login__form {
+    height: 35em;
+  }
+
+  .order-received__forms-container .login__new-client {
+    height: 58em;
+  }
+
+  .order-received__content-wrap {
     width: 100%;
   }
 }
@@ -95,6 +122,14 @@
   .order-received__continue-btn::before {
     width: 20px;
     height: 20px;
+  }
+
+  .order-received__forms-container .login__form {
+    height: 50em;
+  }
+
+  .order-received__forms-container .login__new-client {
+    height: 58em;
   }
 }
 
@@ -159,6 +194,12 @@
 
   .order-received__forms-container .order-received__products-info-column .order-received__product-info-table {
     width: auto;
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .order-received__forms-container .login__new-client {
+    height: 64em;
   }
 }
 
