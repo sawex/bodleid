@@ -1,3 +1,10 @@
+@media screen and (min-width: 1280px) {
+  .account__nav-link {
+    display: block;
+    width: 100%;
+  }
+}
+
 @media screen and (max-width: 1280px) {
   .account__wrapper {
     flex-wrap: wrap;
@@ -19,6 +26,7 @@
     border: none !important;
     display: flex;
     justify-content: center;
+    text-align: center;
   }
 }
 
@@ -119,5 +127,18 @@
   .orders__table td span {
     float: right;
     padding-top: 7px;
+  }
+
+  .page-template-tmp-account .login__new-client--account {
+    height: 62em;
+  }
+
+  .account__nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .account__nav-list-item {
+    justify-content: flex-start;
   }
 }
