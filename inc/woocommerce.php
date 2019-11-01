@@ -368,20 +368,24 @@ function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
 
   $id = esc_html( $product->get_id() );
   $title = esc_html( $product->get_title() );
+  $sku = esc_html( $product->get_sku() );
+  $is_in_stock = esc_html( $product->is_in_stock() );
   $desc = wp_kses_post( wp_trim_words( $product->get_short_description(), 15, '...' ) );
   $price = wp_kses_post( $product->get_price_html() );
   $url = $product->get_permalink();
   $post_thumbnail_id = $product->get_image_id();
   $image_url = esc_url( wp_get_attachment_image_src( $post_thumbnail_id, 'medium' )[0] );
-  $add_to_cart_url = esc_url( $product->add_to_cart_url() )
-
+  $add_to_cart_url = esc_url( $product->add_to_cart_url() );
+  $wp_placeholder_img = esc_url( wc_placeholder_img_src() );
   ?>
 
   <<?php echo $node; ?> class="product-item <?php echo $in_comparison ? 'header__user-list--active ' : ''; ?>"
                         data-id="<?php echo $id; ?>">
     <a href="<?php echo $url; ?>" class="product-link" style="height: initial;">
       <div class="product-img-box">
-        <img src="<?php echo $image_url; ?>" alt="#" class="product-img">
+        <img src="<?php echo $image_url ?: $wp_placeholder_img; ?>"
+             alt="<?php echo $title; ?>"
+             class="product-img">
       </div>
 
       <div class="product-info">
@@ -395,20 +399,36 @@ function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
       <button class="compare-btn <?php echo $in_comparison ? 'compare-btn--active ' : ''; ?>"></button>
     </div>
 
-  <?php if ( ! $in_cart ) { ?>
+  <?php if ( ! $is_in_stock ) { ?>
     <div class="to-cart-box">
-        <!-- TODO: add-to-catr-bnt -->
-      <?php woocommerce_template_loop_add_to_cart( [ 'class' => 'add-to-catr-bnt ajax_add_to_cart' ] ); ?>
+      <a href="<?php echo $url; ?>"
+         class="add-to-cart-btn">
+        <?php esc_html_e( 'View product', 'woocommerce' ); ?>
+      </a>
     </div>
+  <?php } ?>
 
-  <?php } else { ?>
+  <?php if ( ! $in_cart && $is_in_stock ) { ?>
+    <div class="to-cart-box">
+      <?php //woocommerce_template_loop_add_to_cart( [ 'class' => 'add-to-cart-btn ajax_add_to_cart' ] ); ?>
+      <a href="<?php echo $add_to_cart_url; ?>"
+         data-quantity="1"
+         class="add-to-cart-btn ajax_add_to_cart"
+         data-product_id="<?php echo $id; ?>"
+         data-product_sku="<?php echo $sku; ?>"
+         aria-label="Add “<?php echo $title; ?>” to your cart"
+         rel="nofollow">
+        <?php esc_html_e( 'Add to cart', 'woocommerce' ); ?>
+      </a>
+    </div>
+  <?php } else if ( $in_cart && $is_in_stock ) { ?>
     <div class="to-cart-box to-cart-box--added">
-    <!-- TODO: add-to-catr-bnt -->
-      <a href="<?php echo wc_get_cart_url(); ?>" class="add-to-catr-bnt">
+      <a href="<?php echo wc_get_cart_url(); ?>" class="add-to-cart-btn">
         <?php esc_html_e( 'View cart', 'woocommerce' ); ?>
       </a>
     </div>
   <?php } ?>
+
   </<?php echo $node; ?>>
 
   <?php
@@ -419,6 +439,11 @@ function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
  */
 remove_all_actions( 'woocommerce_cart_collaterals' );
 remove_action( 'woocommerce_cart_is_empty', 'wc_empty_cart_message' );
+add_filter('woocommerce_add_message', '__return_false');
+
+/**
+ * ARCHIVE
+ * */
 
 /**
  * Remove hooks from archive-product.php
@@ -427,7 +452,6 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wr
 remove_action( 'woocommerce_after_main_content', 'woocommerce_after_main_content' );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
 remove_action( 'woocommerce_before_shop_loop', 'woocommerce_output_all_notices', 20 );
-remove_action( 'woocommerce_before_cart', 'wc_print_notices', 20 );
 
 /**
  * Add woocommerce-shop class to the /shop page
@@ -455,17 +479,6 @@ add_filter( 'body_class', 'mst_bodleid_add_shop_class' );
 remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
 
 /**
- * Remove checkout notices.
- */
-function mst_bodleid_remove_default_notices() {
-  if ( function_exists( 'wc_cart_notices' ) ) {
-    remove_action( 'woocommerce_before_checkout_form', [ wc_cart_notices(), 'add_cart_notice' ], 999 );
-  }
-}
-
-add_action( 'init', 'mst_bodleid_remove_default_notices' );
-
-/**
  * Sets custom thank-you page to redirect after success checkout.
  *
  * @param int $order_id Order id
@@ -473,7 +486,7 @@ add_action( 'init', 'mst_bodleid_remove_default_notices' );
 function mst_bodleid_thank_you_redirect( $order_id ) {
   $order = wc_get_order( $order_id );
 
-  $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order-received' ) ) );
+  $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order' ) ) );
   $order_url = esc_url( add_query_arg( [ 'order_id' => $order_id ], $thank_you_page_url ) );
 
   if ( ! $order->has_status( 'failed' ) ) {
@@ -482,7 +495,7 @@ function mst_bodleid_thank_you_redirect( $order_id ) {
   }
 }
 
-add_action( 'woocommerce_thankyou', 'mst_bodleid_thank_you_redirect');
+add_action( 'woocommerce_thankyou', 'mst_bodleid_thank_you_redirect' );
 
 /**
  * Add classes to checkout inputs and labels.
@@ -511,7 +524,7 @@ function mst_bodleid_checkout_fields_styling( $fields ) {
   return $fields;
 }
 
-add_filter( 'woocommerce_checkout_fields' , 'mst_bodleid_checkout_fields_styling', 9999 );
+add_filter( 'woocommerce_checkout_fields' , 'mst_bodleid_checkout_fields_styling' );
 
 /**
  * Removes address placeholder.
@@ -544,6 +557,21 @@ function mst_bodleid_remove_password_strength() {
 
 add_action( 'wp_print_scripts', 'mst_bodleid_remove_password_strength', 100 );
 
+add_action( 'woocommerce_checkout_create_order', function( $order, $data ) {
+
+  $custom_fields = [
+    'billing_ssn',
+  ];
+
+  foreach ( $custom_fields as $field_name ) {
+    if ( isset( $data[ $field_name ] ) ) {
+      $field_value = $data[ $field_name ];
+      $order->update_meta_data( $field_name, $field_value );
+    }
+  }
+
+}, 10, 2 );
+
 /**
  * MISC
  */
@@ -559,17 +587,3 @@ add_action( 'woocommerce_init', function() {
   }
 } );
 
-/**
- * Remove zero decimals from prices
- */
-function mst_bodleid_remove_zero_decimals( $formatted_price, $price, $decimal_places, $decimal_separator, $thousand_separator ) {
-  if ( $price - intval( $price ) == 0 ) {
-    // Format units, including thousands separator if necessary.
-    return $unit = number_format( intval( $price ), 0, $decimal_separator, $thousand_separator );
-  }
-  else {
-    return $formatted_price;
-  }
-}
-
-add_filter( 'formatted_woocommerce_price', 'mst_bodleid_remove_zero_decimals', 10, 5 );

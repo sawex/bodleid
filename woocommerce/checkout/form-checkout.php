@@ -42,15 +42,21 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     <div class="row">
       <div class="order-received__forms-wrapper">
         <div class="order-received__forms-container">
-          <?php
-          if ( ! is_user_logged_in() ) {
-            mst_bodleid_the_login_form( true, true, wc_get_checkout_url() );
-          }
-          ?>
 
-          <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
+          <form name="checkout"
+                method="post"
+                class="checkout woocommerce-checkout"
+                action="<?php echo esc_url( wc_get_checkout_url() ); ?>"
+                enctype="multipart/form-data">
+
             <div class="order-received__content-wrap">
               <div class="order-received__order-info-column">
+
+                <?php
+                  if ( ! is_user_logged_in() ) {
+                    get_template_part( 'components/account/form', 'checkout-login-form' );
+                  }
+                ?>
 
                 <?php if ( $checkout->get_checkout_fields() ) : ?>
 
@@ -72,7 +78,6 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
             <div class="order-received__products-info-column">
 
               <?php do_action( 'woocommerce_checkout_before_order_review_heading' ); ?>
-
 
               <?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
 

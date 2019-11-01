@@ -17,6 +17,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/* @global WC_Product $product */
 global $product;
 
 /**
@@ -43,7 +44,11 @@ $related = $product->get_cross_sell_ids();
 
 /* @var array $additional_description */
 $additional_description = get_field( 'additional_description' );
+
+/* @var string $wp_placeholder_img */
+$wp_placeholder_img = esc_url( wc_placeholder_img_src() );
 ?>
+
 <div id="product-<?php the_ID(); ?>" class="one-product">
   <div class="container">
     <div class="row">
@@ -74,7 +79,7 @@ $additional_description = get_field( 'additional_description' );
 
           <?php if ( empty( $post_gallery ) ) { ?>
             <a class="one-product__open-img">
-              <img src="<?php echo $image_url; ?>"
+              <img src="<?php echo $image_url ?: $wp_placeholder_img; ?>"
                    alt="<?php echo $product->get_title(); ?>"
                    class="one-product__image">
             </a>
@@ -170,34 +175,36 @@ $additional_description = get_field( 'additional_description' );
       </div>
     </div>
 
-    <div class="row">
-      <div class="one-product__product-detail-container">
-        <div class="one-product__detail-title-box">
-          <h3 class="tertiary-title one-product__detail-title">
-            <?php esc_html_e( 'Product description', 'woocommerce' ); ?>
-          </h3>
-        </div>
-        <div class="one-product__details-container">
-          <div class="one-product__detail">
-            <p><?php echo $product->get_description(); ?></p>
+    <?php if ( ! empty( $product->get_description() ) || ! empty( $additional_description ) ) { ?>
+      <div class="row">
+        <div class="one-product__product-detail-container">
+          <div class="one-product__detail-title-box">
+            <h3 class="tertiary-title one-product__detail-title">
+              <?php esc_html_e( 'Product description', 'woocommerce' ); ?>
+            </h3>
           </div>
+          <div class="one-product__details-container">
+            <div class="one-product__detail">
+              <p><?php echo $product->get_description(); ?></p>
+            </div>
 
-          <?php
-            if ( ! empty( $additional_description ) ) {
-              foreach ( $additional_description as $desc_item ) {
-          ?>
+            <?php
+              if ( ! empty( $additional_description ) ) {
+                foreach ( $additional_description as $desc_item ) {
+            ?>
 
-             <div class="one-product__detail">
-               <p><?php echo wp_kses_post( $desc_item['text'] ); ?></p>
-             </div>
+               <div class="one-product__detail">
+                 <p><?php echo wp_kses_post( $desc_item['text'] ); ?></p>
+               </div>
 
-          <?php
+            <?php
+                }
               }
-            }
-          ?>
+            ?>
+          </div>
         </div>
       </div>
-    </div>
+    <?php } ?>
 
     <?php if ( ! empty( $related ) && function_exists( 'mst_bodleid_the_product_html' ) ) { ?>
       <div class="row">

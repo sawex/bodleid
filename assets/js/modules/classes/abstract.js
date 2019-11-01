@@ -13,7 +13,7 @@ const Abstract = function() {
   this.isSingle = !!document.querySelector('.single-product');
   this.isCheckout = !!document.querySelector('.woocommerce-checkout');
   this.isComparison = !!document.querySelector('.page-comparison');
-  this.isLostPassword = !!document.querySelector('.page-template-tmp-lost-password');
+  this.isLostPassword = !!document.querySelector('.page-forgot-password');
 };
 
 /**

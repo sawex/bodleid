@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-if ( ! function_exists('mst_bodleid_the_theme_svg')) {
+if ( ! function_exists('mst_bodleid_the_theme_svg') ) {
   /**
    * Output and Get Theme SVG.
    * Output and get the SVG markup for an icon in the TwentyTwenty_SVG_Icons class.
@@ -20,7 +20,7 @@ if ( ! function_exists('mst_bodleid_the_theme_svg')) {
   }
 }
 
-if ( ! function_exists('mst_bodleid_get_theme_svg')) {
+if ( ! function_exists('mst_bodleid_get_theme_svg') ) {
 
   /**
    * Get information about the SVG icon.
@@ -35,7 +35,7 @@ if ( ! function_exists('mst_bodleid_get_theme_svg')) {
     $svg = wp_kses(
       MST_Bodleid_SVG_Icons::get_svg( $svg_name ),
       array(
-        'svg' => array(
+        'svg' => [
           'class' => true,
           'xmlns' => true,
           'width' => true,
@@ -44,8 +44,8 @@ if ( ! function_exists('mst_bodleid_get_theme_svg')) {
           'aria-hidden' => true,
           'role' => true,
           'focusable' => true,
-        ),
-        'path' => array(
+        ],
+        'path' => [
           'fill' => true,
           'fill-rule' => true,
           'd' => true,
@@ -55,14 +55,14 @@ if ( ! function_exists('mst_bodleid_get_theme_svg')) {
           'stroke-linejoin' => true,
           'stroke-miterlimit' => true,
           'stroke-width' => true,
-        ),
-        'polygon' => array(
+        ],
+        'polygon' => [
           'fill' => true,
           'fill-rule' => true,
           'points' => true,
           'transform' => true,
           'focusable' => true,
-        ),
+        ],
       )
     );
 

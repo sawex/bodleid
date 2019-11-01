@@ -116,12 +116,15 @@ get_header();
 
                     /* @var string $sku */
                     $sku = $product->get_sku();
+
+                    /* @var string $permalink */
+                    $permalink = esc_url( $product->get_permalink() );
                   }
                 ?>
                   <tr class="order-received__product-info-content">
                     <td data-label="<?php esc_attr_e( 'Product', 'mst_bodleid' ); ?>">
                       <p class="order-received__product-name">
-                        <?php echo $title; ?>
+                        <a href="<?php echo $permalink; ?>"><?php echo $title; ?></a>
                       </p>
                       <p class="order-received__product-model">
                         <?php echo esc_html( sprintf( '%s: %s', __( 'Model', 'mst_bodleid' ), $sku ) ); ?>

@@ -8,9 +8,13 @@
  */
 
 if ( ! defined( 'MST_BODLEID_VER' ) ) {
-  define( 'MST_BODLEID_VER', '1.0.6' );
+  define( 'MST_BODLEID_VER', '1.0.8' );
 }
 
+/**
+ * Functions update DB options on ACF fields updating.
+ * Uses for DK Tenging plugin
+ */
 function mst_bodleid_dkplus_update_username( $value ) {
   update_option( 'dk_login', $value );
   return $value;
@@ -253,13 +257,6 @@ function mst_bodleid_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'mst_bodleid_scripts' );
-
-/**
- * Load Jetpack compatibility file.
- */
-if ( defined( 'JETPACK__VERSION' ) ) {
-	require get_template_directory() . '/inc/jetpack.php';
-}
 
 /**
  * Load WooCommerce compatibility file.

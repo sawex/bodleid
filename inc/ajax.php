@@ -187,6 +187,7 @@ function mst_bodleid_update_account_data() {
       'billing_address_1',
       'billing_city',
       'billing_postcode',
+      'billing_ssn',
     ];
 
     foreach ( $fields as $field ) {
@@ -216,11 +217,19 @@ function mst_bodleid_update_account_data() {
 /**
  * COMPARING
  */
+
+/**
+ * Register AJAX handler for add to compare list.
+ *
+ * @version 1.0.0
+ */
 function mst_bodleid_add_to_comparing() {
   try {
+    /* @var int $product_id */
     $product_id = (int) $_POST['data']['product_id'];
 
-    $list = WC()->session->get( 'mst_bodleid_comparing_list' );
+    /* @var array $list */
+    $list = (array) WC()->session->get( 'mst_bodleid_comparing_list' );
 
     if ( ! in_array( $product_id, $list ) ) {
       $list[] = $product_id;
@@ -239,11 +248,18 @@ function mst_bodleid_add_to_comparing() {
   wp_die();
 }
 
+/**
+ * Register AJAX handler for removing from compare list.
+ *
+ * @version 1.0.0
+ */
 function mst_bodleid_remove_from_comparing() {
   try {
+    /* @var int $product_id */
     $product_id = (int) $_POST['data']['product_id'];
 
-    $list = WC()->session->get( 'mst_bodleid_comparing_list' );
+    /* @var array $list */
+    $list = (array) WC()->session->get( 'mst_bodleid_comparing_list' );
 
     if ( in_array( $product_id, $list ) ) {
       $i = array_search( $product_id, $list );
@@ -260,6 +276,15 @@ function mst_bodleid_remove_from_comparing() {
   wp_die();
 }
 
+/**
+ * RESTORE PASSWORD
+ * */
+
+/**
+ * Register AJAX handler for email getting, restore key generation and email sending.
+ *
+ * @version 1.0.0
+ */
 function mst_bodleid_restore_password_first() {
   try {
     /* @var string $email */
@@ -297,23 +322,11 @@ function mst_bodleid_restore_password_first() {
         'login' => $user_login,
       ], mst_bodleid_lostpassword_url() );
 
-      $message = <<<MSG
-  <p>Einhver hefur óskað eftir nýju lykilorði fyrir eftirfarandi aðgang:</p>
-
-  <p>Site Name: <b>Bodleid</b></p>
-  
-  <p>Notandanafn: <b>$user_login</b></p>
-  
-  <p>Ef þetta voru mistök þá er þér óhætt að hundsa þennan póst og ekkert verður aðhafst.</p>
-  
-  <p>Til að endursetja lykilorð þarftu að heimsækja eftirfarandi veffang:</p>
-  
-  <a href="$url">$url</a>
-MSG;
+      $message = mst_bodleid_get_forgot_password_url_email_template( $user_login, $url );
 
       wp_mail(
         $email,
-        '[Bodleid] Lykilorð endursett',
+        sprintf( _x( '[%s] Password recovery', 'Site name', 'mst_bodleid' ), get_bloginfo( 'name' ) ),
         $message,
         [ 'content-type: text/html' ]
       );
@@ -328,12 +341,17 @@ MSG;
   wp_die();
 }
 
+/**
+ * Register AJAX handler for password updating.
+ *
+ * @version 1.0.0
+ */
 function mst_bodleid_restore_password_second() {
   try {
     /* @var string $password */
     $password = sanitize_text_field( $_POST['data']['new_password_first'] );
 
-    /* @var int $user_login */
+    /* @var string $user_login */
     $user_login = $_POST['data']['login'];
 
     /* @var string $reset_key User account restore key */
@@ -370,30 +388,47 @@ function mst_bodleid_restore_password_second() {
   wp_die();
 }
 
+/**
+ * MISC
+ * */
+
+/**
+ * Register AJAX handler for WC add to cart products adding.
+ *
+ * @version 1.0.0
+ */
 function woocommerce_ajax_add_to_cart() {
+  /* @var int $product_id */
   $product_id = apply_filters( 'woocommerce_add_to_cart_product_id', absint( $_POST['product_id'] ) );
+
+  /* @var int $quantity */
   $quantity = empty( $_POST['quantity'] ) ? 1 : wc_stock_amount( $_POST['quantity'] );
+
+  /* @var int $variation_id */
   $variation_id = absint( $_POST['variation_id'] );
+
+  /* @var bool $variation_id */
   $passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity );
+
+  /* @var false|string $product_status */
   $product_status = get_post_status( $product_id );
 
-  if ( $passed_validation && WC()->cart->add_to_cart( $product_id, $quantity, $variation_id ) && 'publish' === $product_status ) {
-
+  if ( $passed_validation &&
+       WC()->cart->add_to_cart( $product_id, $quantity, $variation_id ) &&
+       'publish' === $product_status
+     ) {
     do_action( 'woocommerce_ajax_added_to_cart', $product_id );
 
-    if ( 'yes' === get_option('woocommerce_cart_redirect_after_add' ) ) {
-      wc_add_to_cart_message( [ $product_id => $quantity ], true );
-    }
-
-    WC_AJAX :: get_refreshed_fragments();
+    WC_AJAX::get_refreshed_fragments();
   } else {
-
-    $data = [
+    wp_send_json_error( [
       'error' => true,
-      'product_url' => apply_filters( 'woocommerce_cart_redirect_after_error', get_permalink( $product_id ), $product_id ),
-    ];
-
-    echo wp_send_json_error( $data );
+      'product_url' => apply_filters(
+        'woocommerce_cart_redirect_after_error',
+        get_permalink( $product_id ),
+        $product_id
+      ),
+    ] );
   }
 
   wp_die();
@@ -423,5 +458,5 @@ add_action( 'wp_ajax_nopriv_mst_bodleid_restore_password_first', 'mst_bodleid_re
 add_action( 'wp_ajax_mst_bodleid_restore_password_second', 'mst_bodleid_restore_password_second' );
 add_action( 'wp_ajax_nopriv_mst_bodleid_restore_password_second', 'mst_bodleid_restore_password_second' );
 
-add_action('wp_ajax_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
-add_action('wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart');
+add_action( 'wp_ajax_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart' );
+add_action( 'wp_ajax_nopriv_woocommerce_ajax_add_to_cart', 'woocommerce_ajax_add_to_cart' );

@@ -40,22 +40,24 @@ Comparing.prototype.listenCompareBtns = function() {
             el.classList.add('compare-btn--active');
             el.closest('.product-item').classList.add('header__user-list--active');
 
-            const compareLink = document.querySelector('.header__comparison-link');
+            const compareLinks = document.querySelectorAll('.header__comparison-link');
 
-            compareLink.classList.add('heartBeat');
-            setTimeout(() => compareLink.classList.remove('heartBeat'), 1300);
+            compareLinks.forEach((compareLink) => {
+              compareLink.classList.add('heartBeat');
+              setTimeout(() => compareLink.classList.remove('heartBeat'), 1300);
 
-            if (compareLink.children[1]) {
-              const value = parseInt(compareLink.children[1].innerText);
-              compareLink.children[1].innerText = value + 1;
-            } else {
-              const span = document.createElement('span');
+              if (compareLink.children[1]) {
+                const value = parseInt(compareLink.children[1].innerText);
+                compareLink.children[1].innerText = value + 1;
+              } else {
+                const span = document.createElement('span');
 
-              span.className = 'quantity-product-circle';
-              span.innerText = '1';
+                span.className = 'quantity-product-circle';
+                span.innerText = '1';
 
-              compareLink.appendChild(span);
-            }
+                compareLink.appendChild(span);
+              }
+            });
           }
 
           el.disabled = false;
@@ -83,17 +85,19 @@ Comparing.prototype.listenCompareBtns = function() {
             el.classList.remove('compare-btn--active');
             el.closest('.product-item').classList.remove('header__user-list--active');
 
-            const compareLink = document.querySelector('.header__comparison-link');
-            const value = parseInt(compareLink.children[1].innerText);
+            const compareLinks = document.querySelectorAll('.header__comparison-link');
+            compareLinks.forEach((compareLink) => {
+              const value = parseInt(compareLink.children[1].innerText);
 
-            compareLink.classList.add('heartBeat');
-            setTimeout(() => compareLink.classList.remove('heartBeat'), 2000);
+              compareLink.classList.add('heartBeat');
+              setTimeout(() => compareLink.classList.remove('heartBeat'), 2000);
 
-            if (value - 1) {
-              compareLink.children[1].innerText = value - 1;
-            } else {
-              compareLink.children[1].remove();
-            }
+              if (value - 1) {
+                compareLink.children[1].innerText = value - 1;
+              } else {
+                compareLink.children[1].remove();
+              }
+            });
           }
 
           el.disabled = false;
