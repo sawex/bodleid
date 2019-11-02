@@ -60,9 +60,8 @@ $instructions = get_field( 'instructions' );
                 ?>
                   <div class="main-instructions__videos">
                     <a href="<?php echo $video_src; ?>" class="main-instructions__video">
-                      <div class="main-instructions__vedeo-preview-box">
-                        <!--TODO: class="main-instructions__vedeo-preview" -->
-                        <img src="<?php echo $thumb_src; ?>" alt="" class="main-instructions__vedeo-preview">
+                      <div class="main-instructions__video-preview-box">
+                        <img src="<?php echo $thumb_src; ?>" alt="" class="main-instructions__video-preview">
                       </div>
 
                       <span class="main-instructions__video-name"><?php echo $title; ?></span>

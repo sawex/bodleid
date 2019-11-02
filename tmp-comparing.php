@@ -54,16 +54,28 @@ if ( ! empty( $product_ids ) ) {
     <td data-product-id="<?php echo esc_attr( $product_id ); ?>">
       <p><?php echo $product->get_short_description(); ?></p>
 
-      <?php if ( ! $in_cart ) { ?>
+      <?php if ( ! $product->is_in_stock() ) { ?>
         <div class="to-cart-box">
-          <!-- TODO: add-to-catr-bnt -->
-          <?php woocommerce_template_loop_add_to_cart( [ 'class' => 'add-to-catr-bnt ajax_add_to_cart' ] ); ?>
+          <a href="<?php echo $product->get_permalink(); ?>"
+             class="add-to-cart-btn">
+            <?php esc_html_e( 'View product', 'woocommerce' ); ?>
+          </a>
         </div>
-
-      <?php } else { ?>
+      <?php } else if ( ! $in_cart && $product->is_in_stock() ) { ?>
+        <div class="to-cart-box">
+          <a href="<?php echo $product->add_to_cart_url(); ?>"
+             data-quantity="1"
+             class="add-to-cart-btn"
+             data-product_id="<?php echo $product->get_id(); ?>"
+             data-product_sku="<?php echo $product->get_sku(); ?>"
+             aria-label="<?php esc_attr( sprintf( __( 'Add “%s” to your cart', 'mst_bodleid' ), $product->get_title() ) ); ?>"
+             rel="nofollow">
+            <?php esc_html_e( 'Add to cart', 'woocommerce' ); ?>
+          </a>
+        </div>
+      <?php } else if ( $in_cart && $product->is_in_stock() ) { ?>
         <div class="to-cart-box to-cart-box--added">
-          <!-- TODO: add-to-catr-bnt -->
-          <a href="<?php echo wc_get_cart_url(); ?>" class="add-to-catr-bnt">
+          <a href="<?php echo wc_get_cart_url(); ?>" class="add-to-cart-btn">
             <?php esc_html_e( 'View cart', 'woocommerce' ); ?>
           </a>
         </div>

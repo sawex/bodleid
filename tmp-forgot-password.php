@@ -71,7 +71,7 @@ get_header();
 <?php if ( ! empty( $user ) && ! is_wp_error( $user ) ) { ?>
   <script>
     var restoreData = <?php echo json_encode( [
-        'key' => $reset_key,
+      'key' => $reset_key,
       'login' => $user_login,
     ] ); ?>;
   </script>

@@ -43,6 +43,9 @@ defined( 'ABSPATH' ) || exit;
         /* @var string $title */
         $title = esc_html( $_product->get_name() );
 
+        /* @var string $permalink */
+        $permalink = esc_url( $_product->get_permalink() );
+
         /* @var string $sku */
         $sku = esc_html( sprintf( '%s: %s', __( 'Model', 'mst_bodleid' ), $_product->get_sku() ) );
 
@@ -55,7 +58,7 @@ defined( 'ABSPATH' ) || exit;
         <tr class="order-received__product-info-content">
           <td data-label="<?php esc_attr_e( 'Product', 'mst_bodleid' ); ?>">
             <p class="order-received__product-name">
-              <?php echo $title; ?>
+              <a href="<?php echo $permalink; ?>"><?php echo $title; ?></a>
             </p>
             <p class="order-received__product-model">
               <?php echo $sku; ?>

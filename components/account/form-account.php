@@ -17,6 +17,7 @@ $company = '';
 $email = '';
 $phone = '';
 $zip = '';
+$ssn = '';
 
 if ( $user_id ) {
   $first_name = esc_attr( get_user_meta( $user_id, 'billing_first_name', true ) );
@@ -26,6 +27,7 @@ if ( $user_id ) {
   $email = esc_attr( get_user_meta( $user_id, 'billing_email', true ) );
   $phone = esc_attr( get_user_meta( $user_id, 'billing_phone', true ) );
   $zip = esc_attr( get_user_meta( $user_id, 'billing_postcode', true ) );
+  $ssn = esc_attr( get_user_meta( $user_id, 'billing_ssn', true ) );
 }
 ?>
 
@@ -72,6 +74,17 @@ if ( $user_id ) {
                  value="<?php echo $phone; ?>">
           <label class="form__label" for="phone-field">
             <?php esc_html_e( 'Phone number*', 'mst_bodleid' ); ?>
+          </label>
+        </div>
+
+        <div class="form__input-box">
+          <input class="form__input"
+                 type="text"
+                 name="billing_ssn"
+                 id="ssn-field"
+                 value="<?php echo $ssn; ?>">
+          <label class="form__label" for="ssn-field">
+            <?php esc_html_e( 'SSN', 'mst_bodleid' ); ?>
           </label>
         </div>
 
@@ -145,3 +158,15 @@ if ( $user_id ) {
            aria-label="<?php esc_attr_e( 'Update', 'mst_bodleid' ); ?>">
   </div>
 </form>
+
+<style>
+  .page-template-tmp-account .login__new-client--account {
+    height: 40em;
+  }
+
+  @media screen and (max-width: 768px) {
+    .page-template-tmp-account .login__new-client--account {
+      height: 65em;
+    }
+  }
+</style>

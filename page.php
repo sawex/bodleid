@@ -69,12 +69,6 @@ if ( is_cart() ) {
     ?>
   </main>
 
-  <style>
-    .woocommerce-order-pay .checkout-forms-wrap {
-      display: none !important;
-    }
-  </style>
-
 <?php
 get_footer();
 

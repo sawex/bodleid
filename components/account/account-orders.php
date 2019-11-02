@@ -11,12 +11,16 @@
 /* @var int $user_id */
 $user_id = get_current_user_id();
 
+/* @var int $orders_count Order rows per page */
+$orders_count = (int) get_field( 'account', 'option' )['orders_count'];
+
+/* @var int $paged */
 $paged = get_query_var( 'paged' ) ?: 1;
 
 /* @var stdClass $orders */
 $orders_data = wc_get_orders( [
   'customer_id' => $user_id,
-  'limit' => 4,
+  'limit' => $orders_count,
   'paged' => $paged,
   'paginate' => true,
 ] );
@@ -28,7 +32,7 @@ $orders = $orders_data->orders;
 $pages = $orders_data->max_num_pages;
 
 /* @var string $thank_you_page_url */
-$thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order-received' ) ) );
+$thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order' ) ) );
 ?>
 
 <div class="orders">
@@ -104,7 +108,7 @@ $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order-received'
       'total'        => $pages,
       'current'      => max( 1, $paged ),
       'format'       => '/account/page/%#%',
-      'show_all'     => false,
+      'show_all'     => true,
       'prev_next'    => false,
       'type'         => 'array',
       'add_args'     => false,

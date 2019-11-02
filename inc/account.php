@@ -30,6 +30,10 @@ if ( ! function_exists( 'mst_bodleid_the_login_form' ) ) {
   /**
    * Returns login form
    *
+   * @param bool $is_collapsed Return opened or collapsed.
+   * @param bool $show_desc_text Return desc text or without it.
+   * @param string $redirect_url URL to redirect after successful submit.
+   *
    * @return void
    */
   function mst_bodleid_the_login_form( $is_collapsed = false, $show_desc_text = true, $redirect_url ) {
@@ -88,14 +92,76 @@ if ( ! function_exists( 'mst_bodleid_the_login_form' ) ) {
   }
 }
 
-function mst_bodleid_lostpassword_url() {
-  return esc_url( get_permalink( get_page_by_path( 'restore-password' ) ) );
+if ( ! function_exists( 'mst_bodleid_add_forgot_password_class' ) ) {
+  /**
+   * Add page-forgot-password class to the forgot password page
+   *
+   * @param array $classes HTML <body> classes
+   * @return array Updated classes
+   */
+  function mst_bodleid_add_forgot_password_class( $classes ) {
+    if ( is_page_template( 'tmp-forgot-password.php' ) ) {
+      $classes[] = 'page-forgot-password';
+    }
+
+    return $classes;
+  }
 }
 
-function mst_bodleid_get_account_page() {
-  return esc_url( get_permalink( get_page_by_path( 'account' ) ) );
+add_filter( 'body_class', 'mst_bodleid_add_forgot_password_class' );
+
+if ( ! function_exists( 'mst_bodleid_lostpassword_url' ) ) {
+  /**
+   * @return string Lost password page url.
+   * */
+  function mst_bodleid_lostpassword_url() {
+    return esc_url( get_permalink( get_page_by_path( 'restore-password' ) ) );
+  }
 }
 
-function mst_bodleid_get_login_page() {
-  return esc_url( get_permalink( get_page_by_path( 'login' ) ) );
+if ( ! function_exists( 'mst_bodleid_get_account_page' ) ) {
+  /**
+   * @return string Account page url
+   * */
+  function mst_bodleid_get_account_page() {
+    return esc_url( get_permalink( get_page_by_path( 'account' ) ) );
+  }
+}
+
+if ( ! function_exists( 'mst_bodleid_get_login_page' ) ) {
+  /**
+   * @return string Login page url
+   * */
+  function mst_bodleid_get_login_page() {
+    return esc_url( get_permalink( get_page_by_path( 'login' ) ) );
+  }
+}
+
+if ( ! function_exists( 'mst_bodleid_get_forgot_password_url_email_template' ) ) {
+  /**
+   * Returns forgot password email template with recovery URL.
+   *
+   * @param string $user_login
+   * @param string $url Recovery URL
+   *
+   * @return string Email template
+   * */
+  function mst_bodleid_get_forgot_password_url_email_template( $user_login, $url ) {
+    /* @var string $site_name */
+    $site_name = get_bloginfo( 'name' );
+
+    return <<<MSG
+  <p>Einhver hefur óskað eftir nýju lykilorði fyrir eftirfarandi aðgang:</p>
+
+  <p>Site Name: <b>$site_name</b></p>
+  
+  <p>Notandanafn: <b>$user_login</b></p>
+  
+  <p>Ef þetta voru mistök þá er þér óhætt að hundsa þennan póst og ekkert verður aðhafst.</p>
+  
+  <p>Til að endursetja lykilorð þarftu að heimsækja eftirfarandi veffang:</p>
+  
+  <a href="$url">$url</a>
+MSG;
+  }
 }

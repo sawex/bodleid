@@ -48,8 +48,6 @@ if ( $total <= 1 ) {
       <?php foreach ( $pages as $page ) {
         $page = (string) $page;
 
-//        var_dump( $page );
-
         $page = str_replace(
           'page-numbers current',
           'orders__pagination-link orders__pagination-link--active',

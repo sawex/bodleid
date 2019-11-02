@@ -1,4 +1,4 @@
-/* global jQuery, AOS, mainState */
+/* global jQuery, AOS, mainState, wc_add_to_cart_params */
 
 import Abstract from './modules/classes/abstract.js';
 import Account from './modules/classes/account.js';
@@ -375,16 +375,20 @@ Main.prototype.setSingleProductGallery = function() {
      focusOnSelect: true
    });
  }
+
+  window.addEventListener('resize', () => {
+    jQuery('.one-product__product-gallery').slick('refresh');
+  });
 };
 
 Main.prototype.initShopSidebar = function() {
   if (!this.shopSidebar) return;
 
-  const currentCat = document.querySelector('li.current-cat');
   const parentCats = document.querySelectorAll('li.cat-parent > a');
+  const currentParent = document.querySelector('.current-cat-parent');
 
-  if (currentCat) {
-    currentCat.classList.add('cat-parent--active');
+  if (currentParent) {
+    currentParent.classList.add('cat-parent--active');
   }
 
   parentCats.forEach((cat) => {
@@ -424,7 +428,7 @@ Main.prototype.initShopSidebar = function() {
   }
 };
 
-Main.prototype.initAddToCartAJAX = function(e) {
+Main.prototype.initAddToCartAJAX = function() {
   const btns = document.querySelectorAll('.ajax_add_to_cart');
 
   if (btns.length) {
@@ -461,28 +465,36 @@ Main.prototype.initAddToCartAJAX = function(e) {
               el.parentElement.classList.add('to-cart-box--added');
               el.innerText = 'Skoða körfu';
 
+              const title = el.closest('.product-item').querySelector('.product-info h4').innerText;
+
               el.classList.remove('ajax_add_to_cart');
               const newBtn = el.cloneNode(true);
               el.parentElement.replaceChild(newBtn, el);
 
-              const cartLink = document.querySelector('.header__cart-link');
+              const cartLinks = document.querySelectorAll('.header__cart-link');
 
-              cartLink.classList.add('heartBeat');
-              setTimeout(() => cartLink.classList.remove('heartBeat'), 1300);
+              cartLinks.forEach((cartLink) => {
+                cartLink.classList.add('heartBeat');
+                setTimeout(() => cartLink.classList.remove('heartBeat'), 1300);
 
-              if (cartLink.children[1]) {
-                const value = parseInt(cartLink.children[1].innerText);
-                cartLink.children[1].innerText = value + 1;
-              } else {
-                const span = document.createElement('span');
+                if (cartLink.children[1]) {
+                  const value = parseInt(cartLink.children[1].innerText);
+                  cartLink.children[1].innerText = value + 1;
+                } else {
+                  const span = document.createElement('span');
 
-                span.className = 'quantity-product-circle';
-                span.innerText = '1';
+                  span.className = 'quantity-product-circle';
+                  span.innerText = '1';
 
-                cartLink.appendChild(span);
-              }
+                  cartLink.appendChild(span);
+                }
+              });
 
-              self.alert('Product added', false);
+              const markup = `
+		            <a href="https://bodleid.ludur.net/cart/" tabindex="1" class="button wc-forward">Skoða körfu</a>
+		            “${title}” hefur verið bætt í vörukörfuna þína.`;
+
+              self.alert(markup, false);
             }
           },
         });
@@ -499,7 +511,8 @@ Main.prototype.fixInputsInCheckout = function() {
   });
 
   jQuery('.login__new-client--checkout .form__input').unwrap();
-  jQuery('.form__input-box--textarea textarea').unwrap();
+
+  jQuery('.send-comment-form .form__input-box--textarea textarea').unwrap();
   jQuery('#account_password').unwrap();
 };
 

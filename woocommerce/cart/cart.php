@@ -31,19 +31,6 @@ do_action( 'woocommerce_before_cart' ); ?>
 
   <div class="container">
     <div class="row">
-      <div class="woocommerce-notices-wrapper woocommerce-notices-wrapper--cart">
-        <?php
-        /**
-         * Hook: mst_bodleid_wc_notices.
-         *
-         * @hooked wc_print_notices - 10
-         */
-        do_action( 'mst_bodleid_wc_notices' );
-        ?>
-      </div>
-    </div>
-
-    <div class="row">
       <div class="cart__orders-list-container">
         <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 

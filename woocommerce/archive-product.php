@@ -16,7 +16,6 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
 get_header( 'shop' );
 
 /**
@@ -31,16 +30,6 @@ do_action( 'woocommerce_before_main_content' );
 if ( ! is_search() && is_shop() ) {
   get_template_part( 'components/page/content', 'banner-shop' );
 }
-
-/* @var array|stdClass $featured_products */
-$featured_products = wc_get_products( [
-  'featured' => true,
-  'paginate' => false,
-  'limit' => 6,
-  ] );
-
-/* @var array $catalogs_ids */
-$catalogs_ids = get_field( 'catalogs', 'option' );
 
 if ( ! is_shop() ) { ?>
   <div class="breadcrumbs">
@@ -79,19 +68,8 @@ if ( ! is_shop() ) { ?>
             ?>
           </div>
         </div>
-        <?php
-          if ( ! is_search() ) {
-            if ( is_shop() ) {
-              ?>
-              <h2 class="shop__title secondary-title shop__title--abs">
-                <?php esc_html_e( 'Featured products', 'woocommerce' ); ?>
-              </h2>
-            <?php } else { ?>
-              <h2 class="shop__title secondary-title shop__title--abs"><?php woocommerce_page_title(); ?></h2>
-              <?php
-            }
-          }
-        ?>
+
+      <?php get_template_part( 'components/shop/shop', 'title' ); ?>
 
       <?php
         if ( woocommerce_product_loop() ) {
@@ -106,7 +84,7 @@ if ( ! is_shop() ) { ?>
 
           woocommerce_product_loop_start();
 
-          if ( wc_get_loop_prop( 'total' ) && ! is_shop() ) {
+          if ( wc_get_loop_prop( 'total' ) && ( is_search() || ! is_shop() ) ) {
             while ( have_posts() ) {
               the_post();
 
@@ -121,15 +99,17 @@ if ( ! is_shop() ) { ?>
           } else {
             $paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
             $ordering = WC()->query->get_catalog_ordering_args();
-            $ordering['orderby'] = array_shift( explode(' ', $ordering['orderby'] ) );
+            $ordering_formatted = explode(' ', $ordering['orderby'] );
+            $ordering['orderby'] = array_shift( $ordering_formatted );
             $ordering['orderby'] = stristr( $ordering['orderby'], 'price' ) ?
               'meta_value_num' :
               $ordering['orderby'];
+            $per_page = get_field( 'featured_count', 'option' );
 
             $featured_products = wc_get_products( [
               'meta_key' => '_price',
               'status' => 'publish',
-              'limit' => 6,
+              'limit' => $per_page,
               'page' => $paged,
               'featured' => true,
               'paginate' => true,
@@ -141,11 +121,11 @@ if ( ! is_shop() ) { ?>
             wc_set_loop_prop( 'current_page', $paged );
             wc_set_loop_prop( 'is_paginated', wc_string_to_bool( true ) );
             wc_set_loop_prop( 'page_template', get_page_template_slug() );
-            wc_set_loop_prop( 'per_page', 6 );
+            wc_set_loop_prop( 'per_page', $per_page );
             wc_set_loop_prop( 'total', $featured_products->total );
             wc_set_loop_prop( 'total_pages', $featured_products->max_num_pages );
 
-            if( $featured_products ) {
+            if ( $featured_products ) {
 
               foreach ( $featured_products->products as $featured_product ) {
                 $post_object = get_post( $featured_product );
@@ -204,85 +184,11 @@ if ( ! is_shop() ) { ?>
   </div>
 </section>
 
-<?php if ( is_shop() ) { ?>
-  <section class="catalogs">
-    <?php
-      if ( ! empty( $catalogs_ids ) ) {
-        foreach ( $catalogs_ids as $catalog ) {
-          $rows = get_field( 'catalog_rows', $catalog );
-
-          if ( is_array( $rows ) ) {
-            foreach ($rows as $index => $row) {
-              /* @var string $title Row title */
-              $title = esc_html($row['row_info']['title']);
-
-              /* @var string $desc Row description */
-              $desc = wp_kses_post($row['row_info']['desc']);
-
-              /* @var string $image_src Row right image */
-              $image_src = esc_url($row['row_info']['image']['url']);
-
-              /* @var string $image_alt */
-              $image_alt = esc_url($row['row_info']['image']['alt']);
-
-              /* @var array $products WC products IDs */
-              $products = $row['products'];
-
-              /* @var string $button_title */
-              $button_title = esc_html($row['button']['title']);
-
-              /* @var string $button_href */
-              $button_href = esc_url($row['button']['href']);
-              ?>
-
-              <section class="category-product
-            <?php echo $index % 2 === 0 ? 'category-product--yellow' : 'category-product--black'; ?>">
-                <div class="container">
-                  <div class="row">
-                    <div class="category-product__wrapper">
-                      <div class="products__service">
-                        <h3 class="tertiary-title products__service-title"><?php echo $title; ?></h3>
-                        <div class="fake-list products__service-desc">
-                          <?php echo $desc; ?>
-
-                          <div class="products__img-box">
-                            <img src="<?php echo $image_src; ?>" alt="<?php echo $image_alt; ?>" class="products__img">
-                          </div>
-                        </div>
-
-                        <?php if ( $button_title && ! $products ) { ?>
-                          <a href="<?php echo $button_href; ?>" class="shop-link shop-link--align-left">
-                            <?php echo $button_title; ?>
-                          </a>
-                        <?php } ?>
-                      </div>
-
-                      <?php if ( ! empty( $products ) && function_exists( 'mst_bodleid_the_product_html' ) ) { ?>
-                        <ul class="category-product__product-list">
-                          <?php
-                          foreach ( $products as $product ) {
-                            mst_bodleid_the_product_html( $product );
-                          }
-                          ?>
-                        </ul>
-                      <?php } ?>
-
-                      <?php if ( $button_title && $products ) { ?>
-                        <a href="<?php echo $button_href; ?>" class="shop-link"><?php echo $button_title; ?></a>
-                      <?php } ?>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <?php
-            }
-          }
-        }
-      }
-    ?>
-  </section>
-<?php } ?>
+<?php
+  if ( is_shop() ) {
+    get_template_part( 'components/shop/shop', 'catalogs' );
+  }
+?>
 
 <?php
 get_footer( 'shop' );

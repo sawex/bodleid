@@ -24,11 +24,11 @@ defined( 'ABSPATH' ) || exit;
   <div class="login__form login__new-client login__new-client--checkout">
     <h3 class="tertiary-title login__title login__title--active">
       <?php
-      if ( is_user_logged_in() ) {
-        esc_html_e( 'Customer data', 'mst_bodleid' );
-      } else {
-        esc_html_e( 'New customer', 'mst_bodleid' );
-      }
+        if ( is_user_logged_in() ) {
+          esc_html_e( 'Customer data', 'mst_bodleid' );
+        } else {
+          esc_html_e( 'New customer', 'mst_bodleid' );
+        }
       ?>
     </h3>
 
@@ -61,6 +61,21 @@ defined( 'ABSPATH' ) || exit;
             }
           }
         ?>
+
+        <div class="form__input-box">
+          <?php
+            woocommerce_form_field(
+              'billing_ssn', [
+                'type' => 'text',
+                'class' => ['form-row-wide'],
+                'input_class' => ['form__input', 'input-text'],
+                'label_class' => 'form__label',
+                'label' => __( 'SSN', 'mst_bodleid' ),
+              ],
+              $checkout->get_value('billing_ssn')
+            );
+          ?>
+        </div>
 
         <?php if ( ! is_user_logged_in() && $checkout->is_registration_enabled() ) : ?>
           <div class="woocommerce-account-fields">

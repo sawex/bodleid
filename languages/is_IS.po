@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bodleid\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-28 16:38+0000\n"
-"PO-Revision-Date: 2019-10-28 16:39+0000\n"
+"POT-Creation-Date: 2019-11-01 12:57+0000\n"
+"PO-Revision-Date: 2019-11-01 12:58+0000\n"
 "Last-Translator: root <psknyazevich@gmail.com>\n"
 "Language-Team: Icelandic\n"
 "Language: is_IS\n"
@@ -18,62 +18,62 @@ msgstr ""
 msgid "Thank you page"
 msgstr ""
 
-#: tmp-thank-you.php:45 woocommerce/checkout/thankyou.php:50
+#: tmp-thank-you.php:47 woocommerce/checkout/thankyou.php:49
 msgid "Thanks, order received"
 msgstr "Takk fyrir, pöntun móttekin"
 
-#: tmp-thank-you.php:53 components/account/account-orders.php:40
+#: tmp-thank-you.php:55 components/account/account-orders.php:40
 #: components/account/account-orders.php:74
-#: woocommerce/checkout/thankyou.php:58
+#: woocommerce/checkout/thankyou.php:57
 msgid "Order number"
 msgstr "Pöntunarnúmer"
 
-#: tmp-thank-you.php:59 components/account/account-orders.php:43
+#: tmp-thank-you.php:61 components/account/account-orders.php:43
 #: components/account/account-orders.php:78
-#: woocommerce/checkout/thankyou.php:64
+#: woocommerce/checkout/thankyou.php:63
 msgid "Date"
 msgstr "Dagsetning"
 
-#: tmp-thank-you.php:65 tmp-thank-you.php:93 tmp-thank-you.php:132
-#: tmp-thank-you.php:155 components/account/account-orders.php:49
+#: tmp-thank-you.php:67 tmp-thank-you.php:95 tmp-thank-you.php:134
+#: tmp-thank-you.php:157 components/account/account-orders.php:49
 #: components/account/account-orders.php:86
 #: woocommerce/checkout/review-order.php:30
 #: woocommerce/checkout/review-order.php:70
-#: woocommerce/checkout/thankyou.php:70 woocommerce/checkout/thankyou.php:98
-#: woocommerce/checkout/thankyou.php:137 woocommerce/checkout/thankyou.php:160
+#: woocommerce/checkout/thankyou.php:69 woocommerce/checkout/thankyou.php:97
+#: woocommerce/checkout/thankyou.php:136 woocommerce/checkout/thankyou.php:159
 msgid "Total"
 msgstr "Samtals"
 
-#: tmp-thank-you.php:73 woocommerce/checkout/thankyou.php:78
+#: tmp-thank-you.php:75 woocommerce/checkout/thankyou.php:77
 msgid "Payment method"
 msgstr "Greiðslumáti"
 
-#: tmp-thank-you.php:87 tmp-comparing.php:111 tmp-comparing.php:112
-#: woocommerce/checkout/review-order.php:24
+#: tmp-thank-you.php:89 tmp-thank-you.php:122 tmp-comparing.php:126
+#: tmp-comparing.php:127 woocommerce/checkout/review-order.php:24
 #: woocommerce/checkout/review-order.php:56
-#: woocommerce/checkout/thankyou.php:92
+#: woocommerce/checkout/thankyou.php:91
 msgid "Product"
 msgstr "Vara"
 
-#: tmp-thank-you.php:90 tmp-thank-you.php:128
+#: tmp-thank-you.php:92 tmp-thank-you.php:130
 #: woocommerce/checkout/review-order.php:27
 #: woocommerce/checkout/review-order.php:65
-#: woocommerce/checkout/thankyou.php:95 woocommerce/checkout/thankyou.php:133
+#: woocommerce/checkout/thankyou.php:94 woocommerce/checkout/thankyou.php:132
 msgid "Amount"
 msgstr "Magn"
 
-#: tmp-thank-you.php:125 tmp-comparing.php:120 tmp-comparing.php:121
+#: tmp-thank-you.php:127 tmp-comparing.php:135 tmp-comparing.php:136
 #: woocommerce/content-single-product.php:122 woocommerce/cart/cart.php:197
 #: woocommerce/checkout/review-order.php:47
-#: woocommerce/checkout/thankyou.php:130
+#: woocommerce/checkout/thankyou.php:129
 msgid "Model"
 msgstr "Módel"
 
-#: tmp-thank-you.php:143 woocommerce/checkout/thankyou.php:148
+#: tmp-thank-you.php:145 woocommerce/checkout/thankyou.php:147
 msgid "Price without VAT"
 msgstr "Verð án/vsk"
 
-#: tmp-thank-you.php:147 woocommerce/checkout/thankyou.php:152
+#: tmp-thank-you.php:149 woocommerce/checkout/thankyou.php:151
 msgid "Home delivery within Iceland"
 msgstr "Heimsending innan íslands"
 
@@ -81,15 +81,9 @@ msgstr "Heimsending innan íslands"
 msgid "Login page"
 msgstr ""
 
-#: tmp-login.php:25 components/page/content-custom-notice.php:16
-#: woocommerce/notices/success.php:31 woocommerce/notices/notice.php:31
-#: woocommerce/notices/error.php:29
-msgid "Close alert"
-msgstr ""
-
 #. Name of the template
 msgid "About us page"
-msgstr ""
+msgstr "Um okkur"
 
 #: tmp-about.php:42
 msgid "Staff"
@@ -131,18 +125,18 @@ msgid "Home page"
 msgstr ""
 
 #. Name of the template
-msgid "Lost password page"
+msgid "Forgot password page"
 msgstr ""
 
-#: tmp-lost-password.php:58
-msgid "URL is invalid or expired, please try again."
+#: tmp-forgot-password.php:43
+msgid "Check your email for a confirmation URL"
 msgstr ""
 
-#: searchform.php:17
+#: searchform.php:20
 msgid "Search for..."
 msgstr ""
 
-#: searchform.php:21
+#: searchform.php:24
 msgid "Search"
 msgstr ""
 
@@ -168,31 +162,31 @@ msgstr "Þjónustu beiðnir senda á:"
 msgid "Comparing page"
 msgstr ""
 
-#: tmp-comparing.php:74
+#: tmp-comparing.php:89
 msgid "Remove from comparison"
 msgstr ""
 
-#: tmp-comparing.php:92 woocommerce/content-single-product.php:146
+#: tmp-comparing.php:107 woocommerce/content-single-product.php:146
 msgid "Comparison"
 msgstr "Samanburður"
 
-#: tmp-comparing.php:101
+#: tmp-comparing.php:116
 msgid "Hide attributes with same values"
 msgstr ""
 
-#: tmp-comparing.php:126 tmp-comparing.php:127
+#: tmp-comparing.php:141 tmp-comparing.php:142
 msgid "Picture"
 msgstr ""
 
-#: tmp-comparing.php:132 tmp-comparing.php:133
+#: tmp-comparing.php:147 tmp-comparing.php:148
 msgid "Price"
 msgstr ""
 
-#: tmp-comparing.php:138 tmp-comparing.php:139
+#: tmp-comparing.php:153 tmp-comparing.php:154
 msgid "Availability"
 msgstr ""
 
-#: tmp-comparing.php:144 tmp-comparing.php:145
+#: tmp-comparing.php:159 tmp-comparing.php:160
 msgid "Description"
 msgstr ""
 
@@ -212,23 +206,60 @@ msgstr ""
 msgid "Add widgets here."
 msgstr ""
 
-#: functions.php:243 woocommerce/content-single-product.php:152
+#: functions.php:236 woocommerce/content-single-product.php:152
 msgid "View comparison list"
 msgstr ""
 
-#: functions.php:345
+#: functions.php:238
+msgid "Data updated successfully"
+msgstr ""
+
+#: functions.php:239
+msgid "First name field cannot be empty"
+msgstr ""
+
+#: functions.php:240
+msgid "Enter valid email address"
+msgstr ""
+
+#: functions.php:241
+msgid ""
+"Phone number can contains digits only and cannot be longer than 12 digits"
+msgstr ""
+
+#: functions.php:242
+msgid "Password cannot be empty or shorter than 6 symbols"
+msgstr ""
+
+#: functions.php:243
+msgid "Address cannot be empty"
+msgstr ""
+
+#: functions.php:244
+msgid "City field name cannot be empty"
+msgstr ""
+
+#: functions.php:245
+msgid "Postcode field cannot be empty"
+msgstr ""
+
+#: functions.php:246
+msgid "Passwords are not equal"
+msgstr ""
+
+#: functions.php:347
 msgid "Testimonials"
 msgstr ""
 
-#: functions.php:346
+#: functions.php:348
 msgid "Testimonial"
 msgstr ""
 
-#: functions.php:355
+#: functions.php:357
 msgid "Catalogs"
 msgstr ""
 
-#: functions.php:356 components/home/home-catalogs.php:18
+#: functions.php:358 components/home/home-catalogs.php:18
 msgid "Catalog"
 msgstr "Vöruflokkar"
 
@@ -236,8 +267,8 @@ msgstr "Vöruflokkar"
 msgid "There is a new submitted form on Bodleid"
 msgstr ""
 
-#: inc/ajax.php:54 inc/ajax.php:108 inc/ajax.php:176 inc/ajax.php:272
-#: inc/ajax.php:331
+#: inc/ajax.php:54 inc/ajax.php:108 inc/ajax.php:176 inc/ajax.php:273
+#: inc/ajax.php:347
 msgid "Nonce error"
 msgstr ""
 
@@ -249,20 +280,15 @@ msgstr ""
 msgid "Please, login to update your account"
 msgstr ""
 
-#: inc/ajax.php:277
+#: inc/ajax.php:278
 msgid "Wrong email format"
+msgstr "Rangt tölvupóstsnið"
+
+#: inc/ajax.php:360
+msgid "You cannot use your old password"
 msgstr ""
 
-#: inc/ajax.php:299
-msgctxt "Subject for password restoring email"
-msgid "Restore password"
-msgstr ""
-
-#: inc/woocommerce.php:230
-msgid "View your shopping cart"
-msgstr ""
-
-#: inc/woocommerce.php:487
+#: inc/woocommerce.php:520
 msgid "Any wishes, reference ..."
 msgstr "Einhverjar óskir, tilvísun…"
 
@@ -270,29 +296,35 @@ msgstr "Einhverjar óskir, tilvísun…"
 #: components/account/account-login-form.php:17
 #: components/account/account-login-form.php:41
 #: components/account/account-login-form.php:42
+#: components/account/account-checkout-login-form.php:17
+#: components/account/account-checkout-login-form.php:40
 msgid "Log in"
 msgstr "Innskráning"
 
 #: inc/account.php:58 components/account/form-register.php:46
-#: components/account/form-account.php:63
+#: components/account/form-account.php:65
 #: components/account/account-login-form.php:26
 #: components/account/form-lost-password.php:21
+#: components/account/account-checkout-login-form.php:26
 msgid "Email*"
 msgstr "Netfang*"
 
 #: inc/account.php:65 components/account/form-register.php:66
-#: components/account/form-account.php:84
+#: components/account/form-account.php:97
 #: components/account/account-login-form.php:33
+#: components/account/account-checkout-login-form.php:33
 msgid "Password*"
 msgstr ""
 "Lykilorð*\n"
 
 #: inc/account.php:79 components/account/account-login-form.php:47
+#: components/account/account-checkout-login-form.php:44
 msgid "Remember me"
 msgstr ""
 "Muna eftir mér\n"
 
 #: inc/account.php:83 components/account/account-login-form.php:51
+#: components/account/account-checkout-login-form.php:48
 msgid "Forgotten password?"
 msgstr "Gleymt lykilorð?"
 
@@ -323,45 +355,45 @@ msgid "New customer"
 msgstr "Nýr viðskiptavinur"
 
 #: components/account/form-register.php:27
-#: components/account/form-account.php:42
+#: components/account/form-account.php:44
 #: woocommerce/checkout/form-billing.php:49
 msgid "Personal information"
 msgstr "Persónulegar upplýsingar"
 
 #: components/account/form-register.php:36
-#: components/account/form-account.php:52
+#: components/account/form-account.php:54
 msgid "First Name*"
 msgstr "Fornafn*"
 
 #: components/account/form-register.php:56
-#: components/account/form-account.php:74
+#: components/account/form-account.php:76
 msgid "Phone number*"
 msgstr "Símanúmer*"
 
 #: components/account/form-register.php:73
-#: components/account/form-account.php:91
-#: woocommerce/checkout/form-billing.php:104
+#: components/account/form-account.php:104
+#: woocommerce/checkout/form-billing.php:120
 msgid "Your address"
 msgstr "Heimilisfang þitt"
 
 #: components/account/form-register.php:82
-#: components/account/form-account.php:101 components/footer/footer-form.php:36
+#: components/account/form-account.php:114 components/footer/footer-form.php:36
 msgid "Company"
 msgstr "Fyrirtæki"
 
 #: components/account/form-register.php:92
-#: components/account/form-account.php:112
+#: components/account/form-account.php:125
 msgid "Address*"
 msgstr "Heimilisfang*"
 
 #: components/account/form-register.php:102
-#: components/account/form-account.php:123
+#: components/account/form-account.php:136
 msgid "City / Town*"
 msgstr ""
 "Borg/Bær*\n"
 
 #: components/account/form-register.php:112
-#: components/account/form-account.php:134
+#: components/account/form-account.php:147
 msgid "Post number*"
 msgstr "Póstnúmer*"
 
@@ -370,12 +402,17 @@ msgstr "Póstnúmer*"
 msgid "Register"
 msgstr "Nýskrá"
 
-#: components/account/form-account.php:35
+#: components/account/form-account.php:37
 msgid "Update data"
 msgstr ""
 
-#: components/account/form-account.php:144
-#: components/account/form-account.php:145
+#: components/account/form-account.php:87
+#: woocommerce/checkout/form-billing.php:73
+msgid "SSN"
+msgstr "Kennitala"
+
+#: components/account/form-account.php:157
+#: components/account/form-account.php:158
 msgid "Update"
 msgstr ""
 
@@ -403,7 +440,7 @@ msgstr ""
 
 #: components/account/account-menu.php:20
 msgid "Account details"
-msgstr ""
+msgstr "Notandaupplýsingar"
 
 #: components/account/account-menu.php:26
 msgid "Log out"
@@ -441,17 +478,22 @@ msgstr "Takk fyrir, skilaboð móttekin"
 msgid "Customer Reviews"
 msgstr "Umsagnir Viðskiptavina"
 
-#: components/header/header-second-menu.php:30
+#: components/header/header-second-menu.php:31
 msgid "Account"
-msgstr ""
+msgstr "Notandi"
 
-#: components/header/header-second-menu.php:34
+#: components/header/header-second-menu.php:35
 msgid "Sign in"
 msgstr ""
 
 #: woocommerce/cart/cart-empty.php:25
 msgid "Your cart is empty"
 msgstr "Karfan þín er tóm"
+
+#: woocommerce/notices/success.php:31 woocommerce/notices/notice.php:31
+#: woocommerce/notices/error.php:29
+msgid "Close alert"
+msgstr ""
 
 #: woocommerce/checkout/form-billing.php:28
 msgid "Customer data"

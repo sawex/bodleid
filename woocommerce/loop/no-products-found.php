@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 ?>
 
 <div class="search__result-title-box">
-  <h2 class="secondary-title search__result-title">
+  <h2 class="secondary-title search__result-title search__result-title--archive">
     <?php esc_html_e( 'No products were found matching your selection.', 'woocommerce' ); ?>
   </h2>
 </div>

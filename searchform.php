@@ -19,6 +19,10 @@
            class="search__form-input"
            placeholder="<?php esc_attr_e( 'Search for...', 'mst_bodleid' ) ?>"
            value="<?php echo get_search_query(); ?>">
+    <input type="hidden"
+           name="post_type"
+           value="product">
+
     <button type="submit"
             class="search__button"
             aria-label="<?php esc_attr_e( 'Search', 'mst_bodleid' ) ?>">

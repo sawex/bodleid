@@ -7,18 +7,20 @@
  * @package Bodleid
  */
 
-/**
- * Add page-comparison class to the comparison page
- *
- * @param array $classes HTML <body> classes
- * @return array Updated classes
- */
-function mst_bodleid_add_comparison_class( $classes ) {
-  if ( is_page_template( 'tmp-comparing.php' ) ) {
-    $classes[] = 'page-comparison';
-  }
+if ( ! function_exists( 'mst_bodleid_add_comparison_class' ) ) {
+  /**
+   * Add page-comparison class to the comparison page
+   *
+   * @param array $classes HTML <body> classes
+   * @return array Updated classes
+   */
+  function mst_bodleid_add_comparison_class( $classes ) {
+    if ( is_page_template( 'tmp-comparing.php' ) ) {
+      $classes[] = 'page-comparison';
+    }
 
-  return $classes;
+    return $classes;
+  }
 }
 
 add_filter( 'body_class', 'mst_bodleid_add_comparison_class' );
@@ -57,7 +59,12 @@ if ( ! function_exists( 'mst_bodleid_is_product_in_comparison_list' ) ) {
   }
 }
 
-function mst_bodleid_get_comparison_page_url() {
-  return esc_url( get_permalink( get_page_by_path( 'products-comparing' ) ) );
+if ( ! function_exists( 'mst_bodleid_get_comparison_page_url' ) ) {
+  /**
+   * @return string Comparison page url
+   * */
+  function mst_bodleid_get_comparison_page_url() {
+    return esc_url( get_permalink( get_page_by_path( 'products-comparing' ) ) );
+  }
 }
 
