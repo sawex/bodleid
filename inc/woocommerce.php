@@ -557,20 +557,61 @@ function mst_bodleid_remove_password_strength() {
 
 add_action( 'wp_print_scripts', 'mst_bodleid_remove_password_strength', 100 );
 
-add_action( 'woocommerce_checkout_create_order', function( $order, $data ) {
-
+/**
+ * Saves entered user SSN after placing order.
+ *
+ * @param WC_Order $order
+ * @param array $data
+ */
+function mst_bodleid_save_ssn_on_checkout( $order, $data ) {
   $custom_fields = [
     'billing_ssn',
   ];
 
   foreach ( $custom_fields as $field_name ) {
-    if ( isset( $data[ $field_name ] ) ) {
-      $field_value = $data[ $field_name ];
+    if ( isset( $data[$field_name] ) ) {
+      $field_value = $data[$field_name];
       $order->update_meta_data( $field_name, $field_value );
     }
   }
+}
 
-}, 10, 2 );
+add_action( 'woocommerce_checkout_create_order', 'mst_bodleid_save_ssn_on_checkout', 10, 2 );
+
+/**
+ * Validate SSN when user tries to place order.
+ * SSN must contains only 10 digits and cannot be empty.
+ */
+function mst_bodleid_validate_ssn() {
+  $ssn = filter_input( INPUT_POST, 'billing_ssn' );
+  $ssn = preg_replace( '/[^0-9]/', '', $ssn );
+
+  if ( empty( $ssn ) || ! preg_match( '~^\d{10}$~', $ssn ) ) {
+    wc_add_notice( __( 'Invalid <strong>SSN</strong>, please check your input.', 'mst_bodleid' ), 'error' );
+  }
+}
+
+add_action( 'woocommerce_checkout_process', 'mst_bodleid_check_ssn_for_supercustomers', 10, 2 );
+
+/**
+ * Change Valitor gateway to simple no-payment gateway for users
+ * with role "Supercustomer".
+ *
+ * @param array $gateways
+ *
+ * @return array
+ */
+function mst_bodleid_update_supercustomers_payment_gateway( $gateways ) {
+  if ( wc_user_has_role( get_current_user_id(), 'supercustomer' ) ) {
+    unset( $gateways['valitor'] );
+  } else {
+    unset( $gateways['cod'] );
+  }
+
+  return $gateways;
+}
+
+add_filter( 'woocommerce_available_payment_gateways', 'mst_bodleid_update_supercustomers_payment_gateway', 1 );
 
 /**
  * MISC
@@ -586,4 +627,3 @@ add_action( 'woocommerce_init', function() {
     }
   }
 } );
-

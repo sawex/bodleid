@@ -270,6 +270,20 @@ Main.prototype.setCartInputButtons = function() {
   });
 };
 
+Main.prototype.updateCartShippingMethods = function() {
+  if (!this.isCart) return;
+
+  document.addEventListener('click', (e) => {
+    const el = e.target;
+
+    if (el.classList.contains('shipping_method')) {
+      document.querySelector('[name="update_cart"]').disabled = false;
+      setTimeout(() => jQuery('[name="update_cart"]').trigger('click'), 1200);
+    }
+  });
+
+};
+
 Main.prototype.fixCheckoutNotice = function() {
   if (!this.isCheckout) return;
 
@@ -573,6 +587,7 @@ Main.prototype.init = function() {
   this.setFormFloatedLabels();
 
   this.setCartInputButtons();
+  this.updateCartShippingMethods();
   this.fixCheckoutNotice();
 
   this.initShopSlider();

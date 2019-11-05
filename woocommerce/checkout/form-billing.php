@@ -68,6 +68,7 @@ defined( 'ABSPATH' ) || exit;
               'billing_ssn', [
                 'type' => 'text',
                 'class' => ['form-row-wide'],
+                'required' => true,
                 'input_class' => ['form__input', 'input-text'],
                 'label_class' => 'form__label',
                 'label' => __( 'SSN', 'mst_bodleid' ),

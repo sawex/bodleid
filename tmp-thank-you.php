@@ -21,6 +21,12 @@ $id_string = esc_html( sprintf( '#%d', $order_id ) );
 /* @var string $date */
 $date = esc_html( $order_data->get_date_created()->date_i18n( 'd M Y' ) );
 
+/* @var string $status */
+$status = esc_html( ucfirst( $order_data->get_status() ) );
+
+/* @var string $payment_method */
+$payment_method = esc_html( $order_data->get_payment_method_title() );
+
 /* @var string $total */
 $total = wp_kses_post( $order_data->get_formatted_order_total() );
 
@@ -75,7 +81,16 @@ get_header();
                     <?php esc_html_e( 'Payment method', 'mst_bodleid' ); ?>
                   </h3>
                   <p class="order-received__info order-received__info-payment">
-                    Valitor greiðslusíða
+                    <?php echo $payment_method; ?>
+                  </p>
+                </div>
+
+                <div class="order-received__order-info-box">
+                  <h3 class="order-received__order-info-title orders__headline order-received__title-payment">
+                    <?php esc_html_e( 'Status', 'mst_bodleid' ); ?>
+                  </h3>
+                  <p class="order-received__info order-received__info-payment">
+                    <?php echo $status; ?>
                   </p>
                 </div>
               </div>
