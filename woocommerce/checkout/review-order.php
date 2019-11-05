@@ -92,7 +92,7 @@ defined( 'ABSPATH' ) || exit;
     </tr>
     <tr class="order-received__total-price-table-row">
       <td><?php esc_html_e( 'Home delivery within Iceland:', 'mst_bodleid' ); ?></td>
-      <td><?php echo wc_price( WC()->cart->get_cart_shipping_total() ); ?></td>
+      <td><?php echo WC()->cart->get_cart_shipping_total(); ?></td>
     </tr>
     <tr class="order-received__total-price-table-row">
       <td><?php esc_html_e( 'VAT (24%):', 'mst_bodleid' ); ?></td>
