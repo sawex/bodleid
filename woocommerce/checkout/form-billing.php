@@ -73,7 +73,7 @@ defined( 'ABSPATH' ) || exit;
                 'label_class' => 'form__label',
                 'label' => __( 'SSN', 'mst_bodleid' ),
               ],
-              $checkout->get_value('billing_ssn')
+              $checkout->get_value( 'billing_ssn' )
             );
           ?>
         </div>

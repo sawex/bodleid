@@ -102,6 +102,7 @@ function mst_bodleid_sign_up() {
       'billing_address_1',
       'billing_city',
       'billing_postcode',
+      'billing_ssn',
     ];
 
     if ( ! wp_verify_nonce( $sign_up_nonce, 'sign_up' ) ) {
@@ -405,7 +406,7 @@ function woocommerce_ajax_add_to_cart() {
   $quantity = empty( $_POST['quantity'] ) ? 1 : wc_stock_amount( $_POST['quantity'] );
 
   /* @var int $variation_id */
-  $variation_id = absint( $_POST['variation_id'] );
+  $variation_id = absint( $_POST['variation_id'] ) ?: 0;
 
   /* @var bool $variation_id */
   $passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity );

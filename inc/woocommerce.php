@@ -558,29 +558,10 @@ function mst_bodleid_remove_password_strength() {
 add_action( 'wp_print_scripts', 'mst_bodleid_remove_password_strength', 100 );
 
 /**
- * Saves entered user SSN after placing order.
- *
- * @param WC_Order $order
- * @param array $data
- */
-function mst_bodleid_save_ssn_on_checkout( $order, $data ) {
-  $custom_fields = [
-    'billing_ssn',
-  ];
-
-  foreach ( $custom_fields as $field_name ) {
-    if ( isset( $data[$field_name] ) ) {
-      $field_value = $data[$field_name];
-      $order->update_meta_data( $field_name, $field_value );
-    }
-  }
-}
-
-add_action( 'woocommerce_checkout_create_order', 'mst_bodleid_save_ssn_on_checkout', 10, 2 );
-
-/**
  * Validate SSN when user tries to place order.
  * SSN must contains only 10 digits and cannot be empty.
+ *
+ * Update user SSN on checkout.
  */
 function mst_bodleid_validate_ssn() {
   $ssn = filter_input( INPUT_POST, 'billing_ssn' );
@@ -588,10 +569,14 @@ function mst_bodleid_validate_ssn() {
 
   if ( empty( $ssn ) || ! preg_match( '~^\d{10}$~', $ssn ) ) {
     wc_add_notice( __( 'Invalid <strong>SSN</strong>, please check your input.', 'mst_bodleid' ), 'error' );
+  } else {
+    if ( is_user_logged_in() ) {
+      update_user_meta( get_current_user_id(), 'billing_ssn', $ssn );
+    }
   }
 }
 
-add_action( 'woocommerce_checkout_process', 'mst_bodleid_check_ssn_for_supercustomers', 10, 2 );
+add_action( 'woocommerce_checkout_process', 'mst_bodleid_validate_ssn', 10, 2 );
 
 /**
  * Change Valitor gateway to simple no-payment gateway for users
@@ -614,6 +599,31 @@ function mst_bodleid_update_supercustomers_payment_gateway( $gateways ) {
 add_filter( 'woocommerce_available_payment_gateways', 'mst_bodleid_update_supercustomers_payment_gateway', 1 );
 
 /**
+ * EMAIL
+ */
+
+/**
+ * @param WC_Order $order Order Object
+ * @param bool $sent_to_admin If this email is for administrator or for a customer
+ * @param string $plain_text HTML or Plain text (can be configured in WooCommerce > Settings > Emails)
+ */
+function mst_bodleid_add_ssn_to_emails( $order, $sent_to_admin, $plain_text ) {
+  $ssn = get_post_meta( $order->get_id(), 'billing_ssn', true );
+
+  if ( empty( $ssn ) ) return;
+
+  if ( ! $plain_text ) {
+    printf( '<h2>Additional Information</h2><ul><li><strong>SSN:</strong>%s</li></ul>', $ssn );
+  } else {
+    echo "Additional Information\n
+		SSN: $ssn";
+  }
+}
+
+add_action( 'woocommerce_email_order_meta', 'mst_bodleid_add_ssn_to_emails', 10, 3 );
+
+
+/**
  * MISC
  */
 
@@ -627,3 +637,4 @@ add_action( 'woocommerce_init', function() {
     }
   }
 } );
+

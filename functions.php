@@ -248,6 +248,7 @@ function mst_bodleid_scripts() {
         'error_billing_city' => esc_html__( 'City field name cannot be empty', 'mst_bodleid' ),
         'error_billing_postcode' => esc_html__( 'Postcode field cannot be empty', 'mst_bodleid' ),
         'error_passwords_arent_equal' => esc_html__( 'Passwords are not equal', 'mst_bodleid' ),
+        'error_billing_ssn' => esc_html__( 'Invalid SSN, please check your input', 'mst_bodleid' ),
       ],
     ]
   );

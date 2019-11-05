@@ -40,6 +40,7 @@ const Account = function() {
       billing_address_1: (value) => value.trim().length,
       billing_city: (value) => value.trim().length,
       billing_postcode: (value) => value.trim().length,
+      billing_ssn: (value) => /^\d{10}$/.test(value),
     }
   };
 
@@ -52,6 +53,7 @@ const Account = function() {
     billing_address_1: mainState.i18n.error_billing_address_1,
     billing_city: mainState.i18n.error_billing_city,
     billing_postcode: mainState.i18n.error_billing_postcode,
+    billing_ssn: mainState.i18n.error_billing_ssn,
   };
 
   // Account

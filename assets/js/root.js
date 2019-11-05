@@ -379,13 +379,14 @@ Main.prototype.setSingleProductGallery = function() {
      fade: true,
      asNavFor: '.one-product__product-gallery'
    });
-
+/* TODO: Рахувати кількість нод і вказувати у слайдс-ту-шоу кількість існуючих нод - 1 для коректної роботи*/
    jQuery('.one-product__product-gallery').slick({
      slidesToShow: 3,
      slidesToScroll: 1,
      asNavFor: '.one-product__open-img',
      dots: false,
-     centerMode: true,
+     arrows: false,
+     // centerMode: true,
      focusOnSelect: true
    });
  }
