@@ -24,8 +24,11 @@ $date = esc_html( $order_data->get_date_created()->date_i18n( 'd M Y' ) );
 /* @var string $status */
 $status = esc_html( ucfirst( $order_data->get_status() ) );
 
-/* @var string $payment_method */
-$payment_method = esc_html( $order_data->get_payment_method_title() );
+/* @var string $payment_method_title */
+$payment_method_title = esc_html( $order_data->get_payment_method_title() );
+
+/* @var string $payment_method_slug */
+$payment_method_slug = $order_data->get_payment_method();
 
 /* @var string $total */
 $total = wp_kses_post( $order_data->get_formatted_order_total() );
@@ -41,6 +44,14 @@ $total_ex_tax = wc_price( $order_data->get_total() - $order_data->__get('total_t
 
 /* @var WC_Order_Item[] $items */
 $items = $order_data->get_items();
+
+if ( $order_data->is_paid() ) {
+  if ( $payment_method_slug === 'valitor' ) {
+    $status = esc_html__( 'Paid', 'mst_bodleid' );
+  } else if ( $payment_method_slug === 'cod' ) {
+    $status = esc_html__( 'Invoiced', 'mst_bodleid' );
+  }
+}
 
 get_header();
 ?>
@@ -81,7 +92,7 @@ get_header();
                     <?php esc_html_e( 'Payment method', 'mst_bodleid' ); ?>
                   </h3>
                   <p class="order-received__info order-received__info-payment">
-                    <?php echo $payment_method; ?>
+                    <?php echo $payment_method_title; ?>
                   </p>
                 </div>
 

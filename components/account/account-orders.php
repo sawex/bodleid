@@ -72,6 +72,17 @@ $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order' ) ) );
 
           /* @var string $order_url */
           $order_url = esc_url( add_query_arg( [ 'order_id' => $order->get_id() ], $thank_you_page_url ) );
+
+          /* @var string $payment_method */
+          $payment_method = $order->get_payment_method();
+
+          if ( $order->is_paid() ) {
+            if ( $payment_method === 'valitor' ) {
+              $status = esc_html__( 'Paid', 'mst_bodleid' );
+            } else if ( $payment_method === 'cod' ) {
+              $status = esc_html__( 'Invoiced', 'mst_bodleid' );
+            }
+          }
           ?>
 
             <tr>
@@ -115,32 +126,33 @@ $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order' ) ) );
       'add_fragment' => '',
     ] );
     ?>
+    <nav class="woocommerce-pagination">
+      <ul class="orders__pagination">
 
-    <ul class="orders__pagination">
+        <?php foreach ( $pagination_elements as $pagination_element ) {
+          $pagination_element = (string) $pagination_element;
 
-      <?php foreach ( $pagination_elements as $pagination_element ) {
-        $pagination_element = (string) $pagination_element;
+          $pagination_element = str_replace(
+            'page-numbers current',
+            'orders__pagination-link orders__pagination-link--active',
+            $pagination_element
+          );
 
-        $pagination_element = str_replace(
-          'page-numbers current',
-          'orders__pagination-link orders__pagination-link--active',
-          $pagination_element
-        );
+          $pagination_element = str_replace(
+            'page-numbers',
+            'orders__pagination-link',
+            $pagination_element
+          );
 
-        $pagination_element = str_replace(
-          'page-numbers',
-          'orders__pagination-link',
-          $pagination_element
-        );
+          ?>
 
-        ?>
+          <li class="orders__pagination-item">
+            <?php echo $pagination_element; ?>
+          </li>
+        <?php } ?>
 
-        <li class="orders__pagination-item">
-          <?php echo $pagination_element; ?>
-        </li>
-      <?php } ?>
-
-    </ul>
+      </ul>
+    </nav>
 
   <?php } else { ?>
     <div class="search__result-title-box">

@@ -59,6 +59,16 @@ $sign_up_text = wp_kses_post( get_field('account', 'option')['sign_up_text'] );
 
         <div class="form__input-box">
           <input class="form__input"
+                 type="text"
+                 name="billing_ssn"
+                 id="ssn-field">
+          <label class="form__label" for="ssn-field">
+            <?php esc_html_e( 'SSN', 'mst_bodleid' ); ?>*
+          </label>
+        </div>
+
+        <div class="form__input-box">
+          <input class="form__input"
                  type="password"
                  name="password"
                  id="password-field">
@@ -123,3 +133,15 @@ $sign_up_text = wp_kses_post( get_field('account', 'option')['sign_up_text'] );
            aria-label="<?php esc_attr_e( 'Register', 'mst_bodleid' ); ?>">
   </div>
 </form>
+
+<style>
+  .page-template-tmp-login .login__new-client--signup {
+    height: 43em;
+  }
+
+  @media screen and (max-width: 529px) {
+    .page-template-tmp-login .login__new-client--signup {
+      height: 73em;
+    }
+  }
+</style>

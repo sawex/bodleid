@@ -18,6 +18,8 @@ const Account = function() {
   this.lostPassFirst = document.querySelector('.login__form--restore-password');
   this.lostPassSecond = document.querySelector('.login__form--new-password');
   this.accountForms = document.querySelectorAll('.login__form');
+  this.checkoutHiddenForm = document.querySelector('.login__form--login-checkout-hidden');
+  this.checkoutVisibleForm = document.querySelector('.login__form--login-checkout-visible');
 
   // Validation rules for "Sign up" and "Update account data" forms
   this.userFieldsRules = {
@@ -65,10 +67,10 @@ Account.prototype.constructor = Account;
 
 /**
  * LOGIN FORM
- * Initialize form on login and checkout pages.
+ * Initialize form on /login page.
  * */
 Account.prototype.initLoginForm = function() {
-  if (!this.loginForm) return;
+  if (!this.loginForm || this.isCheckout) return;
 
   this.loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -81,8 +83,8 @@ Account.prototype.initLoginForm = function() {
     });
 
     const errorMessages = {
-      email: 'Enter valid email address',
-      user_password: 'Enter your password',
+      email: mainState.i18n.error_billing_email,
+      user_password: mainState.i18n.error_password,
     };
 
     if (isValid.result) {
@@ -96,7 +98,6 @@ Account.prototype.initLoginForm = function() {
           data: isValid.data,
         },
         success(resp) {
-          console.log(resp);
           if (resp.success) {
             if (e.target.dataset.redirect) {
               location = e.target.dataset.redirect;
@@ -143,7 +144,6 @@ Account.prototype.initSignupForm = function() {
           data: isValid.data,
         },
         success(resp) {
-          console.log(resp);
           if (resp.success) {
             location = mainState.accountUrl;
           } else {
@@ -182,7 +182,6 @@ Account.prototype.initAccountForm = function() {
           data: isValid.data,
         },
         success(resp) {
-          console.log(resp);
           if (resp.success) {
             self.highlightInvalidFields(
               e.target.querySelectorAll('.login__new-client--signup .form__input'),
@@ -222,7 +221,7 @@ Account.prototype.initFirstLostPasswordForm = function() {
     });
 
     const errorMessages = {
-      'restore-email': 'Enter valid email address',
+      'restore-email': mainState.i18n.error_billing_email,
     };
 
     const self = this;
@@ -236,7 +235,6 @@ Account.prototype.initFirstLostPasswordForm = function() {
           data: isValid.data,
         },
         success(resp) {
-          console.log(resp);
           if (resp.success) {
             self.lostPassFirst.remove();
             document.querySelector('.search__result-title-box').classList.remove('hidden');
@@ -300,7 +298,6 @@ Account.prototype.initSecondLostPasswordForm = function() {
           data: body,
         },
         success(resp) {
-          console.log(resp);
           if (resp.success) {
             location = mainState.loginUrl;
           } else {
@@ -355,10 +352,66 @@ Account.prototype.setFormsCollapsing = function() {
   this.accountForms.forEach((form) => {
     const title = form.querySelector('.login__title');
 
-    title.addEventListener('click', () => {
-      form.classList.toggle('collapsed');
-      title.classList.toggle('login__title--active');
+    if (title) {
+      title.addEventListener('click', () => {
+        form.classList.toggle('collapsed');
+        title.classList.toggle('login__title--active');
+      });
+    }
+  });
+};
+
+/**
+ * CHECKOUT LOGIN FORM
+ * Initialize form on checkout page.
+ * */
+Account.prototype.initCheckoutLoginForm = function() {
+  if (!this.checkoutHiddenForm || !this.isCheckout) return;
+
+  this.checkoutHiddenForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const isValid = validateForm(e.target, {
+      fields: {
+        email: (value) => /\S+@\S+\.\S+/.test(value),
+        user_password: (value) => value.trim().length,
+      }
     });
+
+    const errorMessages = {
+      email: mainState.i18n.error_billing_email,
+      user_password: mainState.i18n.error_password,
+    };
+
+    if (isValid.result) {
+      const self = this;
+
+      jQuery.ajax({
+        type: 'POST',
+        url: mainState.ajaxUrl,
+        data: {
+          action: 'mst_bodleid_login',
+          data: isValid.data,
+        },
+        success(resp) {
+          if (resp.success) {
+            if (e.target.dataset.redirect) {
+              location = e.target.dataset.redirect;
+            } else {
+              location = mainState.accountUrl;
+            }
+          } else {
+            self.alert(resp.data.error);
+          }
+        },
+      });
+    } else {
+      this.highlightInvalidFields(
+        e.target.querySelectorAll('.login__form--login-checkout-visible .form__input'),
+        isValid.invalidFields,
+        errorMessages
+      );
+    }
   });
 };
 
@@ -370,6 +423,7 @@ Account.prototype.init = function() {
   this.initFirstLostPasswordForm();
   this.initSecondLostPasswordForm();
   this.setFormsCollapsing();
+  this.initCheckoutLoginForm();
 };
 
 export default Account;

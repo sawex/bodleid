@@ -42,6 +42,10 @@ get_header();
                 <h2 class="secondary-title search__result-title">
                   <?php esc_html_e( 'Check your email for a confirmation URL', 'mst_bodleid' ); ?>
                 </h2>
+
+                <a class="button wc-backward" href="<?php echo mst_bodleid_get_login_page(); ?>">
+                  <?php esc_html_e( 'Log in', 'woocommerce' ); ?>
+                </a>
               </div>
             </div>
           </div>

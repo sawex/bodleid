@@ -5,15 +5,20 @@
  * to usual JS Object in format:
  * { fieldName: fieldValue }
  *
- * @version 1.0.1
+ * @version 1.0.2
  *
- * @param {object} form Instance of FormData object.
+ * @param {HTMLFormElement|FormData|EventTarget} form Form or instance of FormData object.
  * @param {object} validateOptions Validation parameters.
  *
  * @return {object} Returns if form is true by validateOptions, returns false, if not.
  */
 const validateForm = function(form, validateOptions = {}) {
-  const formData = new FormData(form);
+  let formData = form;
+
+  if (!(form instanceof FormData)) {
+    formData = new FormData(form);
+  }
+
   const dataObj = {};
   const invalidFields = [];
 

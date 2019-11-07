@@ -370,7 +370,8 @@ Main.prototype.setSingleProductGallery = function() {
  if (!this.isSingle) return;
 
  const gallery = document.querySelector('.one-product__product-gallery');
-
+ const thumbsLength = document.querySelectorAll('.one-product__product-gallery li').length;
+ 
  if (gallery) {
    jQuery('.one-product__open-img').slick({
      slidesToShow: 1,
@@ -379,14 +380,14 @@ Main.prototype.setSingleProductGallery = function() {
      fade: true,
      asNavFor: '.one-product__product-gallery'
    });
-/* TODO: Рахувати кількість нод і вказувати у слайдс-ту-шоу кількість існуючих нод - 1 для коректної роботи*/
+
    jQuery('.one-product__product-gallery').slick({
-     slidesToShow: 3,
+     slidesToShow: thumbsLength,
      slidesToScroll: 1,
      asNavFor: '.one-product__open-img',
      dots: false,
      arrows: false,
-     // centerMode: true,
+     centerMode: true,
      focusOnSelect: true
    });
  }

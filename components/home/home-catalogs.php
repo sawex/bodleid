@@ -24,6 +24,7 @@ $catalogs = get_field( 'catalogs' );
             'posts_per_page' => -1,
             'post_type' => 'catalogs',
             'post__in' => $catalogs,
+            'orderby' => 'post__in',
           ] );
 
           if ( $wp_query->have_posts() ) {
@@ -59,6 +60,8 @@ $catalogs = get_field( 'catalogs' );
             }
             wp_reset_query();
           } ?>
+
+          <li class="catalog__category-list-item--fake"></li>
         </ul>
       </div>
     </div>

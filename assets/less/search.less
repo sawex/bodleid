@@ -139,6 +139,11 @@
   display: block;
 }
 
+.search__result-title-box {
+  margin-top: 30px;
+  padding-left: 20px;
+}
+
 @media screen and (max-width: 1200px) {
   .search__result {
     flex-wrap: wrap;
@@ -153,6 +158,23 @@
 @media screen and (max-width: 992px) {
   .widget_search {
     width: 400px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .search .shop__title--abs {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .search__result-title-box {
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  .search__result-title {
+    text-align: center;
   }
 }
 

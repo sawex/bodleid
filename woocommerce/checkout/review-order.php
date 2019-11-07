@@ -92,7 +92,15 @@ defined( 'ABSPATH' ) || exit;
     </tr>
     <tr class="order-received__total-price-table-row">
       <td><?php esc_html_e( 'Home delivery within Iceland:', 'mst_bodleid' ); ?></td>
-      <td><?php echo WC()->cart->get_cart_shipping_total(); ?></td>
+      <td>
+        <?php
+          if ( 0 < WC()->cart->get_shipping_total() ) {
+            printf( __( 'Delivery %s', 'mst_bodleid' ), WC()->cart->get_cart_shipping_total() );
+          } else {
+            echo WC()->cart->get_cart_shipping_total();
+          }
+        ?>
+      </td>
     </tr>
     <tr class="order-received__total-price-table-row">
       <td><?php esc_html_e( 'VAT (24%):', 'mst_bodleid' ); ?></td>
@@ -101,7 +109,7 @@ defined( 'ABSPATH' ) || exit;
     <tr class="order-received__total-price-table-row">
       <td><?php esc_html_e( 'Total:', 'mst_bodleid' ); ?></td>
       <td class="order-received__total-price-sum">
-        <?php echo WC()->cart->get_cart_total(); ?>
+        <?php echo WC()->cart->get_total(); ?>
       </td>
     </tr>
     </tbody>

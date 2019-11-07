@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bodleid\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-01 12:57+0000\n"
+"POT-Creation-Date: 2019-11-07 00:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -19,62 +19,68 @@ msgstr ""
 msgid "Thank you page"
 msgstr ""
 
-#: tmp-thank-you.php:47 woocommerce/checkout/thankyou.php:49
+#: tmp-thank-you.php:50 components/account/account-orders.php:81
+msgid "Paid"
+msgstr ""
+
+#: tmp-thank-you.php:52 components/account/account-orders.php:83
+msgid "Invoiced"
+msgstr ""
+
+#: tmp-thank-you.php:64
 msgid "Thanks, order received"
 msgstr ""
 
-#: tmp-thank-you.php:55 components/account/account-orders.php:40
-#: components/account/account-orders.php:74
-#: woocommerce/checkout/thankyou.php:57
+#: tmp-thank-you.php:72 components/account/account-orders.php:44
+#: components/account/account-orders.php:89
 msgid "Order number"
 msgstr ""
 
-#: tmp-thank-you.php:61 components/account/account-orders.php:43
-#: components/account/account-orders.php:78
-#: woocommerce/checkout/thankyou.php:63
+#: tmp-thank-you.php:78 components/account/account-orders.php:47
+#: components/account/account-orders.php:93
 msgid "Date"
 msgstr ""
 
-#: tmp-thank-you.php:67 tmp-thank-you.php:95 tmp-thank-you.php:134
-#: tmp-thank-you.php:157 components/account/account-orders.php:49
-#: components/account/account-orders.php:86
+#: tmp-thank-you.php:84 tmp-thank-you.php:121 tmp-thank-you.php:163
+#: tmp-thank-you.php:186 components/account/account-orders.php:53
+#: components/account/account-orders.php:101
 #: woocommerce/checkout/review-order.php:30
-#: woocommerce/checkout/review-order.php:70
-#: woocommerce/checkout/thankyou.php:69 woocommerce/checkout/thankyou.php:97
-#: woocommerce/checkout/thankyou.php:136 woocommerce/checkout/thankyou.php:159
+#: woocommerce/checkout/review-order.php:73
 msgid "Total"
 msgstr ""
 
-#: tmp-thank-you.php:75 woocommerce/checkout/thankyou.php:77
+#: tmp-thank-you.php:92
 msgid "Payment method"
 msgstr ""
 
-#: tmp-thank-you.php:89 tmp-thank-you.php:122 tmp-comparing.php:126
-#: tmp-comparing.php:127 woocommerce/checkout/review-order.php:24
-#: woocommerce/checkout/review-order.php:56
-#: woocommerce/checkout/thankyou.php:91
+#: tmp-thank-you.php:101 components/account/account-orders.php:50
+#: components/account/account-orders.php:97
+msgid "Status"
+msgstr ""
+
+#: tmp-thank-you.php:115 tmp-thank-you.php:151 tmp-comparing.php:123
+#: tmp-comparing.php:124 woocommerce/checkout/review-order.php:24
+#: woocommerce/checkout/review-order.php:59
 msgid "Product"
 msgstr ""
 
-#: tmp-thank-you.php:92 tmp-thank-you.php:130
+#: tmp-thank-you.php:118 tmp-thank-you.php:159
 #: woocommerce/checkout/review-order.php:27
-#: woocommerce/checkout/review-order.php:65
-#: woocommerce/checkout/thankyou.php:94 woocommerce/checkout/thankyou.php:132
+#: woocommerce/checkout/review-order.php:68
 msgid "Amount"
 msgstr ""
 
-#: tmp-thank-you.php:127 tmp-comparing.php:135 tmp-comparing.php:136
-#: woocommerce/content-single-product.php:122 woocommerce/cart/cart.php:197
-#: woocommerce/checkout/review-order.php:47
-#: woocommerce/checkout/thankyou.php:129
+#: tmp-thank-you.php:156 tmp-comparing.php:132 tmp-comparing.php:133
+#: woocommerce/content-single-product.php:127 woocommerce/cart/cart.php:184
+#: woocommerce/checkout/review-order.php:50
 msgid "Model"
 msgstr ""
 
-#: tmp-thank-you.php:145 woocommerce/checkout/thankyou.php:147
+#: tmp-thank-you.php:174
 msgid "Price without VAT"
 msgstr ""
 
-#: tmp-thank-you.php:149 woocommerce/checkout/thankyou.php:151
+#: tmp-thank-you.php:178
 msgid "Home delivery within Iceland"
 msgstr ""
 
@@ -137,7 +143,7 @@ msgstr ""
 msgid "Search for..."
 msgstr ""
 
-#: searchform.php:24
+#: searchform.php:28
 msgid "Search"
 msgstr ""
 
@@ -163,104 +169,113 @@ msgstr ""
 msgid "Comparing page"
 msgstr ""
 
-#: tmp-comparing.php:89
+#: tmp-comparing.php:71
+#, php-format
+msgid "Add “%s” to your cart"
+msgstr ""
+
+#: tmp-comparing.php:86
 msgid "Remove from comparison"
 msgstr ""
 
-#: tmp-comparing.php:107 woocommerce/content-single-product.php:146
+#: tmp-comparing.php:104 woocommerce/content-single-product.php:151
 msgid "Comparison"
 msgstr ""
 
-#: tmp-comparing.php:116
+#: tmp-comparing.php:113
 msgid "Hide attributes with same values"
 msgstr ""
 
-#: tmp-comparing.php:141 tmp-comparing.php:142
+#: tmp-comparing.php:138 tmp-comparing.php:139
 msgid "Picture"
 msgstr ""
 
-#: tmp-comparing.php:147 tmp-comparing.php:148
+#: tmp-comparing.php:144 tmp-comparing.php:145
 msgid "Price"
 msgstr ""
 
-#: tmp-comparing.php:153 tmp-comparing.php:154
+#: tmp-comparing.php:150 tmp-comparing.php:151
 msgid "Availability"
 msgstr ""
 
-#: tmp-comparing.php:159 tmp-comparing.php:160
+#: tmp-comparing.php:156 tmp-comparing.php:157
 msgid "Description"
 msgstr ""
 
-#: functions.php:40
+#: functions.php:44
 msgid "Theme settings"
 msgstr ""
 
-#: functions.php:113
+#: functions.php:117
 msgid "Header primary menu"
 msgstr ""
 
-#: functions.php:154
+#: functions.php:158
 msgid "Sidebar"
 msgstr ""
 
-#: functions.php:156
+#: functions.php:160
 msgid "Add widgets here."
 msgstr ""
 
-#: functions.php:236 woocommerce/content-single-product.php:152
+#: functions.php:240 woocommerce/content-single-product.php:157
 msgid "View comparison list"
 msgstr ""
 
-#: functions.php:238
+#: functions.php:242
 msgid "Data updated successfully"
 msgstr ""
 
-#: functions.php:239
+#: functions.php:243
 msgid "First name field cannot be empty"
 msgstr ""
 
-#: functions.php:240
+#: functions.php:244
 msgid "Enter valid email address"
 msgstr ""
 
-#: functions.php:241
+#: functions.php:245
 msgid ""
 "Phone number can contains digits only and cannot be longer than 12 digits"
 msgstr ""
 
-#: functions.php:242
+#: functions.php:246
 msgid "Password cannot be empty or shorter than 6 symbols"
 msgstr ""
 
-#: functions.php:243
+#: functions.php:247
 msgid "Address cannot be empty"
 msgstr ""
 
-#: functions.php:244
+#: functions.php:248
 msgid "City field name cannot be empty"
 msgstr ""
 
-#: functions.php:245
+#: functions.php:249
 msgid "Postcode field cannot be empty"
 msgstr ""
 
-#: functions.php:246
+#: functions.php:250
 msgid "Passwords are not equal"
 msgstr ""
 
-#: functions.php:347
+#: functions.php:251
+msgid "Invalid SSN, please check your input"
+msgstr ""
+
+#: functions.php:349
 msgid "Testimonials"
 msgstr ""
 
-#: functions.php:348
+#: functions.php:350
 msgid "Testimonial"
 msgstr ""
 
-#: functions.php:357
+#: functions.php:359
 msgid "Catalogs"
 msgstr ""
 
-#: functions.php:358 components/home/home-catalogs.php:18
+#: functions.php:360 components/home/home-catalogs.php:18
 msgid "Catalog"
 msgstr ""
 
@@ -268,70 +283,86 @@ msgstr ""
 msgid "There is a new submitted form on Bodleid"
 msgstr ""
 
-#: inc/ajax.php:54 inc/ajax.php:108 inc/ajax.php:176 inc/ajax.php:273
-#: inc/ajax.php:347
+#: inc/ajax.php:54 inc/ajax.php:109 inc/ajax.php:177 inc/ajax.php:298
+#: inc/ajax.php:365
 msgid "Nonce error"
 msgstr ""
 
-#: inc/ajax.php:59 inc/ajax.php:66 inc/ajax.php:113
+#: inc/ajax.php:59 inc/ajax.php:66 inc/ajax.php:114
 msgid "Invalid username or password"
 msgstr ""
 
-#: inc/ajax.php:171
+#: inc/ajax.php:172
 msgid "Please, login to update your account"
 msgstr ""
 
-#: inc/ajax.php:278
+#: inc/ajax.php:303
 msgid "Wrong email format"
 msgstr ""
 
-#: inc/ajax.php:360
+#: inc/ajax.php:330
+#, php-format
+msgctxt "Site name"
+msgid "[%s] Password recovery"
+msgstr ""
+
+#: inc/ajax.php:378
 msgid "You cannot use your old password"
 msgstr ""
 
-#: inc/woocommerce.php:520
+#: inc/woocommerce.php:522
 msgid "Any wishes, reference ..."
 msgstr ""
 
-#: inc/account.php:44 inc/account.php:73 inc/account.php:74
+#: inc/woocommerce.php:571
+msgid "Invalid <strong>SSN</strong>, please check your input."
+msgstr ""
+
+#: inc/account.php:48 inc/account.php:77 inc/account.php:78
 #: components/account/account-login-form.php:17
 #: components/account/account-login-form.php:41
 #: components/account/account-login-form.php:42
-#: components/account/account-checkout-login-form.php:17
-#: components/account/account-checkout-login-form.php:40
+#: components/account/form-checkout-login-form.php:17
+#: components/account/form-checkout-login-form.php:40
 msgid "Log in"
 msgstr ""
 
-#: inc/account.php:58 components/account/form-register.php:46
+#: inc/account.php:62 components/account/form-register.php:46
 #: components/account/form-account.php:65
 #: components/account/account-login-form.php:26
 #: components/account/form-lost-password.php:21
-#: components/account/account-checkout-login-form.php:26
+#: components/account/form-checkout-login-form.php:26
 msgid "Email*"
 msgstr ""
 
-#: inc/account.php:65 components/account/form-register.php:66
+#: inc/account.php:69 components/account/form-register.php:76
 #: components/account/form-account.php:97
 #: components/account/account-login-form.php:33
-#: components/account/account-checkout-login-form.php:33
+#: components/account/form-checkout-login-form.php:33
 msgid "Password*"
 msgstr ""
 
-#: inc/account.php:79 components/account/account-login-form.php:47
-#: components/account/account-checkout-login-form.php:44
+#: inc/account.php:83 components/account/account-login-form.php:47
+#: components/account/form-checkout-login-form.php:44
 msgid "Remember me"
 msgstr ""
 
-#: inc/account.php:83 components/account/account-login-form.php:51
-#: components/account/account-checkout-login-form.php:48
+#: inc/account.php:87 components/account/account-login-form.php:51
+#: components/account/form-checkout-login-form.php:48
 msgid "Forgotten password?"
 msgstr ""
 
-#: woocommerce/content-single-product.php:165
+#: inc/admin.php:19 components/account/form-register.php:66
+#: components/account/form-account.php:87
+#: woocommerce/checkout/form-billing.php:74
+msgid "SSN"
+msgstr ""
+
+#: woocommerce/content-single-product.php:170
 msgid "Share"
 msgstr ""
 
-#: woocommerce/content-single-product.php:207
+#: woocommerce/content-single-product.php:214
 msgid "Related products"
 msgstr ""
 
@@ -339,12 +370,7 @@ msgstr ""
 msgid "Our clients"
 msgstr ""
 
-#: components/account/account-orders.php:46
-#: components/account/account-orders.php:82
-msgid "Status"
-msgstr ""
-
-#: components/account/account-orders.php:92
+#: components/account/account-orders.php:107
 msgid "View"
 msgstr ""
 
@@ -369,44 +395,39 @@ msgstr ""
 msgid "Phone number*"
 msgstr ""
 
-#: components/account/form-register.php:73
+#: components/account/form-register.php:83
 #: components/account/form-account.php:104
 #: woocommerce/checkout/form-billing.php:120
 msgid "Your address"
 msgstr ""
 
-#: components/account/form-register.php:82
+#: components/account/form-register.php:92
 #: components/account/form-account.php:114 components/footer/footer-form.php:36
 msgid "Company"
 msgstr ""
 
-#: components/account/form-register.php:92
+#: components/account/form-register.php:102
 #: components/account/form-account.php:125
 msgid "Address*"
 msgstr ""
 
-#: components/account/form-register.php:102
+#: components/account/form-register.php:112
 #: components/account/form-account.php:136
 msgid "City / Town*"
 msgstr ""
 
-#: components/account/form-register.php:112
+#: components/account/form-register.php:122
 #: components/account/form-account.php:147
 msgid "Post number*"
 msgstr ""
 
-#: components/account/form-register.php:122
-#: components/account/form-register.php:123
+#: components/account/form-register.php:132
+#: components/account/form-register.php:133
 msgid "Register"
 msgstr ""
 
 #: components/account/form-account.php:37
 msgid "Update data"
-msgstr ""
-
-#: components/account/form-account.php:87
-#: woocommerce/checkout/form-billing.php:73
-msgid "SSN"
 msgstr ""
 
 #: components/account/form-account.php:157
@@ -497,19 +518,24 @@ msgstr ""
 msgid "Customer data"
 msgstr ""
 
-#: woocommerce/checkout/review-order.php:87
+#: woocommerce/checkout/review-order.php:90
 msgid "Price without VAT:"
 msgstr ""
 
-#: woocommerce/checkout/review-order.php:91
+#: woocommerce/checkout/review-order.php:94
 msgid "Home delivery within Iceland:"
 msgstr ""
 
-#: woocommerce/checkout/review-order.php:95
+#: woocommerce/checkout/review-order.php:98
+#, php-format
+msgid "Delivery %s"
+msgstr ""
+
+#: woocommerce/checkout/review-order.php:106
 msgid "VAT (24%):"
 msgstr ""
 
-#: woocommerce/checkout/review-order.php:99
+#: woocommerce/checkout/review-order.php:110
 msgid "Total:"
 msgstr ""
 

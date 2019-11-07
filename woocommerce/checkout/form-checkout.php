@@ -43,6 +43,15 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
       <div class="order-received__forms-wrapper">
         <div class="order-received__forms-container">
 
+          <?php if ( ! is_user_logged_in() ) { ?>
+            <form class="login__form login__form--login-checkout-hidden"
+                  data-redirect="<?php echo esc_url( wc_get_checkout_url() ); ?>"
+                  id="checkout-login-form"
+                  style="display: none;">
+              <?php wp_nonce_field( 'login','login_nonce' ); ?>
+            </form>
+          <?php } ?>
+
           <form name="checkout"
                 method="post"
                 class="checkout woocommerce-checkout"
@@ -87,7 +96,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
             </div>
           </form>
 
-        </div>
+        </form>
       </div>
     </div>
   </div>
