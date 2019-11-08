@@ -23,6 +23,7 @@ $orders_data = wc_get_orders( [
   'limit' => $orders_count,
   'paged' => $paged,
   'paginate' => true,
+  'status' => ['pending', 'processing', 'on-hold', 'completed', 'refunded'],
 ] );
 
 /* @var WC_Order[] $orders */
@@ -47,7 +48,7 @@ $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order' ) ) );
             <?php esc_html_e( 'Date', 'mst_bodleid' ); ?>
           </th>
           <th class="orders__headline orders__headline--status">
-            <?php esc_html_e( 'Status', 'mst_bodleid' ); ?>
+            <?php esc_html_e( 'Payment method', 'mst_bodleid' ); ?>
           </th>
           <th class="orders__headline orders__headline--total-summ">
             <?php esc_html_e( 'Total', 'mst_bodleid' ); ?>
@@ -57,32 +58,32 @@ $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order' ) ) );
       </thead>
       <tbody>
         <?php
-        foreach ( $orders as $order ) {
-          /* @var string $id */
-          $id = esc_html( sprintf( '#%d', $order->get_id() ) );
+          foreach ( $orders as $order ) {
+            /* @var string $id */
+            $id = esc_html( sprintf( '#%d', $order->get_id() ) );
 
-          /* @var string $status */
-          $status = esc_html( ucfirst( $order->get_status() ) );
+            /* @var string $status */
+            $status = esc_html( ucfirst( $order->get_status() ) );
 
-          /* @var string $date */
-          $date = esc_html( $order->get_date_created()->date_i18n( 'M d, Y' ) );
+            /* @var string $date */
+            $date = esc_html( $order->get_date_created()->date_i18n( 'M d, Y' ) );
 
-          /* @var string $total */
-          $total = wp_kses_post( $order->get_formatted_order_total() );
+            /* @var string $total */
+            $total = wp_kses_post( $order->get_formatted_order_total() );
 
-          /* @var string $order_url */
-          $order_url = esc_url( add_query_arg( [ 'order_id' => $order->get_id() ], $thank_you_page_url ) );
+            /* @var string $order_url */
+            $order_url = esc_url( add_query_arg( [ 'order_id' => $order->get_id() ], $thank_you_page_url ) );
 
-          /* @var string $payment_method */
-          $payment_method = $order->get_payment_method();
+            /* @var string $payment_method */
+            $payment_method = $order->get_payment_method();
 
-          if ( $order->is_paid() ) {
-            if ( $payment_method === 'valitor' ) {
-              $status = esc_html__( 'Paid', 'mst_bodleid' );
-            } else if ( $payment_method === 'cod' ) {
-              $status = esc_html__( 'Invoiced', 'mst_bodleid' );
+            if ( $order->is_paid() ) {
+              if ( $payment_method === 'valitor' ) {
+                $status = esc_html__( 'Valitor', 'mst_bodleid' );
+              } else if ( $payment_method === 'cod' ) {
+                $status = esc_html__( 'Invoiced', 'mst_bodleid' );
+              }
             }
-          }
           ?>
 
             <tr>
@@ -94,7 +95,7 @@ $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order' ) ) );
                   class="orders__info-datе">
                 <span><?php echo $date; ?></span>
               </td>
-              <td data-text="<?php esc_html_e( 'Status', 'mst_bodleid' ); ?>"
+              <td data-text="<?php esc_html_e( 'Payment method', 'mst_bodleid' ); ?>"
                   class="orders__info-status">
                 <span><?php echo $status; ?></span>
               </td>
@@ -129,28 +130,32 @@ $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order' ) ) );
     <nav class="woocommerce-pagination">
       <ul class="orders__pagination">
 
-        <?php foreach ( $pagination_elements as $pagination_element ) {
-          $pagination_element = (string) $pagination_element;
+        <?php
+          if ( ! empty( $pagination_elements ) ) {
+            foreach ( $pagination_elements as $pagination_element ) {
+              $pagination_element = (string) $pagination_element;
 
-          $pagination_element = str_replace(
-            'page-numbers current',
-            'orders__pagination-link orders__pagination-link--active',
-            $pagination_element
-          );
+              $pagination_element = str_replace(
+                'page-numbers current',
+                'orders__pagination-link orders__pagination-link--active',
+                $pagination_element
+              );
 
-          $pagination_element = str_replace(
-            'page-numbers',
-            'orders__pagination-link',
-            $pagination_element
-          );
-
+              $pagination_element = str_replace(
+                'page-numbers',
+                'orders__pagination-link',
+                $pagination_element
+              );
           ?>
 
-          <li class="orders__pagination-item">
-            <?php echo $pagination_element; ?>
-          </li>
-        <?php } ?>
+            <li class="orders__pagination-item">
+              <?php echo $pagination_element; ?>
+            </li>
 
+        <?php
+            }
+          }
+        ?>
       </ul>
     </nav>
 

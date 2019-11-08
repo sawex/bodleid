@@ -24,9 +24,6 @@ $date = esc_html( $order_data->get_date_created()->date_i18n( 'd M Y' ) );
 /* @var string $status */
 $status = esc_html( ucfirst( $order_data->get_status() ) );
 
-/* @var string $payment_method_title */
-$payment_method_title = esc_html( $order_data->get_payment_method_title() );
-
 /* @var string $payment_method_slug */
 $payment_method_slug = $order_data->get_payment_method();
 
@@ -47,7 +44,7 @@ $items = $order_data->get_items();
 
 if ( $order_data->is_paid() ) {
   if ( $payment_method_slug === 'valitor' ) {
-    $status = esc_html__( 'Paid', 'mst_bodleid' );
+    $status = esc_html__( 'Valitor', 'mst_bodleid' );
   } else if ( $payment_method_slug === 'cod' ) {
     $status = esc_html__( 'Invoiced', 'mst_bodleid' );
   }
@@ -73,12 +70,14 @@ get_header();
                   </h3>
                   <p class="order-received__info order-received__info-id"><?php echo $id_string; ?></p>
                 </div>
+
                 <div class="order-received__order-info-box">
                   <h3 class="order-received__order-info-title orders__headline order-received__title-date">
                     <?php esc_html_e( 'Date', 'mst_bodleid' ); ?>
                   </h3>
                   <p class="order-received__info order-received__info-date"><?php echo $date; ?></p>
                 </div>
+
                 <div class="order-received__order-info-box">
                   <h3 class="order-received__order-info-title orders__headline order-received__title-price">
                     <?php esc_html_e( 'Total', 'mst_bodleid' ); ?>
@@ -87,18 +86,10 @@ get_header();
                     <?php echo $total; ?>
                   </p>
                 </div>
-                <div class="order-received__order-info-box">
-                  <h3 class="order-received__order-info-title orders__headline order-received__title-payment">
-                    <?php esc_html_e( 'Payment method', 'mst_bodleid' ); ?>
-                  </h3>
-                  <p class="order-received__info order-received__info-payment">
-                    <?php echo $payment_method_title; ?>
-                  </p>
-                </div>
 
                 <div class="order-received__order-info-box">
                   <h3 class="order-received__order-info-title orders__headline order-received__title-payment">
-                    <?php esc_html_e( 'Status', 'mst_bodleid' ); ?>
+                    <?php esc_html_e( 'Payment method', 'mst_bodleid' ); ?>
                   </h3>
                   <p class="order-received__info order-received__info-payment">
                     <?php echo $status; ?>

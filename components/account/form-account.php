@@ -84,7 +84,7 @@ if ( $user_id ) {
                  id="ssn-field"
                  value="<?php echo $ssn; ?>">
           <label class="form__label" for="ssn-field">
-            <?php esc_html_e( 'SSN', 'mst_bodleid' ); ?>
+            <?php esc_html_e( 'SSN', 'mst_bodleid' ); ?>*
           </label>
         </div>
 
