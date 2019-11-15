@@ -26,7 +26,7 @@
 
 .order-received__order-info-wrap {
   width: 686px;
-  height: 219px;
+  min-height: 219px;
   border: 1px solid #666666;
   padding: 29px 120px 39px 45px;
   display: flex;
@@ -201,6 +201,13 @@
   cursor: pointer;
   background-color: transparent;
   border: none;
+  background-color: #f6b108;
+  transition: ease-in-out .3s;
+}
+
+.order-received__continue-btn:hover {
+  background-color: #ffd100;
+  transition: ease-in-out .3s;
 }
 
 .order-received__continue-btn::before {

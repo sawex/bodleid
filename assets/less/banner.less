@@ -49,7 +49,7 @@
 }
 
 .banner__link {
-	background-image: radial-gradient(circle 151px at 195.38% 1036.02%, #ffd100 0%, #fab600 100%);
+	// background-image: radial-gradient(circle 151px at 195.38% 1036.02%, #ffd100 0%, #fab600 100%);
 	padding: 11px 66px 11px 28px;
 	text-decoration: none;
 	color: #403300;
@@ -57,12 +57,16 @@
 	font-weight: 700;
 	position: relative;
 	z-index: 1;
+	display: inline-block;
+	background-color: #fab600;
+	transition: ease-in-out .3s;
 }
 
 .banner__link:hover {
 	// background-blend-mode: multiply;
-	background-image: none;
-	background-color: #fecc00;
+	// background-image: none;
+	background-color: #ffd100;
+	transition: ease-in-out .3s;
 }
 
 .banner__link::after {

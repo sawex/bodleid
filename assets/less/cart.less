@@ -8,7 +8,7 @@
 
 .cart {
   width: 100%;
-}
+} 
 
 .cart__orders-list-container,
 .woocommerce-cart-form,
@@ -221,6 +221,13 @@ tfoot .actions > .button::before {
   padding: 0 6px;
   font-size: 20px;
   font-weight: 700;
+  font-family: 'Brandon Grotesque';
+  transition: ease-in-out .3s;
+}
+
+.coupon .button:hover {
+  background-color: #ffd100;
+  transition: ease-in-out .3s;
 }
 
 .total {
@@ -243,6 +250,12 @@ tfoot .actions > .button::before {
   font-weight: 700;
   background-color: #f6b108;
   padding: 20px 45px;
+  transition: ease-in-out .3s;
+}
+
+.total .wc-proceed-to-checkout a:hover {
+  background-color: #ffd100;
+  transition: ease-in-out .3s;
 }
 
 .total__text-box .total__title {
@@ -284,4 +297,13 @@ tfoot .actions > .button::before {
 
 .total__text-box p {
   color: #fff;
+}
+
+.order-received__continue-box--supercustomer,
+.order-received__continue-box--supercustomer .order-received__continue-img-box {
+  background: none;
+}
+
+.woocommerce-NoticeGroup-checkout {
+  display: none !important;
 }

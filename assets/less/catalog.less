@@ -39,14 +39,29 @@
 	margin-bottom: 0;
 }
 
+.catalog__category-list-item--fake {
+	width: 273px;
+	height: 0.1px;
+	opacity: 0;
+	order: 99999;
+	list-style-type: none;
+}
+
 .catalog__category-link {
 	text-decoration: none;
 	display: block;
-	background-image: radial-gradient(circle 105px at 292.86% 817.14%, #ffd100 0%, #fab600 100%);
+	// background-image: radial-gradient(circle 105px at 292.86% 817.14%, #ffd100 0%, #fab600 100%);
 	width: 273px;
 	height: 105px;
 	position: relative;
 	padding: 20px 27px;
+	background-color: #fab600;
+	transition: ease-in-out .3s;
+}
+
+.catalog__category-link:hover {
+	background-color: #ffd100;
+	transition: ease-in-out .3s;
 }
 
 .catalog__category-img {

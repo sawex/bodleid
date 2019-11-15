@@ -24,7 +24,8 @@
 
 .woocommerce-message {
   float: right;
-  background-color: #fbba00 !important;
+  // background-color: #fbba00 !important;
+  background-color: #fff !important;
   min-height: 47px;
   display: flex !important;
   justify-content: center;
@@ -49,8 +50,8 @@
 }
 
 .woocommerce-shop .woocommerce-message {
-  position: relative;
-  top: -10px;
+  // position: relative;
+  // top: -10px;
 }
 
 .woocommerce-notices-wrapper--forgot-pass ul {
@@ -70,7 +71,7 @@
   font-weight: 700;
   height: 100%;
   padding: 0 20px;
-  background-color: #fff;
+  background-color: #fbba00;
 }
 
 .woocommerce-message .w-close-btn {
@@ -160,4 +161,76 @@
   .woocommerce-shipping-methods {
     padding: 0;
   }
+}
+
+.woocommerce-notices-wrapper {
+  // position: relative;
+//   opacity: 0;
+//   transition: ease-in-out .5s;
+//   position: absolute;
+//   z-index: 9;
+//   right: 20px;
+//   transform: translateY(0);
+  z-index: 99999;
+  position: fixed;
+  right: 35px;
+  width: auto;
+}
+
+@media screen and (max-width: 650px) {
+  .woocommerce-notices-wrapper {
+    width: 95vw;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 411px) {
+  .woocommerce-message {
+    position: absolute;
+    bottom: -20px;
+  }
+}
+
+
+.shop .woocommerce-notices-wrapper,
+.woocommerce-notices-wrapper--account {
+  //top: 180px;
+  bottom: -27px;
+}
+
+//.login .woocommerce-notices-wrapper {
+//  top: 290px;
+//}
+
+// .woocommerce-notices-wrapper--visible {
+//   transform: translateY(-100%);
+//   opacity: 1;
+//   transition: ease-in-out .5s;
+// }
+
+.woocommerce-message {
+  opacity: 0;
+  transition: ease-in-out .5s;
+  // position: absolute;
+  // top: 50%;
+  // right: 20px;
+  z-index: 9;
+  // right: 47%;
+  // transform: translateX(100%) !important;
+  transform: translateY(0);
+  animation: toTop 1s forwards;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.6);
+  max-width: 600px;
+}
+
+@keyframes toTop {
+  from {transform: translateY(0); opacity: 0;}
+  to {transform: translateY(-100%); opacity: 1;}
+}
+
+@keyframes toBottom {
+  from {transform: translateY(-100%); opacity: 1;}
+  to {transform: translateY(0); opacity: 0;}
 }

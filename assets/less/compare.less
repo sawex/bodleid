@@ -92,6 +92,7 @@
 //   display: block;
   border-bottom: 1px solid #979797;
    white-space: nowrap;
+  z-index: 999999;
 }
 
 .compare__table-wrap {
@@ -123,7 +124,8 @@
   z-index: 1;
 }
 
-.compare__table tbody th {
+.compare__table tbody th,
+.compare__table thead th:first-child {
   position: -webkit-sticky;
   position: sticky;
   left: 0;
@@ -206,6 +208,7 @@
 
 .compare__remove-bnt:hover {
   color: #f6b108;
+  border: 1px solid #f6b108;
   transition: ease-in-out .3s;
 }
 
