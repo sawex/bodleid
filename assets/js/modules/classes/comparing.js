@@ -22,6 +22,7 @@ Comparing.prototype.listenCompareBtns = function() {
 
     if (el.classList.contains('compare-btn') && !el.classList.contains('compare-btn--active')) {
       const id = el.parentElement.parentElement.dataset.id;
+      const parentEl = el.closest('ul');
 
       jQuery.ajax({
         type: 'POST',
@@ -34,6 +35,17 @@ Comparing.prototype.listenCompareBtns = function() {
         },
         beforeSend() {
           el.disabled = true;
+
+          if (parentEl) {
+            jQuery(parentEl).block();
+          }
+        },
+        complete() {
+          el.disabled = false;
+
+          if (parentEl) {
+            jQuery(parentEl).unblock();
+          }
         },
         success(resp) {
           if (resp.success) {
@@ -59,14 +71,13 @@ Comparing.prototype.listenCompareBtns = function() {
               }
             });
           }
-
-          el.disabled = false;
         }
       });
     }
 
     if (el.classList.contains('compare-btn') && el.classList.contains('compare-btn--active')) {
       const id = el.parentElement.parentElement.dataset.id;
+      const parentEl = el.closest('ul');
 
       jQuery.ajax({
         type: 'POST',
@@ -79,6 +90,17 @@ Comparing.prototype.listenCompareBtns = function() {
         },
         beforeSend() {
           el.disabled = true;
+
+          if (parentEl) {
+            jQuery(parentEl).block();
+          }
+        },
+        complete() {
+          el.disabled = false;
+
+          if (parentEl) {
+            jQuery(parentEl).unblock();
+          }
         },
         success(resp) {
           if (resp.success) {

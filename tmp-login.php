@@ -17,11 +17,7 @@ get_header();
 
     <section class="login">
       <div class="container">
-        <div class="row">
-          <div class="woocommerce-notices-wrapper woocommerce-notices-wrapper--login"></div>
-        </div>
-
-        <div class="row">
+       <div class="row">
           <div class="login__wrapper">
             <?php
               if ( function_exists( 'mst_bodleid_the_login_form' ) ) {

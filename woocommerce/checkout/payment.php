@@ -20,6 +20,9 @@ defined( 'ABSPATH' ) || exit;
 if ( ! is_ajax() ) {
 	do_action( 'woocommerce_review_order_before_payment' );
 }
+
+/* @var bool $is_supercustomer */
+$is_supercustomer = wc_user_has_role( get_current_user_id(), 'supercustomer' );
 ?>
 <div id="payment" class="woocommerce-checkout-payment">
   <?php if ( WC()->cart->needs_payment() ) : ?>
@@ -48,7 +51,8 @@ if ( ! is_ajax() ) {
 
 		<?php do_action( 'woocommerce_review_order_before_submit' ); ?>
 
-    <div class="order-received__continue-box">
+    <div class="order-received__continue-box
+                <?php echo $is_supercustomer ? 'order-received__continue-box--supercustomer' : ''; ?>">
       <div class="order-received__continue-img-box"></div>
       <div class="order-received__continue-btn-box">
         <?php echo apply_filters( 'woocommerce_order_button_html', '<button type="submit" class="button alt order-received__continue-btn" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">' . esc_html( $order_button_text ) . '</button>' ); // @codingStandardsIgnoreLine ?>

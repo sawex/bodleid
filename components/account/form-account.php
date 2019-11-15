@@ -94,7 +94,7 @@ if ( $user_id ) {
                  name="password"
                  id="password-field">
           <label class="form__label" for="password-field">
-            <?php esc_html_e( 'Password*', 'mst_bodleid' ); ?>
+            <?php esc_html_e( 'Password', 'mst_bodleid' ); ?>
           </label>
         </div>
       </div>
@@ -158,15 +158,3 @@ if ( $user_id ) {
            aria-label="<?php esc_attr_e( 'Update', 'mst_bodleid' ); ?>">
   </div>
 </form>
-
-<style>
-  .page-template-tmp-account .login__new-client--account {
-    height: 40em;
-  }
-
-  @media screen and (max-width: 768px) {
-    .page-template-tmp-account .login__new-client--account {
-      height: 65em;
-    }
-  }
-</style>

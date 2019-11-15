@@ -67,6 +67,13 @@ if ( $product->is_in_stock() ) : ?>
          class="single_add_to_cart_button button alt one-product__to-cart-btn">
         <?php esc_html_e( 'View cart', 'woocommerce' ); ?>
       </a>
+
+      <?php
+      // Backorder notification.
+      if ( $product->backorders_require_notification() && $product->is_on_backorder() ) {
+        echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>', $product_id ) );
+      }
+      ?>
     <?php } ?>
 
 		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>

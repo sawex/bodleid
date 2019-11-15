@@ -285,25 +285,10 @@ Main.prototype.updateCartShippingMethods = function() {
 };
 
 Main.prototype.fixCheckoutNotice = function() {
-  if (!this.isCheckout) return;
+  if (!this.isCheckout || !this.isCart) return;
 
-  jQuery(document.body).on('checkout_error', function() {
-    const $notice = jQuery('.woocommerce-NoticeGroup-checkout').detach();
-    jQuery($notice).appendTo('.woocommerce-notices-wrapper--checkout');
-
-    $notice.removeClass( "woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout" ).addClass('woocommerce-message');
-    $notice.attr('role', 'alert');
-
-    jQuery('ul.woocommerce-message').removeClass('woocommerce-message woocommerce-message--error').attr('role', '');
-
-    jQuery(jQuery('.w-close-btn').detach()).appendTo('.woocommerce-message');
-
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }, 500);
+  jQuery(document).ajaxComplete(function() {
+    jQuery('html, body').stop();
   });
 };
 
@@ -453,6 +438,7 @@ Main.prototype.initAddToCartAJAX = function() {
         e.preventDefault();
 
         const el = e.target;
+        const parentEl = el.closest('ul');
 
         if (el.classList.contains('is-disabled')) return;
 
@@ -472,16 +458,25 @@ Main.prototype.initAddToCartAJAX = function() {
           data: data,
           beforeSend() {
             el.classList.add('is-disabled');
+
+            if (parentEl) {
+              jQuery(parentEl).block();
+            }
           },
           complete() {
             el.classList.remove('is-disabled');
+
+            if (parentEl) {
+              jQuery(parentEl).unblock();
+            }
           },
           success: (resp) => {
             if (resp.success !== false) {
               el.parentElement.classList.add('to-cart-box--added');
+              // TODO: i18n
               el.innerText = 'Skoða körfu';
 
-              const title = el.closest('.product-item').querySelector('.product-info h4').innerText;
+              const title = el.closest('.product-item').querySelector('.product-info h4, .product-info h3').innerText;
 
               el.classList.remove('ajax_add_to_cart');
               const newBtn = el.cloneNode(true);
@@ -577,6 +572,35 @@ Main.prototype.initCatalogProductSliders = function() {
   });
 };
 
+Main.prototype.initSingleProductSlider = function() {
+  if (typeof jQuery !== 'function' || !this.isSingle || !jQuery('.product-menu').length) return;
+
+    jQuery('.product-menu').slick({
+      arrows: false,
+      dots: false,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          },
+        },
+        {
+          breakpoint: 575,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+          }
+        }
+      ],
+    });
+};
+
 Main.prototype.init = function() {
   this.initHamburgerMenu();
   this.setAnimations();
@@ -602,6 +626,7 @@ Main.prototype.init = function() {
 
   this.fixInputsInCheckout();
   this.initCatalogProductSliders();
+  this.initSingleProductSlider();
 };
 
 document.addEventListener('DOMContentLoaded', () => {

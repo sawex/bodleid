@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Bodleid\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-11-07 00:36+0000\n"
-"PO-Revision-Date: 2019-11-07 00:37+0000\n"
+"PO-Revision-Date: 2019-11-13 10:54+0000\n"
 "Last-Translator: root <psknyazevich@gmail.com>\n"
 "Language-Team: Icelandic\n"
 "Language: is_IS\n"
@@ -81,7 +81,7 @@ msgstr "Verð án VSK"
 
 #: tmp-thank-you.php:178
 msgid "Home delivery within Iceland"
-msgstr "Heimsending innan Íslands"
+msgstr "Sendingamáti:"
 
 #. Name of the template
 msgid "Login page"

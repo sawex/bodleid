@@ -39,11 +39,21 @@ Abstract.prototype.alert = function(message = '', scrollToTop = true) {
     `;
 
       wrapper.appendChild(notice);
+
+      setTimeout(() => {
+        notice.style.animation = 'toBottom 1s forwards';
+        setTimeout(() => notice.remove(), 1000);
+      }, 3500);
     } else {
       existsNotice.innerHTML = `
         <button class="w-close-btn" aria-label="Close alert"></button>
         ${message}
       `;
+
+      setTimeout(() => {
+        existsNotice.style.animation = 'toBottom 1s forwards';
+        setTimeout(() => existsNotice.remove(), 1000);
+      }, 3500);
     }
 
     if (scrollToTop) {

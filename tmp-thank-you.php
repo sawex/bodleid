@@ -33,6 +33,10 @@ $total = wp_kses_post( $order_data->get_formatted_order_total() );
 /* @var string $order_shipping_total */
 $order_shipping_total = wc_price( $order_data->get_shipping_total() );
 
+if ( 0 === (int) $order_data->get_shipping_total() ) {
+  $order_shipping_total = esc_html__( 'Free!', 'woocommerce' );
+}
+
 /* @var string $taxes */
 $taxes = wc_price( $order_data->__get('total_tax') );
 
@@ -131,11 +135,13 @@ get_header();
                     /* @var WC_Product $product */
                     $product = wc_get_product( $item_data['product_id'] );
 
-                    /* @var string $sku */
-                    $sku = $product->get_sku();
+                    if ( $product->get_sku ) {
+                      /* @var string $sku */
+                      $sku = $product->get_sku();
 
-                    /* @var string $permalink */
-                    $permalink = esc_url( $product->get_permalink() );
+                      /* @var string $permalink */
+                      $permalink = esc_url( $product->get_permalink() );
+                    }
                   }
                 ?>
                   <tr class="order-received__product-info-content">
@@ -143,6 +149,7 @@ get_header();
                       <p class="order-received__product-name">
                         <a href="<?php echo $permalink; ?>"><?php echo $title; ?></a>
                       </p>
+
                       <p class="order-received__product-model">
                         <?php echo esc_html( sprintf( '%s: %s', __( 'Model', 'mst_bodleid' ), $sku ) ); ?>
                       </p>

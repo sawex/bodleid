@@ -130,13 +130,13 @@ if ( ! is_shop() ) { ?>
               foreach ( $featured_products->products as $featured_product ) {
                 $post_object = get_post( $featured_product );
                 setup_postdata( $GLOBALS['post'] =& $post_object );
-                mst_bodleid_the_product_html();
+                mst_bodleid_the_product_html( null, 'li', 'h3' );
               }
 
               wp_reset_postdata();
 
             } else {
-              do_action('woocommerce_no_products_found');
+              do_action( 'woocommerce_no_products_found' );
             }
 
             ?>

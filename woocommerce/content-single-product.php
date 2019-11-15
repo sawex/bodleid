@@ -208,21 +208,23 @@ $wp_placeholder_img = esc_url( wc_placeholder_img_src() );
 
     <?php if ( ! empty( $related ) && function_exists( 'mst_bodleid_the_product_html' ) ) { ?>
       <div class="row">
-        <div class="one-product__related-prod-container">
-          <div class="one-product__detail-title-box">
-            <h3 class="tertiary-title one-product__related-title">
-              <?php esc_html_e( 'Related products', 'mst_bodleid' ); ?>
-            </h3>
-          </div>
+        <div class="col-md-12">
+          <div class="one-product__related-prod-container">
+            <div class="one-product__detail-title-box">
+              <h3 class="tertiary-title one-product__related-title">
+                <?php esc_html_e( 'Related products', 'mst_bodleid' ); ?>
+              </h3>
+            </div>
 
-          <div class="one-product__related-products">
-            <ul class="product-menu">
-              <?php
-                foreach ( $related as $related_product ) {
-                  mst_bodleid_the_product_html( $related_product );
-                }
-              ?>
-            </ul>
+            <div class="one-product__related-products">
+              <ul class="product-menu">
+                <?php
+                  foreach ( $related as $related_product ) {
+                    mst_bodleid_the_product_html( $related_product );
+                  }
+                ?>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

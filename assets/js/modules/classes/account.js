@@ -19,7 +19,6 @@ const Account = function() {
   this.lostPassSecond = document.querySelector('.login__form--new-password');
   this.accountForms = document.querySelectorAll('.login__form');
   this.checkoutHiddenForm = document.querySelector('.login__form--login-checkout-hidden');
-  this.checkoutVisibleForm = document.querySelector('.login__form--login-checkout-visible');
 
   // Validation rules for "Sign up" and "Update account data" forms
   this.userFieldsRules = {
@@ -82,11 +81,6 @@ Account.prototype.initLoginForm = function() {
       }
     });
 
-    const errorMessages = {
-      email: mainState.i18n.error_billing_email,
-      user_password: mainState.i18n.error_password,
-    };
-
     if (isValid.result) {
       const self = this;
 
@@ -112,8 +106,7 @@ Account.prototype.initLoginForm = function() {
     } else {
       this.highlightInvalidFields(
         e.target.querySelectorAll('.login__form--login .form__input'),
-        isValid.invalidFields,
-        errorMessages
+        isValid.invalidFields
       );
     }
   });
@@ -154,8 +147,7 @@ Account.prototype.initSignupForm = function() {
     } else {
       this.highlightInvalidFields(
         e.target.querySelectorAll('.login__new-client--signup .form__input'),
-        isValid.invalidFields,
-        this.userErrorMessages
+        isValid.invalidFields
       );
     }
   });
@@ -378,11 +370,6 @@ Account.prototype.initCheckoutLoginForm = function() {
       }
     });
 
-    const errorMessages = {
-      email: mainState.i18n.error_billing_email,
-      user_password: mainState.i18n.error_password,
-    };
-
     if (isValid.result) {
       const self = this;
 
@@ -408,8 +395,7 @@ Account.prototype.initCheckoutLoginForm = function() {
     } else {
       this.highlightInvalidFields(
         e.target.querySelectorAll('.login__form--login-checkout-visible .form__input'),
-        isValid.invalidFields,
-        errorMessages
+        isValid.invalidFields
       );
     }
   });

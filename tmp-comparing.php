@@ -115,7 +115,7 @@ get_header();
               </form>
             <?php } ?>
 
-            <div class="compare__table-wrap">
+            <div class="compare__table-wrap dragscroll">
               <table class="compare__table">
 
                 <thead>

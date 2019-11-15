@@ -349,7 +349,7 @@ add_filter( 'woocommerce_short_description', 'mst_bodleid_woocommerce_short_desc
  *
  * @return void
  */
-function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
+function mst_bodleid_the_product_html( $id = null, $node = 'li', $title_level = 'h4' ) {
   global $product;
 
   if ( empty( $id ) ) {
@@ -389,7 +389,7 @@ function mst_bodleid_the_product_html( $id = null, $node = 'li' ) {
       </div>
 
       <div class="product-info">
-        <h4><?php echo $title; ?></h4>
+        <?php printf( '<%1$s>%2$s<%1$s>', esc_html( $title_level ), $title ); ?>
         <p><?php echo $desc; ?></p>
       </div>
     </a>
@@ -638,3 +638,38 @@ add_action( 'woocommerce_init', function() {
   }
 } );
 
+/**
+ * Always allow backorders for every product.
+ */
+add_filter( 'woocommerce_product_is_in_stock', '__return_true', 10, 2 );
+add_filter( 'woocommerce_product_backorders_allowed', '__return_true', 10, 3 );
+add_filter( 'woocommerce_product_backorders_require_notification', '__return_true', 10, 2 );
+
+/**
+ * Allow Shop Managers to edit and promote users with the Super Customer role
+ * using the ‘woocommerce_shop_manager_editable_roles’ filter.
+ *
+ * @param array $roles Array of role slugs for users Shop Managers can edit.
+ * @return array
+ */
+function mst_bodleid_shop_manager_role_edit_capabilities( $roles ) {
+  $roles[] = 'supercustomer';
+  return $roles;
+};
+
+add_filter( 'woocommerce_shop_manager_editable_roles', 'mst_bodleid_shop_manager_role_edit_capabilities' );
+
+/**
+ * All WC prices correct rounding.
+ *
+ * @param float $price Price to round
+ *
+ * @return float
+ */
+function mst_bodleid_round_price_product( $price ) {
+  return round( $price );
+}
+
+add_filter( 'woocommerce_get_price_including_tax', 'mst_bodleid_round_price_product', 10 );
+add_filter( 'wc_cart_totals_subtotal_html', 'mst_bodleid_round_price_product', 10 );
+add_filter( 'woocommerce_product_get_price', 'mst_bodleid_round_price_product', 10 );

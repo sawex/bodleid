@@ -8,7 +8,7 @@
  */
 
 if ( ! defined( 'MST_BODLEID_VER' ) ) {
-  define( 'MST_BODLEID_VER', '1.0.9' );
+  define( 'MST_BODLEID_VER', '1.0.10' );
 }
 
 /**
@@ -220,6 +220,16 @@ function mst_bodleid_scripts() {
     );
   }
 
+  if ( is_page( 'products-comparing' ) ) {
+    wp_enqueue_script(
+      'mst_bodleid-dragscroll',
+      get_template_directory_uri() . '/assets/js/jquery.dragscroll.min.js',
+      [],
+      MST_BODLEID_VER,
+      true
+    );
+  }
+
   wp_enqueue_script(
     'mst_bodleid-common',
     get_template_directory_uri() . '/assets/js/common.js',
@@ -257,7 +267,40 @@ function mst_bodleid_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
+
 add_action( 'wp_enqueue_scripts', 'mst_bodleid_scripts' );
+
+/**
+ * Inserts Google Tag Manager code.
+ */
+function mst_bodleid_insert_tag_manager_in_head() {
+?>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TC6GKDN');</script>
+  <!-- End Google Tag Manager -->
+
+<?php
+}
+
+add_action( 'wp_head', 'mst_bodleid_insert_tag_manager_in_head' );
+
+function mst_bodleid_insert_tag_manager_after_body() {
+  ?>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC6GKDN"
+                    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <?php
+}
+
+add_action( 'wp_body_open', 'mst_bodleid_insert_tag_manager_after_body' );
 
 /**
  * Load WooCommerce compatibility file.

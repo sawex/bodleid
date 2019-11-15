@@ -43,24 +43,14 @@ $shop_text = wp_kses_post( get_field( 'shop_text', 'option' ) );
           <?php echo $slider_button_title; ?>
         </a>
         <nav class="custom-banner__navbar">
-          <ul class="custom-banner__nav-list">
-<!--            <li class="custom-banner__nav-list-item">-->
-<!--              <button class="custom-banner__nav-btn custom-banner__nav-btn--active"></button>-->
-<!--            </li>-->
-<!--            <li class="custom-banner__nav-list-item">-->
-<!--              <button class="custom-banner__nav-btn"></button>-->
-<!--            </li>-->
-<!--            <li class="custom-banner__nav-list-item">-->
-<!--              <button class="custom-banner__nav-btn"></button>-->
-<!--            </li>-->
-          </ul>
+          <ul class="custom-banner__nav-list"></ul>
         </nav>
       </div>
     </div>
 
     <div class="row">
       <div class="shop__text-wrap">
-        <h2 class="secondary-title custom-title"><?php echo $shop_title; ?></h2>
+        <h1 class="secondary-title custom-title"><?php echo $shop_title; ?></h1>
         <p class="custom-text"><?php echo $shop_text; ?></p>
       </div>
     </div>
