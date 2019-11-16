@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 $order_id = (int) $_GET['order_id'];
 
 if ( empty( $order_id ) ) {
-  wp_redirect( home_url() );
+  wp_safe_redirect( home_url() );
 }
 
 /* @var WC_Order $order_data */
@@ -49,7 +49,7 @@ $items = $order_data->get_items();
 if ( $order_data->is_paid() ) {
   if ( $payment_method_slug === 'valitor' ) {
     $status = esc_html__( 'Valitor', 'mst_bodleid' );
-  } else if ( $payment_method_slug === 'cod' ) {
+  } else if ( $payment_method_slug === 'mst_cod' ) {
     $status = esc_html__( 'Invoiced', 'mst_bodleid' );
   }
 }

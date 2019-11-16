@@ -590,7 +590,7 @@ function mst_bodleid_update_supercustomers_payment_gateway( $gateways ) {
   if ( wc_user_has_role( get_current_user_id(), 'supercustomer' ) ) {
     unset( $gateways['valitor'] );
   } else {
-    unset( $gateways['cod'] );
+    unset( $gateways['mst_cod'] );
   }
 
   return $gateways;

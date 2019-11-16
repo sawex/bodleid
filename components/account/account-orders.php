@@ -80,7 +80,7 @@ $thank_you_page_url = esc_url( get_permalink( get_page_by_path( 'order' ) ) );
             if ( $order->is_paid() ) {
               if ( $payment_method === 'valitor' ) {
                 $status = esc_html__( 'Valitor', 'mst_bodleid' );
-              } else if ( $payment_method === 'cod' ) {
+              } else if ( $payment_method === 'mst_cod' ) {
                 $status = esc_html__( 'Invoiced', 'mst_bodleid' );
               }
             }

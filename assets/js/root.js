@@ -473,8 +473,7 @@ Main.prototype.initAddToCartAJAX = function() {
           success: (resp) => {
             if (resp.success !== false) {
               el.parentElement.classList.add('to-cart-box--added');
-              // TODO: i18n
-              el.innerText = 'Skoða körfu';
+              el.innerText = wc_add_to_cart_params.i18n_view_cart;
 
               const title = el.closest('.product-item').querySelector('.product-info h4, .product-info h3').innerText;
 
@@ -502,7 +501,9 @@ Main.prototype.initAddToCartAJAX = function() {
               });
 
               const markup = `
-		            <a href="https://bodleid.ludur.net/cart/" tabindex="1" class="button wc-forward">Skoða körfu</a>
+		            <a href="${wc_add_to_cart_params.cart_url}" tabindex="1" class="button wc-forward">
+                  ${wc_add_to_cart_params.i18n_view_cart}
+                </a>
 		            “${title}” hefur verið bætt í vörukörfuna þína.`;
 
               self.alert(markup, false);
