@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bodleid\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-07 00:36+0000\n"
-"PO-Revision-Date: 2019-11-13 10:54+0000\n"
+"POT-Creation-Date: 2019-11-14 15:50+0000\n"
+"PO-Revision-Date: 2019-11-14 15:51+0000\n"
 "Last-Translator: root <psknyazevich@gmail.com>\n"
 "Language-Team: Icelandic\n"
 "Language: is_IS\n"
@@ -12,74 +12,70 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.3.1; wp-5.2.4"
+"X-Loco-Version: 2.3.1; wp-5.3"
 
 #. Name of the template
 msgid "Thank you page"
 msgstr "Takk fyrir"
 
-#: tmp-thank-you.php:50 components/account/account-orders.php:81
-msgid "Paid"
-msgstr "Greitt"
+#: tmp-thank-you.php:51 components/account/account-orders.php:82
+msgid "Valitor"
+msgstr "Valitor"
 
-#: tmp-thank-you.php:52 components/account/account-orders.php:83
+#: tmp-thank-you.php:53 components/account/account-orders.php:84
 msgid "Invoiced"
 msgstr "Í reikning"
 
-#: tmp-thank-you.php:64
+#: tmp-thank-you.php:65
 msgid "Thanks, order received"
 msgstr "Takk fyrir, pöntun móttekin"
 
-#: tmp-thank-you.php:72 components/account/account-orders.php:44
-#: components/account/account-orders.php:89
+#: tmp-thank-you.php:73 components/account/account-orders.php:45
+#: components/account/account-orders.php:90
 msgid "Order number"
 msgstr "Pöntunarnúmer"
 
-#: tmp-thank-you.php:78 components/account/account-orders.php:47
-#: components/account/account-orders.php:93
+#: tmp-thank-you.php:80 components/account/account-orders.php:48
+#: components/account/account-orders.php:94
 msgid "Date"
 msgstr "Dagsetning"
 
-#: tmp-thank-you.php:84 tmp-thank-you.php:121 tmp-thank-you.php:163
-#: tmp-thank-you.php:186 components/account/account-orders.php:53
-#: components/account/account-orders.php:101
+#: tmp-thank-you.php:87 tmp-thank-you.php:116 tmp-thank-you.php:161
+#: tmp-thank-you.php:184 components/account/account-orders.php:54
+#: components/account/account-orders.php:102
 #: woocommerce/checkout/review-order.php:30
 #: woocommerce/checkout/review-order.php:73
 msgid "Total"
 msgstr "Samtals"
 
-#: tmp-thank-you.php:92
+#: tmp-thank-you.php:96 components/account/account-orders.php:51
+#: components/account/account-orders.php:98
 msgid "Payment method"
 msgstr "Greiðslumáti"
 
-#: tmp-thank-you.php:101 components/account/account-orders.php:50
-#: components/account/account-orders.php:97
-msgid "Status"
-msgstr "Staða"
-
-#: tmp-thank-you.php:115 tmp-thank-you.php:151 tmp-comparing.php:123
+#: tmp-thank-you.php:110 tmp-thank-you.php:148 tmp-comparing.php:123
 #: tmp-comparing.php:124 woocommerce/checkout/review-order.php:24
 #: woocommerce/checkout/review-order.php:59
 msgid "Product"
 msgstr "Vara"
 
-#: tmp-thank-you.php:118 tmp-thank-you.php:159
+#: tmp-thank-you.php:113 tmp-thank-you.php:157
 #: woocommerce/checkout/review-order.php:27
 #: woocommerce/checkout/review-order.php:68
 msgid "Amount"
 msgstr "Magn"
 
-#: tmp-thank-you.php:156 tmp-comparing.php:132 tmp-comparing.php:133
+#: tmp-thank-you.php:154 tmp-comparing.php:132 tmp-comparing.php:133
 #: woocommerce/content-single-product.php:127 woocommerce/cart/cart.php:184
 #: woocommerce/checkout/review-order.php:50
 msgid "Model"
 msgstr "Tegund"
 
-#: tmp-thank-you.php:174
+#: tmp-thank-you.php:172
 msgid "Price without VAT"
 msgstr "Verð án VSK"
 
-#: tmp-thank-you.php:178
+#: tmp-thank-you.php:176
 msgid "Home delivery within Iceland"
 msgstr "Sendingamáti:"
 
@@ -217,65 +213,65 @@ msgstr "Valrönd"
 msgid "Add widgets here."
 msgstr "Bæta við viðbótum"
 
-#: functions.php:240 woocommerce/content-single-product.php:157
+#: functions.php:250 woocommerce/content-single-product.php:157
 msgid "View comparison list"
 msgstr "Skoða samanburðarlista"
 
-#: functions.php:242
+#: functions.php:252
 msgid "Data updated successfully"
 msgstr "Gögn uppfærð"
 
-#: functions.php:243
+#: functions.php:253
 msgid "First name field cannot be empty"
 msgstr "Slá verður inn fornafn"
 
-#: functions.php:244
+#: functions.php:254
 msgid "Enter valid email address"
 msgstr "Sláðu inn gilt netfang"
 
-#: functions.php:245
+#: functions.php:255
 msgid ""
 "Phone number can contains digits only and cannot be longer than 12 digits"
 msgstr ""
 "Símanúmer má aðeins innihalda tölustafi og ekki vera lengra en 12 stafir"
 
-#: functions.php:246
+#: functions.php:256
 msgid "Password cannot be empty or shorter than 6 symbols"
 msgstr "Slá verður inn lykilorð, 6 tákn eða lengra"
 
-#: functions.php:247
+#: functions.php:257
 msgid "Address cannot be empty"
 msgstr "Slá verður inn heimilisfang"
 
-#: functions.php:248
+#: functions.php:258
 msgid "City field name cannot be empty"
 msgstr "Slá verður inn borg/bæ"
 
-#: functions.php:249
+#: functions.php:259
 msgid "Postcode field cannot be empty"
 msgstr "Slá verður inn póstnúmer"
 
-#: functions.php:250
+#: functions.php:260
 msgid "Passwords are not equal"
 msgstr "Lykilorð eru ekki þau sömu"
 
-#: functions.php:251
+#: functions.php:261
 msgid "Invalid SSN, please check your input"
 msgstr ""
 
-#: functions.php:349
+#: functions.php:359
 msgid "Testimonials"
 msgstr "Umsagnir"
 
-#: functions.php:350
+#: functions.php:360
 msgid "Testimonial"
 msgstr "Umsögn"
 
-#: functions.php:359
+#: functions.php:369
 msgid "Catalogs"
 msgstr "Vörulistar"
 
-#: functions.php:360 components/home/home-catalogs.php:18
+#: functions.php:370 components/home/home-catalogs.php:18
 msgid "Catalog"
 msgstr "Vöruflokkar"
 
@@ -323,7 +319,8 @@ msgstr ""
 #: components/account/account-login-form.php:41
 #: components/account/account-login-form.php:42
 #: components/account/form-checkout-login-form.php:17
-#: components/account/form-checkout-login-form.php:40
+#: components/account/form-checkout-login-form.php:43
+#: components/account/form-checkout-login-form.php:44
 msgid "Log in"
 msgstr "Innskráning"
 
@@ -336,21 +333,20 @@ msgid "Email*"
 msgstr "Netfang*"
 
 #: inc/account.php:69 components/account/form-register.php:76
-#: components/account/form-account.php:97
 #: components/account/account-login-form.php:33
-#: components/account/form-checkout-login-form.php:33
+#: components/account/form-checkout-login-form.php:37
 msgid "Password*"
 msgstr ""
 "Lykilorð*\n"
 
 #: inc/account.php:83 components/account/account-login-form.php:47
-#: components/account/form-checkout-login-form.php:44
+#: components/account/form-checkout-login-form.php:54
 msgid "Remember me"
 msgstr ""
 "Muna eftir mér\n"
 
 #: inc/account.php:87 components/account/account-login-form.php:51
-#: components/account/form-checkout-login-form.php:48
+#: components/account/form-checkout-login-form.php:58
 msgid "Forgotten password?"
 msgstr "Gleymt lykilorð?"
 
@@ -364,7 +360,7 @@ msgstr "Kennitala"
 msgid "Share"
 msgstr "Deila"
 
-#: woocommerce/content-single-product.php:214
+#: woocommerce/content-single-product.php:215
 msgid "Related products"
 msgstr "Tengdar vörur"
 
@@ -372,7 +368,7 @@ msgstr "Tengdar vörur"
 msgid "Our clients"
 msgstr "Viðskiptavinir okkar"
 
-#: components/account/account-orders.php:107
+#: components/account/account-orders.php:108
 msgid "View"
 msgstr "Skoða"
 
@@ -432,6 +428,10 @@ msgstr "Nýskrá"
 #: components/account/form-account.php:37
 msgid "Update data"
 msgstr "Uppfæra gögn"
+
+#: components/account/form-account.php:97
+msgid "Password"
+msgstr "Lykilorð"
 
 #: components/account/form-account.php:157
 #: components/account/form-account.php:158
@@ -552,7 +552,7 @@ msgstr "Einfalt viðmót fyrir eCommerce"
 
 #. URI of the theme
 msgid "http://underscores.me/"
-msgstr ""
+msgstr "http://underscores.me/"
 
 #. Author of the theme
 msgid "Pavlo Knyazevich"

@@ -38,7 +38,7 @@ $instructions = get_field( 'instructions' );
             ?>
             <div class="main-instructions__direction main-instructions__direction--3cx">
               <div class="main-instructions__desc main-instructions__desc--3cx">
-                <h3 class="tertiary-title main-instructions__desc-title"><?php echo $title; ?></h3>
+                <h2 class="tertiary-title main-instructions__desc-title"><?php echo $title; ?></h2>
 
                 <?php if ( isset( $text ) ) { ?>
                   <div class="fake-list main-instructions__desc-text">

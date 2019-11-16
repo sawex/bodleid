@@ -48,7 +48,7 @@ $rows = get_field( 'catalog_rows' );
               <div class="row">
                 <div class="category-product__wrapper">
                   <div class="products__service">
-                    <h3 class="tertiary-title products__service-title"><?php echo $title; ?></h3>
+                    <h2 class="tertiary-title products__service-title"><?php echo $title; ?></h2>
                     <div class="fake-list products__service-desc">
                       <?php echo $desc; ?>
 
@@ -68,7 +68,7 @@ $rows = get_field( 'catalog_rows' );
                     <ul class="category-product__product-list">
                       <?php
                         foreach ( $products as $product ) {
-                          mst_bodleid_the_product_html( $product );
+                          mst_bodleid_the_product_html( $product, 'li', 'h3' );
                         }
                       ?>
                     </ul>

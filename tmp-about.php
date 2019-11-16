@@ -75,7 +75,7 @@ $default_thumbnail = esc_url( get_field( 'staff_default_userpic', 'option' ) );
                     <?php } ?>
                   </div>
                   <div class="staff__member-info">
-                    <h4 class="staff__member-name"><?php echo esc_html( $name ); ?></h4>
+                    <h3 class="staff__member-name"><?php echo esc_html( $name ); ?></h3>
                     <p class="staff__position"><?php echo $position; ?></p>
                     <a href="mailto:<?php echo esc_attr( $email ); ?>"
                        class="staff__email email">

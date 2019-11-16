@@ -19,7 +19,7 @@
       <div class="instructions-banner__banner-info">
 
         <?php if ( $banner_title ) { ?>
-          <h2 class="secondary-title instructions-banner__title"><?php echo $banner_title; ?></h2>
+          <h1 class="secondary-title instructions-banner__title"><?php echo $banner_title; ?></h1>
         <?php } ?>
 
         <div class="instructions-banner__banner-desc">
