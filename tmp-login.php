@@ -21,7 +21,7 @@ get_header();
           <div class="login__wrapper">
             <?php
               if ( function_exists( 'mst_bodleid_the_login_form' ) ) {
-                mst_bodleid_the_login_form( false, true, $account_page );
+                mst_bodleid_the_login_form( false, true, mst_bodleid_get_account_page() );
               }
 
               if ( function_exists( 'mst_bodleid_the_sign_up_form' ) ) {

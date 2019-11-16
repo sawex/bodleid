@@ -10,12 +10,12 @@ const autoprefix = new LessAutoprefix({ browsers: ['last 15 versions'] });
 const css = () => {
   return gulp
     .src('./assets/less/main.less')
-    .pipe(sourcemaps.init())
+    // .pipe(sourcemaps.init())
     .pipe(less({
       plugins: [autoprefix]
     }))
     .pipe(postcss([cssnano()]))
-    .pipe(sourcemaps.write())
+    // .pipe(sourcemaps.write())
     .pipe(rename('style.css'))
     .pipe(gulp.dest('./'));
 };
