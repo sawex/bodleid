@@ -62,6 +62,8 @@ $catalogs = get_field( 'catalogs' );
           } ?>
 
           <li class="catalog__category-list-item--fake"></li>
+          <li class="catalog__category-list-item--fake"></li>
+          <li class="catalog__category-list-item--fake"></li>
         </ul>
       </div>
     </div>

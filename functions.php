@@ -8,7 +8,7 @@
  */
 
 if ( ! defined( 'MST_BODLEID_VER' ) ) {
-  define( 'MST_BODLEID_VER', '1.0.10' );
+  define( 'MST_BODLEID_VER', '1.0.11' );
 }
 
 /**

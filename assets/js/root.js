@@ -155,7 +155,7 @@ Main.prototype.initFooterForm = function() {
           return (
             /^[ÁáÐðÉéÍíÓóÚúÝýÞþÆæÖöA-Za-z\s]+$/.test(value.trim()) &&
             value.trim().length &&
-            value.trim().length <= 20
+            value.trim().length <= 30
           );
         },
         phone: (value) => {
