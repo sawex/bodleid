@@ -10,7 +10,11 @@
 global $post;
 
 /* @var string $slug Current page slug */
-$slug = $post->post_name;
+$slug = '';
+
+if ( ! empty( $post ) ) {
+  $slug = $post->post_name;
+}
 
 /* @var string $account_page */
 $account_page = esc_url( get_permalink( get_page_by_path( 'account' ) ) );

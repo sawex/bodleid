@@ -29,6 +29,8 @@ $phone = get_field( 'company_phone_number', 'option' );
 
 /* @var string $email */
 $email = get_field( 'company_email', 'option' );
+
+echo do_shortcode( '[3cx-clicktotalk id="1590" title="Boðleið"]' );
 ?>
 
 <footer class="footer" id="main-footer">
