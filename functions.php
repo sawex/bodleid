@@ -8,7 +8,7 @@
  */
 
 if ( ! defined( 'MST_BODLEID_VER' ) ) {
-  define( 'MST_BODLEID_VER', '1.0.11' );
+  define( 'MST_BODLEID_VER', '1.0.12' );
 }
 
 /**
@@ -245,6 +245,7 @@ function mst_bodleid_scripts() {
       'ajaxUrl' => admin_url( 'admin-ajax.php' ),
       'accountUrl' => mst_bodleid_get_account_page(),
       'loginUrl' => mst_bodleid_get_login_page(),
+      'cartUrl' => wc_get_cart_url(),
       'comparisonUrl' => mst_bodleid_get_comparison_page_url(),
       'i18n' => [
         'inComparisonList' => esc_html__( 'View comparison list', 'mst_bodleid' ),

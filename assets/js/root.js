@@ -474,6 +474,7 @@ Main.prototype.initAddToCartAJAX = function() {
             if (resp.success !== false) {
               el.parentElement.classList.add('to-cart-box--added');
               el.innerText = wc_add_to_cart_params.i18n_view_cart;
+              el.href = wc_add_to_cart_params.cart_url;
 
               const title = el.closest('.product-item').querySelector('.product-info h4, .product-info h3').innerText;
 
